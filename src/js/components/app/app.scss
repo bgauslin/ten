@@ -19,14 +19,28 @@
   pointer-events: none;
 }
 
+.meta,
+ul {
+  max-inline-size: 40rem;
+  inline-size: 100%;
+}
+
+.meta {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  grid-area: meta;
+  justify-content: space-between;
+  justify-self: center;
+  z-index: 2;
+}
+
 ul {
   display: grid;
   grid: 'items' 1fr / 1fr;
   grid-area: ten;
   list-style: none;
   margin: 0;
-  max-inline-size: 40rem;
-  inline-size: 100%;
   padding: 0;
   place-items: center;
   place-self: center;
@@ -37,7 +51,6 @@ li {
   aspect-ratio: 1;
   background: #efefef;
   display: grid;
-  font-size: 3rem;
   grid-area: items;
   inline-size: 100%;
   place-content: center;

@@ -19,14 +19,14 @@ body {
   touch-action: manipulation;
 }
 
-$button-size: 6rem;
+$buffer: 6rem;
 $max-size: 40rem;
-$breakpoint: $max-size + ($button-size * 2);
+$breakpoint: $max-size + ($buffer * 2);
 
 :root {
-  --grid: 'ten ten ten' 1fr 'out . in' #{$button-size} / #{$button-size} 1fr #{$button-size};
+  --grid: 'meta meta meta' #{$buffer} 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
 
   @media (min-width: #{$breakpoint}) {
-    --grid: 'out ten in' 1fr / 1fr #{$max-size} 1fr;
+    --grid: 'meta meta meta' #{$buffer} 'out ten in' 1fr / 1fr #{$max-size} 1fr;
   }
 }

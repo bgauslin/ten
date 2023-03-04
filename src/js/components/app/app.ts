@@ -1,5 +1,6 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './app.scss';
 
@@ -17,6 +18,7 @@ interface Item {
 class App extends LitElement {
   @state() items: Item[];
   @state() level = 0;
+  @state() powers: string[];
   @state() ready: boolean = false;
 
   static styles = css`${shadowStyles}`;
@@ -35,6 +37,7 @@ class App extends LitElement {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
       this.items = data.items;
+      this.powers = this.items.map(item => item.power);
       this.ready = true;
     } catch (error) {
       console.warn(error);
@@ -43,32 +46,46 @@ class App extends LitElement {
   }
 
   render() {
+    if (this.ready) {
+      return html`
+        ${this.renderMeta()}
+        ${this.renderItems()}
+        ${this.renderZoomOut()}
+        ${this.renderZoomIn()}
+      `;
+    }
+  }
+
+  renderMeta() {
     return html`
-      ${this.renderItems()}
-      ${this.renderZoomOut()}
-      ${this.renderZoomIn()}
+      <div class="meta">
+        <div class="distance">
+          <span>DISTANCE</span>
+        </div>
+        <div class="power">
+          10<sup>${this.powers[this.level]}</sup>
+        </div>
+      </div>
     `;
   }
 
-  renderItems() {
-    if (this.ready) {
-      return html`
-        <ul>
-        ${this.items.map((item: Item, index: number) => {
-          const disabled = index !== this.level;
-          const visited = index <= this.level;
-          const {power} = item;
-          return html`
-            <li
-              ?data-visited="${visited}"
-              ?disabled="${disabled}">
-              <span>10<sup>${power}</sup></span>
-            </li>
-          `;
-        })}
-        </ul>
-      `;
-    }
+  renderItems() {    
+    return html`
+      <ul>
+      ${this.items.map((item: Item, index: number) => {
+        const disabled = index !== this.level;
+        const visited = index <= this.level;
+        const {content} = item;
+        return html`
+          <li
+            ?data-visited="${visited}"
+            ?disabled="${disabled}">
+            ${unsafeHTML(content)}
+          </li>
+        `;
+      })}
+      </ul>
+    `;
   }
 
   renderZoomOut() {
@@ -85,18 +102,16 @@ class App extends LitElement {
   }
 
   renderZoomIn() {
-    if (this.ready) {
-      return html`
-        <button
-          aria-label="Zoom in"
-          ?disabled="${this.level === this.items.length - 1}"
-          @click="${() => this.level += 1}">
-          <svg viewbox="0 0 24 24" aria-hidden="true">
-            <line x1="6" y1="12" x2="18" y2="12"/>
-            <line x1="12" y1="6" x2="12" y2="18"/>
-          </svg>
-        </button>
-      `;
-    }
+    return html`
+      <button
+        aria-label="Zoom in"
+        ?disabled="${this.level === this.items.length - 1}"
+        @click="${() => this.level += 1}">
+        <svg viewbox="0 0 24 24" aria-hidden="true">
+          <line x1="6" y1="12" x2="18" y2="12"/>
+          <line x1="12" y1="6" x2="12" y2="18"/>
+        </svg>
+      </button>
+    `;
   }
 }
