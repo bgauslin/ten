@@ -15,9 +15,8 @@ interface Item {
  */
 @customElement('ten-app')
 class App extends LitElement {
+  @state() items: Item[];
   @state() level = 0;
-  @state() items: any[];
-  // @state() items: Item[];
   @state() ready: boolean = false;
 
   static styles = css`${shadowStyles}`;
@@ -35,7 +34,7 @@ class App extends LitElement {
     try {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
-      console.log('items', data.items);
+      this.items = data.items;
       this.ready = true;
     } catch (error) {
       console.warn(error);
@@ -52,21 +51,24 @@ class App extends LitElement {
   }
 
   renderItems() {
-    const items = [];
-    for (let i = 0; i < 42; i++) {
-      const disabled = i !== this.level;
-      const visited = i <= this.level;
-      items.push(html`
-        <li
-          ?data-visited="${visited}"
-          ?disabled="${disabled}">
-          ${i + 1}
-        </li>
-      `);
+    if (this.ready) {
+      return html`
+        <ul>
+        ${this.items.map((item: Item, index: number) => {
+          const disabled = index !== this.level;
+          const visited = index <= this.level;
+          const {power} = item;
+          return html`
+            <li
+              ?data-visited="${visited}"
+              ?disabled="${disabled}">
+              <span>10<sup>${power}</sup></span>
+            </li>
+          `;
+        })}
+        </ul>
+      `;
     }
-    this.items = items;
-
-    return html`<ul>${this.items}</ul> `;
   }
 
   renderZoomOut() {
@@ -83,16 +85,18 @@ class App extends LitElement {
   }
 
   renderZoomIn() {
-    return html`
-      <button
-        aria-label="Zoom in"
-        ?disabled="${this.level === this.items.length - 1}"
-        @click="${() => this.level += 1}">
-        <svg viewbox="0 0 24 24" aria-hidden="true">
-          <line x1="6" y1="12" x2="18" y2="12"/>
-          <line x1="12" y1="6" x2="12" y2="18"/>
-        </svg>
-      </button>
-    `;
+    if (this.ready) {
+      return html`
+        <button
+          aria-label="Zoom in"
+          ?disabled="${this.level === this.items.length - 1}"
+          @click="${() => this.level += 1}">
+          <svg viewbox="0 0 24 24" aria-hidden="true">
+            <line x1="6" y1="12" x2="18" y2="12"/>
+            <line x1="12" y1="6" x2="12" y2="18"/>
+          </svg>
+        </button>
+      `;
+    }
   }
 }
