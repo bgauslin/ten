@@ -37,7 +37,7 @@ class App extends LitElement {
     try {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
-      this.scenes = data.items;
+      this.scenes = data.scenes;
       this.powers = this.scenes.map(scene => scene.power);
       this.distances = this.scenes.map(scene => scene.distance);
       this.ready = true;
