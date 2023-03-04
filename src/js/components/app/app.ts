@@ -76,14 +76,12 @@ class App extends LitElement {
               src="https://picsum.photos/800"
               srcset=""
               sizes="100vw">
-              <div class="meta">
-                <div class="distance">
-                  ${distance.map(value => html`<span>${value}</span>`)}
-                </div>
-                <div class="power">
-                  10<sup>${power}</sup>
-                </div>
-            </div>
+            <p class="distance">
+              ${distance.map(value => html`<span>${value}</span>`)}
+            </p>
+            <p class="power">
+              10<sup>${power}</sup>
+            </p>
             <div class="blurb">
               ${unsafeHTML(content)}
             </div>

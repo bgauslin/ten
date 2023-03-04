@@ -1,4 +1,4 @@
-$buffer: 6rem;
+$buffer: 5rem;
 $max-size: 40rem;
 $breakpoint: $max-size + ($buffer * 2);
 
@@ -10,10 +10,10 @@ $breakpoint: $max-size + ($buffer * 2);
 }
 
 :root {
-  --grid: 'ten ten ten' 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
+  --grid: 'scene scene scene' 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
 
   @media (min-width: #{$breakpoint}) {
-    --grid: 'out ten in' 1fr / 1fr #{$max-size} 1fr;
+    --grid: 'out scene in' 1fr / 1fr #{$max-size} 1fr;
   }
 }
 
