@@ -16,9 +16,7 @@ interface Scene {
  */
 @customElement('ten-app')
 class App extends LitElement {
-  @state() distances: string[][];
   @state() level = 0;
-  @state() powers: string[];
   @state() ready: boolean = false;
   @state() scenes: Scene[];
 
@@ -38,8 +36,6 @@ class App extends LitElement {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
       this.scenes = data.scenes;
-      this.powers = this.scenes.map(scene => scene.power);
-      this.distances = this.scenes.map(scene => scene.distance);
       this.ready = true;
     } catch (error) {
       console.warn(error);
@@ -60,14 +56,7 @@ class App extends LitElement {
 
   renderMeta() {
     return html`
-      <div class="meta">
-        <div class="distance">
-          ${this.distances[this.level].map(distance => html`<span>${distance}</span>`)}
-        </div>
-        <div class="power">
-          10<sup>${this.powers[this.level]}</sup>
-        </div>
-      </div>
+
     `;
   }
 
@@ -77,7 +66,7 @@ class App extends LitElement {
       ${this.scenes.map((scene: Scene, index: number) => {
         const disabled = index !== this.level;
         const visited = index <= this.level;
-        const {content} = scene;
+        const {content, distance, power} = scene;
         return html`
           <li
             ?data-visited="${visited}"
@@ -87,6 +76,14 @@ class App extends LitElement {
               src="https://picsum.photos/800"
               srcset=""
               sizes="100vw">
+              <div class="meta">
+                <div class="distance">
+                  ${distance.map(value => html`<span>${value}</span>`)}
+                </div>
+                <div class="power">
+                  10<sup>${power}</sup>
+                </div>
+            </div>
             <div class="blurb">
               ${unsafeHTML(content)}
             </div>

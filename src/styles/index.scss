@@ -10,10 +10,10 @@ $breakpoint: $max-size + ($buffer * 2);
 }
 
 :root {
-  --grid: 'meta meta meta' 4rem 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
+  --grid: 'ten ten ten' 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
 
   @media (min-width: #{$breakpoint}) {
-    --grid: 'meta meta meta' 4rem 'out ten in' 1fr / 1fr #{$max-size} 1fr;
+    --grid: 'out ten in' 1fr / 1fr #{$max-size} 1fr;
   }
 }
 
