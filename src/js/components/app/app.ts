@@ -44,6 +44,14 @@ class App extends LitElement {
   }
 
   render() {
+    return html`
+      ${this.renderItems()}
+      ${this.renderZoomOut()}
+      ${this.renderZoomIn()}
+    `;
+  }
+
+  renderItems() {
     const items = [];
     for (let i = 0; i < 42; i++) {
       const disabled = i !== this.level;
@@ -58,11 +66,7 @@ class App extends LitElement {
     }
     this.items = items;
 
-    return html`
-      <ul>${this.items}</ul>
-      ${this.renderZoomOut()}
-      ${this.renderZoomIn()}
-    `;
+    return html`<ul>${this.items}</ul> `;
   }
 
   renderZoomOut() {
