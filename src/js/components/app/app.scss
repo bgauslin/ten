@@ -1,0 +1,107 @@
+@use '../../../styles/const';
+
+:host {
+  block-size: 100dvh;
+  display: grid;
+  font-family: 'Avenir Variable', sans-serif;
+  font-variation-settings: 'wght' 500;
+  grid: var(--grid);
+  max-block-size: 100dvh;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;;
+}
+
+[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+ul {
+  display: grid;
+  grid: 'items' 1fr / 1fr;
+  grid-area: ten;
+  list-style: none;
+  margin: 0;
+  max-inline-size: 40rem;
+  inline-size: 100%;
+  padding: 0;
+  place-items: center;
+  place-self: center;
+  z-index: 1;
+}
+
+li {
+  aspect-ratio: 1;
+  background: #efefef;
+  display: grid;
+  font-size: 3rem;
+  grid-area: items;
+  inline-size: 100%;
+  place-content: center;
+  transition: opacity 1s, transform 1s;
+
+  &[disabled] {
+    transform: scale(.1);
+  }
+
+  &[disabled][data-visited] {
+    transform: scale(10);
+  }
+}
+
+button {
+  appearance: none;
+  background: 0;
+  block-size: 3rem;
+  border: 4px solid blue;
+  border-radius: 1.5rem;
+  color: blue;
+  cursor: pointer;
+  display: grid;
+  font-size: 2em;
+  inline-size: 3rem;
+  outline: 0;
+  padding: 0;
+  place-content: center;
+  place-self: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity .2s, transform .2s;
+  z-index: 2;
+
+  &:hover,
+  &:focus {
+    border-color: red;
+    color: red;
+  }
+
+  &:active {
+    transform: scale(.8);
+  }
+
+  &:first-child {
+    grid-area: out;
+  }
+
+  &:last-child {
+    grid-area: in;
+  }
+
+  @media (any-hover: hover) {
+    transition: border-color .2s, color .2s, opacity .2s, transform .2s;
+  }
+}
+
+svg {
+  block-size: auto;
+  pointer-events: none;
+  inline-size: 100%;
+}
+
+line {
+  stroke: currentColor;
+  stroke-width: 2px;
+}

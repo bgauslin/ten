@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es6",
+    "allowJs": true,
+    "moduleResolution": "node",
+  },
+  "include": [
+    "global.d.ts"
+  ],
+  "files": [
+    "src/js/index.ts",
+    "src/js/components/app/app.ts"
+  ]
+}
