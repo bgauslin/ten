@@ -1,22 +1,15 @@
 @use '../../../styles/const';
 
 :host {
-  block-size: 100dvh;
   display: grid;
   font-family: 'Avenir Variable', sans-serif;
   font-variation-settings: 'wght' 500;
   grid: var(--grid);
-  max-block-size: 100dvh;
   overflow: hidden;
 }
 
 * {
   box-sizing: border-box;;
-}
-
-[disabled] {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .meta,
@@ -48,21 +41,35 @@ ul {
 }
 
 li {
-  aspect-ratio: 1;
-  background: #efefef;
-  display: grid;
   grid-area: items;
   inline-size: 100%;
-  place-content: center;
+}
+
+img {
+  aspect-ratio: 1;
+  background: #efefef;
+  block-size: auto;
+  display: grid;
+  inline-size: 100%;
   transition: opacity 1s, transform 1s;
+  vertical-align: middle;
+}
 
-  &[disabled] {
-    transform: scale(.1);
-  }
+[disabled] img {
+  opacity: 0;
+  transform: scale(.1);
+}
 
-  &[disabled][data-visited] {
-    transform: scale(10);
-  }
+[disabled][data-visited] img {
+  transform: scale(10);
+}
+
+.blurb {
+  transition: opacity 1s;
+}
+
+[disabled] .blurb {
+  opacity: 0; // ???
 }
 
 button {
@@ -85,14 +92,9 @@ button {
   transition: opacity .2s, transform .2s;
   z-index: 2;
 
-  &:hover,
-  &:focus {
-    border-color: red;
-    color: red;
-  }
-
-  &:active {
-    transform: scale(.8);
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
   }
 
   &:first-child {
@@ -101,6 +103,16 @@ button {
 
   &:last-child {
     grid-area: in;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: red;
+    color: red;
+  }
+
+  &:active {
+    transform: scale(.8);
   }
 
   @media (any-hover: hover) {

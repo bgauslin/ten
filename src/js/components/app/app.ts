@@ -80,7 +80,14 @@ class App extends LitElement {
           <li
             ?data-visited="${visited}"
             ?disabled="${disabled}">
-            ${unsafeHTML(content)}
+            <img
+              alt=""
+              src=""
+              srcset=""
+              sizes="100vw">
+            <div class="blurb">
+              ${unsafeHTML(content)}
+            </div>
           </li>
         `;
       })}
