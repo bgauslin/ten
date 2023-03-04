@@ -1,3 +1,9 @@
+@use 'sass:math';
+
+$buffer: 6rem;
+$max-size: 40rem;
+$breakpoint: $max-size + ($buffer * 2);
+
 @font-face {
   font-display: swap;
   font-family: 'Avenir Variable';
@@ -14,19 +20,15 @@ html {
 }
 
 body {
-  block-size: 100dvh;
   margin: 0;
+  min-block-size: 100dvh;
   touch-action: manipulation;
 }
 
-$buffer: 6rem;
-$max-size: 40rem;
-$breakpoint: $max-size + ($buffer * 2);
-
 :root {
-  --grid: 'meta meta meta' #{$buffer} 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
+  --grid: 'meta meta meta' 4rem 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
 
   @media (min-width: #{$breakpoint}) {
-    --grid: 'meta meta meta' #{$buffer} 'out ten in' 1fr / 1fr #{$max-size} 1fr;
+    --grid: 'meta meta meta' 4rem 'out ten in' 1fr / 1fr #{$max-size} 1fr;
   }
 }
