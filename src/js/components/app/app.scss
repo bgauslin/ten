@@ -1,8 +1,30 @@
+$buffer: 5rem;
+$max-size: 40rem;
+$breakpoint-1: $max-size + ($buffer * 2);
+$breakpoint-2: $max-size * 2;
+
+:host {
+  --app-grid: 'scene scene scene' 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
+  --scene-grid: 'image image image image' '. distance power .' '. blurb blurb .' 1fr / 0 1fr auto 0;
+
+  @media (min-width: #{$breakpoint-1}) {
+    --app-grid: 'out scene in' 1fr / 1fr #{$max-size} 1fr;
+    --scene-grid: '. .' 1fr 'image image' #{$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
+  }
+
+  @media (min-width: #{$breakpoint-2}) {
+    --app-grid: 'out scene in' 1fr / 1fr #{$max-size * 2} 1fr;
+    --scene-grid: 'distance power . image' 'blurb blurb . image' / 1fr auto #{$buffer} #{$max-size};
+  }
+}
+
 :host {
   display: grid;
   font-family: 'Avenir Variable', sans-serif;
   font-variation-settings: 'wght' 500;
-  grid: var(--grid);
+  grid: var(--app-grid);
+  max-block-size: 100%;
+  overflow: hidden;
 }
 
 * {
@@ -17,8 +39,6 @@ ul {
   inline-size: 100%;
   list-style: none;
   margin: 0;
-  max-inline-size: 40rem;
-  overflow: hidden;
   padding: 0;
   place-self: center;
   z-index: 1;
@@ -26,8 +46,8 @@ ul {
 
 li {
   display: grid;
-  grid: 'image image image image' '. distance power .' '. blurb blurb .' / 0 1fr auto 0;
   gap: 1rem;
+  grid: var(--scene-grid);
   grid-area: scenes;
   inline-size: 100%;
 }
@@ -39,6 +59,7 @@ img {
   display: grid;
   grid-area: image;
   inline-size: 100%;
+  place-self: center;
   transition: opacity 1s, transform 1s;
   vertical-align: middle;
 

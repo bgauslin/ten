@@ -1,20 +1,8 @@
-$buffer: 5rem;
-$max-size: 40rem;
-$breakpoint: $max-size + ($buffer * 2);
-
 @font-face {
   font-display: swap;
   font-family: 'Avenir Variable';
   font-weight: 1 999;
   src: url('https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2') format('woff2');
-}
-
-:root {
-  --grid: 'scene scene scene' 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
-
-  @media (min-width: #{$breakpoint}) {
-    --grid: 'out scene in' 1fr / 1fr #{$max-size} 1fr;
-  }
 }
 
 * {
@@ -27,8 +15,8 @@ html {
 
 body {
   background: black;
+  block-size: 100dvh;
   color: white;
   margin: 0;
-  min-block-size: 100dvh;
   touch-action: manipulation;
 }
