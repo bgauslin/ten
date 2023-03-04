@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 $buffer: 6rem;
 $max-size: 40rem;
 $breakpoint: $max-size + ($buffer * 2);
@@ -11,6 +9,14 @@ $breakpoint: $max-size + ($buffer * 2);
   src: url('https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2') format('woff2');
 }
 
+:root {
+  --grid: 'meta meta meta' 4rem 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
+
+  @media (min-width: #{$breakpoint}) {
+    --grid: 'meta meta meta' 4rem 'out ten in' 1fr / 1fr #{$max-size} 1fr;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -20,15 +26,9 @@ html {
 }
 
 body {
+  background: black;
+  color: white;
   margin: 0;
   min-block-size: 100dvh;
   touch-action: manipulation;
-}
-
-:root {
-  --grid: 'meta meta meta' 4rem 'ten ten ten' 1fr 'out . in' #{$buffer} / #{$buffer} 1fr #{$buffer};
-
-  @media (min-width: #{$breakpoint}) {
-    --grid: 'meta meta meta' 4rem 'out ten in' 1fr / 1fr #{$max-size} 1fr;
-  }
 }
