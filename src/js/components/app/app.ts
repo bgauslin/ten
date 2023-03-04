@@ -16,7 +16,8 @@ interface Item {
 @customElement('ten-app')
 class App extends LitElement {
   @state() level = 0;
-  @state() items: Item[];
+  @state() items: any[];
+  // @state() items: Item[];
   @state() ready: boolean = false;
 
   static styles = css`${shadowStyles}`;
@@ -34,9 +35,8 @@ class App extends LitElement {
     try {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
-      this.items = data.items;
+      console.log('items', data.items);
       this.ready = true;
-      console.log('data', data);
     } catch (error) {
       console.warn(error);
       return;
@@ -56,23 +56,33 @@ class App extends LitElement {
         </li>
       `);
     }
-
-    const start = this.level === 0;
-    const end = this.level === items.length - 1;
+    this.items = items;
 
     return html`
-      <ul>${items}</ul>
+      <ul>${this.items}</ul>
+      ${this.renderZoomOut()}
+      ${this.renderZoomIn()}
+    `;
+  }
+
+  renderZoomOut() {
+    return html`
       <button
         aria-label="Zoom out"
-        ?disabled="${start}"
+        ?disabled="${this.level === 0}"
         @click="${() => this.level -= 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
         </svg>
       </button>
+    `;
+  }
+
+  renderZoomIn() {
+    return html`
       <button
         aria-label="Zoom in"
-        ?disabled="${end}"
+        ?disabled="${this.level === this.items.length - 1}"
         @click="${() => this.level += 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
