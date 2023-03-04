@@ -28,6 +28,11 @@ ul {
   z-index: 2;
 }
 
+.distance {
+  display: flex;
+  gap: 2rem;
+}
+
 ul {
   display: grid;
   grid: 'items' 1fr / 1fr;
@@ -35,7 +40,6 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  place-items: center;
   place-self: center;
   z-index: 1;
 }
@@ -69,7 +73,7 @@ img {
 }
 
 [disabled] .blurb {
-  opacity: 0; // ???
+  opacity: 0;
 }
 
 button {

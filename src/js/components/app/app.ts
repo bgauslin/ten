@@ -4,7 +4,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './app.scss';
 
-interface Item {
+interface Scene {
   content: string,
   distance: string[],
   image: string,
@@ -16,10 +16,11 @@ interface Item {
  */
 @customElement('ten-app')
 class App extends LitElement {
-  @state() items: Item[];
+  @state() distances: string[][];
   @state() level = 0;
   @state() powers: string[];
   @state() ready: boolean = false;
+  @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;
 
@@ -36,8 +37,9 @@ class App extends LitElement {
     try {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
-      this.items = data.items;
-      this.powers = this.items.map(item => item.power);
+      this.scenes = data.items;
+      this.powers = this.scenes.map(scene => scene.power);
+      this.distances = this.scenes.map(scene => scene.distance);
       this.ready = true;
     } catch (error) {
       console.warn(error);
@@ -49,9 +51,9 @@ class App extends LitElement {
     if (this.ready) {
       return html`
         ${this.renderMeta()}
-        ${this.renderItems()}
-        ${this.renderZoomOut()}
-        ${this.renderZoomIn()}
+        ${this.renderScenes()}
+        ${this.renderPrev()}
+        ${this.renderNext()}
       `;
     }
   }
@@ -60,7 +62,7 @@ class App extends LitElement {
     return html`
       <div class="meta">
         <div class="distance">
-          <span>DISTANCE</span>
+          ${this.distances[this.level].map(distance => html`<span>${distance}</span>`)}
         </div>
         <div class="power">
           10<sup>${this.powers[this.level]}</sup>
@@ -69,20 +71,20 @@ class App extends LitElement {
     `;
   }
 
-  renderItems() {    
+  renderScenes() {    
     return html`
       <ul>
-      ${this.items.map((item: Item, index: number) => {
+      ${this.scenes.map((scene: Scene, index: number) => {
         const disabled = index !== this.level;
         const visited = index <= this.level;
-        const {content} = item;
+        const {content} = scene;
         return html`
           <li
             ?data-visited="${visited}"
             ?disabled="${disabled}">
             <img
               alt=""
-              src=""
+              src="https://picsum.photos/800"
               srcset=""
               sizes="100vw">
             <div class="blurb">
@@ -95,10 +97,10 @@ class App extends LitElement {
     `;
   }
 
-  renderZoomOut() {
+  renderPrev() {
     return html`
       <button
-        aria-label="Zoom out"
+        aria-label="Zoom out to previous scene"
         ?disabled="${this.level === 0}"
         @click="${() => this.level -= 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
@@ -108,11 +110,11 @@ class App extends LitElement {
     `;
   }
 
-  renderZoomIn() {
+  renderNext() {
     return html`
       <button
-        aria-label="Zoom in"
-        ?disabled="${this.level === this.items.length - 1}"
+        aria-label="Zoom in to next scene"
+        ?disabled="${this.level === this.scenes.length - 1}"
         @click="${() => this.level += 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
