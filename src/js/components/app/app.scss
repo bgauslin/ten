@@ -3,7 +3,7 @@ $button-color: #999;
 $button-hover: white;
 
 // Static dimensions.
-$button-size: 3rem;
+$button-size: 2.75rem;
 $gap-small: 1rem;
 $gap-medium: 2rem;
 $gap-large: 4rem;
@@ -33,7 +33,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   @media (min-width: #{$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{$max-size * 2} 1fr;
     --scene-gap: #{$gap-medium} #{$gap-large};
-    --scene-grid: 'distance power image' 'blurb blurb image' / 1fr auto #{$max-size};
+    --scene-grid: 'distance power image' 'blurb blurb image' '. . image' 1rem / 1fr auto #{$max-size};
   }
 
   display: grid;
@@ -61,6 +61,10 @@ ul {
   margin: 0;
   padding: 0;
   z-index: 1;
+
+  @media (min-width: #{$breakpoint-2}) {
+    place-self: center;
+  }
 }
 
 li {
@@ -101,7 +105,6 @@ img {
 }
 
 :is(.distance, .power) {
-  align-self: end;
   margin-block: 0;
 }
 
@@ -109,6 +112,8 @@ img {
   display: flex;
   gap: 1rem;
   grid-area: distance;
+  position: relative;
+  inset-block: .5rem;
 }
 
 .power {
@@ -124,7 +129,6 @@ sup {
 }
 
 .blurb {
-  align-self: start;
   grid-area: blurb;
 }
 
