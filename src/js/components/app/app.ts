@@ -113,8 +113,8 @@ class App extends LitElement {
   renderPrev() {
     return html`
       <button
-        aria-label="Zoom out to previous scene"
         id="prev"
+        title="Zoom out to previous scene"
         ?disabled="${this.level === 0}"
         @click="${() => this.level -= 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
@@ -127,8 +127,8 @@ class App extends LitElement {
   renderNext() {
     return html`
       <button
-        aria-label="Zoom in to next scene"
         id="next"
+        title="Zoom in to next scene"
         ?disabled="${this.level === this.scenes.length - 1}"
         @click="${() => this.level += 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
