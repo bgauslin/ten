@@ -52,7 +52,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 }
 
 // ----------------------------------------
-// Intro animation.
+// Intro animations.
 
 @keyframes textFade {
   0%,
@@ -98,60 +98,107 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   }
 }
 
-.intro {
-  animation: 36s 1 introFade;
+@keyframes stars {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
+@keyframes atom {
+  0% {
+    opacity: 0;
+    transform: scale(.1) rotate(0);
+  }
+  35%,
+  95% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes electron {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes nucleus {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+// ----------------------------------------
+// Intro animation sequence.
+
+[id='stars'] {
+  animation: 30s 1 linear stars;
+}
+
+// "...light years?"
+[id='intro'] > p:nth-of-type(1) {
+  animation: 5s 2s 1 textFade;
+}
+
+[id='atom'] {
+  animation: 11s 6s 1 linear atom;
+}
+
+// "...atom"
+[id='intro'] > p:nth-of-type(2) {
+  animation: 5s 9s 1 textFade;
+}
+
+// "...forty-two scenes..."
+[id='intro'] > p:nth-of-type(3) {
+  animation: 6s 16s 1 textFade;
+}
+
+[id='skip'] {
+  animation: 2s 22s 1 forwards fadeOut;
+}
+
+[id='intro'] h1 {
+  animation: 8s 22s 1 textFade;
+}
+
+[id='intro'] .tagline {
+  animation: 4s 24s 1 textFade;
+}
+
+// Overall wrapper element.
+[id='intro'] {
+  animation: 33s 1 introFade;
 
   &[data-skip] {
     animation: 1s 1 fadeOut;
   } 
 }
 
-.intro > p:nth-of-type(1) {
-  animation: 6s 1 textFade;
-}
-
-[id='stars'] {
-  animation: 10s 1 starfield;
-  opacity: 0;
-}
-
-[id='stars'] circle {
-  fill: white;
-}
-
-[id='stars'] circle:nth-child(7n) {
-  opacity: .2;
-}
-
-[id='stars'] circle:nth-child(11n) {
-  opacity: .5;
-}
-
-.intro > p:nth-of-type(2) {
-  animation: 6s 8s 1 textFade;
-}
-
-.intro > p:nth-of-type(3) {
-  animation: 8s 16s 1 textFade;
-}
-
-[id='skip'] {
-  animation: 2s 24s 1 forwards fadeOut;
-}
-
-.intro h1 {
-  animation: 8s 24s 1 textFade;
-}
-
-.intro .tagline {
-  animation: 6s 26s 1 textFade;
-}
-
 // ----------------------------------------
 // Intro elements.
 
 // [1] Prevent scrolling for scaled SVGs.
-.intro {
+[id='intro'] {
   background: black;
   block-size: 100dvh; // [1]
   display: grid;
@@ -166,48 +213,102 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   overflow: hidden; // [1]
 }
 
-.intro > * {
+[id='intro'] > * {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-.intro :is(h1, p) {
+[id='intro'] :is(h1, p) {
   margin: 0;
   opacity: 0;
   padding-inline: 2rem;
   text-align: center;
 }
 
-.intro h1 {
+[id='intro'] h1 {
   font-size: 4rem;
   letter-spacing: .15em;
   text-transform: uppercase;
 }
 
-.intro p {
+[id='intro'] p {
   font-size: 1.5rem;
   line-height: 1.5;
   max-inline-size: 40rem;
 }
 
-@keyframes starfield {
-  0% {
-    opacity: 0;
-    transform: scale(1.5) rotate(0);
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2) rotate(20deg);
-  }
-}
-
-[id='starfield'] {
+[id='stars'] {
   animation: 10s 1 starfield;
   opacity: 0;
   position: absolute;
   z-index: -1;
+}
+
+[id='stars'] circle {
+  fill: white;
+
+  &:nth-child(7n) {
+    opacity: .2;
+  }
+
+  &:nth-child(11n) {
+    opacity: .5;
+  }
+}
+
+[id='atom'] {
+  block-size: 600px;
+  display: grid;
+  grid: 1fr / 1fr;
+  inline-size: 600px;
+  opacity: 0;
+}
+
+[id='atom'] > * {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+[id='atom'] path {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.nucleus,
+.electron {
+  background: white;
+}
+
+.nucleus {
+  animation: .5s infinite alternate nucleus;
+  block-size: 80px;
+  border-radius: 40px;
+  inline-size: 80px;
+  place-self: center;
+}
+
+.electron {
+  animation: 1s infinite linear electron;
+  block-size: 40px;
+  border-radius: 20px;
+  inline-size: 40px;
+  place-self: start;
+}
+
+[id='electron-2'],
+[id='electron-3'] {
+  animation-delay: .5s;
+}
+
+[id='electron-1'] {
+  offset-path: path("M 384 299 C 384 151.539978 346.391907 32 300 32 C 253.608078 32 216 151.539978 216 299 C 216 446.460022 253.608078 566 300 566 C 346.391907 566 384 446.460022 384 299 Z");
+}
+
+[id='electron-2'] {
+  offset-path: path("M 342 371.746124 C 469.704102 298.016113 554.424744 205.676575 531.22876 165.5 C 508.032837 125.323425 385.704102 152.523865 258 226.253845 C 130.295868 299.983887 45.575256 392.323425 68.77121 432.5 C 91.967163 472.676575 214.295868 445.476135 342 371.746124 Z");
+}
+
+[id='electron-3'] {
+  offset-path: path("M 342 226.253845 C 214.295868 152.523865 91.967163 125.323425 68.77121 165.5 C 45.575256 205.676575 130.295868 298.016113 258 371.746124 C 385.704102 445.476135 508.032837 472.676575 531.22876 432.5 C 554.424744 392.323425 469.704102 299.983887 342 226.253845 Z");
 }
 
 // ----------------------------------------
