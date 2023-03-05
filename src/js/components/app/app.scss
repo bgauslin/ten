@@ -84,6 +84,20 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   }
 }
 
+@keyframes starfield {
+  0% {
+    opacity: 0;
+    transform: scale(2) rotate(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1) rotate(20deg);
+  }
+}
+
 .intro {
   animation: 36s 1 introFade;
 
@@ -96,12 +110,33 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   animation: 6s 1 textFade;
 }
 
+[id='stars'] {
+  animation: 10s 1 starfield;
+  opacity: 0;
+}
+
+[id='stars'] circle {
+  fill: white;
+}
+
+[id='stars'] circle:nth-child(7n) {
+  opacity: .2;
+}
+
+[id='stars'] circle:nth-child(11n) {
+  opacity: .5;
+}
+
 .intro > p:nth-of-type(2) {
   animation: 6s 8s 1 textFade;
 }
 
 .intro > p:nth-of-type(3) {
   animation: 8s 16s 1 textFade;
+}
+
+[id='skip'] {
+  animation: 2s 24s 1 forwards fadeOut;
 }
 
 .intro h1 {
@@ -115,8 +150,10 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 // ----------------------------------------
 // Intro elements.
 
+// [1] Prevent scrolling for scaled SVGs.
 .intro {
   background: black;
+  block-size: 100dvh; // [1]
   display: grid;
   grid: 1fr / 1fr;
   grid-area: 1 / 1 / -1 / -1;
@@ -126,9 +163,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   position: relative;
   transition: opacity .5s;
   z-index: 3;
-
-  // block-size: 100dvh;
-  // overflow: hidden;
+  overflow: hidden; // [1]
 }
 
 .intro > * {
@@ -154,7 +189,23 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   max-inline-size: 40rem;
 }
 
+@keyframes starfield {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
 [id='starfield'] {
+  animation: 10s 1 starfield;
+  opacity: 0;
   position: absolute;
   z-index: -1;
 }

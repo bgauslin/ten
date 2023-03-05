@@ -31,7 +31,7 @@ class App extends LitElement {
   @state() level = 0;
   @state() ready: boolean = false;
   @state() scenes: Scene[];
-  @state() skip: boolean = false;
+  @state() skipIntro: boolean = false;
 
   static styles = css`${shadowStyles}`;
 
@@ -40,7 +40,7 @@ class App extends LitElement {
     this.fetchData();
   }
 
-  private async fetchData(): Promise<AppData> {
+  async fetchData(): Promise<AppData> {
     if (this.ready) {
       return;
     }
@@ -73,25 +73,44 @@ class App extends LitElement {
     return html`
       <div
         class="intro"
-        ?data-skip="${this.skip}">
+        ?data-skip="${this.skipIntro}">
         <header>
           <h1>${title}</h1>
           <p class="tagline">${tagline}</p>
         </header>
         ${unsafeHTML(copy)}
-        <img
-          alt=""  
-          id="starfield"
-          src="/images/starfield.svg">
+        ${unsafeHTML(this.svgStars())}
       </div>
       <button
         id="skip"
         type="button"
-        ?disabled="${this.skip}"
-        @click="${() => this.skip = true}">
+        ?disabled="${this.skipIntro}"
+        @click="${() => this.skipIntro = true}">
         Skip intro
       </button>
     `;
+  }
+
+  svgStars() {
+    const bounds = 1000;
+    const points = [];
+    const qty = 1000;
+  
+    for (let i = 0; i < qty; i++) {
+      const cx = Math.floor(Math.random() * bounds);
+      const cy = Math.floor(Math.random() * bounds);
+      const r = (Math.floor(Math.random() * 3) + 1) / 2;
+      points.push([cx, cy, r]);
+    }
+  
+    let svg = `<svg viewbox="0 0 ${bounds} ${bounds}" id="stars">`;
+    for (const point of points) {
+      const [cx, cy, r] = point;
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;
+    };
+    svg += '</svg>';
+
+    return svg;
   }
 
   renderScenes() {    
