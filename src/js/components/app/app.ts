@@ -91,9 +91,9 @@ class App extends LitElement {
             ?data-viewed="${index <= this.level}">
             <img
               alt="${image} (TEMPORARY)"
-              src="https://picsum.photos/800"
-              srcset=""
-              sizes="100vw">
+              src="https://picsum.photos/600"
+              srcset="https://picsum.photos/1200 1200w, https://picsum.photos/600 600w"
+              sizes="(min-width: 37.5rem) 600px, 100vw">
             <p class="distance">
               ${distance.map(value => html`<span>${value}</span>`)}
             </p>
