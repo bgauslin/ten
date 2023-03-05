@@ -31,6 +31,7 @@ class App extends LitElement {
   @state() level = 0;
   @state() ready: boolean = false;
   @state() scenes: Scene[];
+  @state() skip: boolean = false;
 
   static styles = css`${shadowStyles}`;
 
@@ -70,13 +71,22 @@ class App extends LitElement {
   renderIntro() {
     const {copy, tagline, title} = this.intro;
     return html`
-      <div class="intro">
+      <div
+        class="intro"
+        ?data-skip="${this.skip}">
         <header>
           <h1>${title}</h1>
           <p class="tagline">${tagline}</p>
         </header>
         ${unsafeHTML(copy)}
       </div>
+      <button
+        id="skip"
+        type="button"
+        ?disabled="${this.skip}"
+        @click="${() => this.skip = true}">
+        Skip intro
+      </button>
     `;
   }
 
@@ -113,6 +123,7 @@ class App extends LitElement {
   renderPrev() {
     return html`
       <button
+        class="zoom"
         id="prev"
         title="Zoom out to previous scene"
         ?disabled="${this.level === 0}"
@@ -127,6 +138,7 @@ class App extends LitElement {
   renderNext() {
     return html`
       <button
+        class="zoom"
         id="next"
         title="Zoom in to next scene"
         ?disabled="${this.level === this.scenes.length - 1}"

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Colors.
 $button-color: #999;
 $button-hover: white;
@@ -50,7 +52,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 }
 
 // ----------------------------------------
-// Intro.
+// Intro animation.
 
 @keyframes textFade {
   0%,
@@ -73,6 +75,46 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.intro {
+  animation: 36s 1 introFade;
+
+  &[data-skip] {
+    animation: 1s 1 fadeOut;
+  } 
+}
+
+.intro > p:nth-of-type(1) {
+  animation: 6s 1 textFade;
+}
+
+.intro > p:nth-of-type(2) {
+  animation: 6s 8s 1 textFade;
+}
+
+.intro > p:nth-of-type(3) {
+  animation: 8s 16s 1 textFade;
+}
+
+.intro h1 {
+  animation: 8s 24s 1 textFade;
+}
+
+.intro .tagline {
+  animation: 6s 26s 1 textFade;
+}
+
+// ----------------------------------------
+// Intro elements.
+
 .intro {
   background: black;
   display: grid;
@@ -82,6 +124,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   place-items: center;
   pointer-events: none;
   position: relative;
+  transition: opacity .5s;
   z-index: 3;
 }
 
@@ -106,31 +149,6 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   font-size: 1.5rem;
   line-height: 1.5;
   max-inline-size: 40rem;
-}
-
-// Intro animation sequence.
-.intro {
-  animation: 36s 1 introFade;
-}
-
-.intro > p:nth-of-type(1) {
-  animation: 6s 1 textFade;
-}
-
-.intro > p:nth-of-type(2) {
-  animation: 6s 8s 1 textFade;
-}
-
-.intro > p:nth-of-type(3) {
-  animation: 8s 16s 1 textFade;
-}
-
-.intro h1 {
-  animation: 8s 24s 1 textFade;
-}
-
-.intro .tagline {
-  animation: 6s 26s 1 textFade;
 }
 
 // ----------------------------------------
@@ -230,28 +248,24 @@ sup {
 }
 
 // ----------------------------------------
-// Prev/next buttons.
+// Buttons.
 
 button {
   appearance: none;
   backdrop-filter: blur(8px);
   background: 0;
   block-size: $button-size;
-  border: 4px solid $button-color;
-  border-radius: 1.5rem;
+  border: 0;
   color: $button-color;
   cursor: pointer;
   display: grid;
-  font-size: 2em;
-  inline-size: $button-size;
+  font-family: inherit;
+  font-size: 1rem;
   outline: 0;
-  padding: 0;
+  padding: 0 1rem;
   place-content: center;
   place-self: center;
-  position: relative;
-  text-decoration: none;
-  transition: opacity .2s, transform .2s;
-  z-index: 2;
+  transition: opacity .2s;
 
   &[disabled] {
     opacity: 0;
@@ -260,8 +274,50 @@ button {
 
   &:hover,
   &:focus {
-    border-color: $button-hover;
     color: $button-hover;
+  }
+
+  @media (any-hover: hover) {
+    transition: color .2s, opacity .2s;
+  }
+}
+
+// 'Skip intro' button.
+[id='skip'] {
+  background: black;
+  border: 2px solid white;
+  border-radius: .5rem;
+  color: white;
+  inset-block: auto 4rem;
+  inset-inline: auto 4rem;
+  position: fixed;
+  z-index: 3;
+
+  &:hover,
+  &:focus {
+    background: white;
+    color: black;
+  }
+
+  @media (any-hover: hover) {
+    transition: background-color .2s, color .2s, opacity .2s;
+  }
+}
+
+// Prev/next buttons.
+.zoom {
+  border: 4px solid $button-color;
+  border-radius: math.div($button-size, 2);
+  inline-size: $button-size;
+  inset-block: auto 1rem;
+  padding: 0;
+  position: fixed;
+  transition: opacity .2s, transform .2s;
+  z-index: 2;
+
+  &:hover,
+  &:focus {
+    border-color: $button-hover;
   }
 
   &:active {
@@ -274,16 +330,17 @@ button {
 }
 
 [id='prev'] {
-  grid-area: prev;
+  inset-inline: 1rem auto;
 }
 
 [id='next'] {
-  grid-area: next;
+  inset-inline: auto 1rem;
 }
 
 // Prev/next button icons.
 svg {
   block-size: auto;
+  fill: currentColor;
   pointer-events: none;
   inline-size: 100%;
 }
