@@ -28,6 +28,16 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   }
 }
 
+@keyframes introFade {
+  0%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 // [1] Ensures buttons are anchored to bottom of viewport on small screens and
 //     provides vertical centering on large screens.
 // [2] Prevents scrolling otherwise caused by the 10x images.
@@ -45,7 +55,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   @media (min-width: #{$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{$max-size * 2} 1fr;
     --scene-gap: #{$gap-medium} #{$gap-large};
-    --scene-grid: 'distance power image' 'blurb blurb image' '. . image' 1rem / 1fr auto #{$max-size};
+    --scene-grid: 'image distance power' 'image blurb blurb' 'image . .' 1rem / #{$max-size} 1fr auto;
   }
 
   display: grid;
@@ -62,11 +72,14 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 
 // TODO: Intro animation sequence.
 .intro {
+  animation: 36s 1 introFade;
   background: black;
-  display: grid;
-  // display: none;
+  display: none;
+  // display: grid;
   grid: 1fr / 1fr;
   grid-area: 1 / 1 / -1 / -1;
+  opacity: 0;
+  pointer-events: none;
   position: relative;
   place-items: center;
   z-index: 3;
@@ -93,22 +106,22 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 }
 
 .intro > p:nth-of-type(2) {
-  animation: 6s 6s 1 textFade;
+  animation: 6s 8s 1 textFade;
 }
 
 .intro > p:nth-of-type(3) {
-  animation: 6s 12s 1 textFade;
+  animation: 8s 16s 1 textFade;
 }
 
 .intro h1 {
-  animation: 6s 18s 1 textFade;
-  font-size: 6rem;
+  animation: 8s 24s 1 textFade;
+  font-size: 5rem;
   letter-spacing: .2em;
   text-transform: uppercase;
 }
 
 .intro .tagline {
-  animation: 4s 20s 1 textFade;
+  animation: 6s 26s 1 textFade;
   max-inline-size: none;
 }
 
