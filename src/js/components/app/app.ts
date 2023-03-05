@@ -79,6 +79,10 @@ class App extends LitElement {
           <p class="tagline">${tagline}</p>
         </header>
         ${unsafeHTML(copy)}
+        <img
+          alt=""  
+          id="starfield"
+          src="/images/starfield.svg">
       </div>
       <button
         id="skip"

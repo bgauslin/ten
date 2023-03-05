@@ -1,0 +1,62 @@
+<!-- Demo for generating contents of starfield.svg file. -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<body>
+  <svg viewbox="0 0 1000 1000"></svg>
+</body>
+
+<style>
+@keyframes starfield {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
+body {
+  background: black;
+}
+
+svg {
+  animation: 7s 1 starfield;
+  opacity: 0;
+}
+
+circle {
+  fill: white;
+}
+
+circle:nth-child(7n) {
+  opacity: .2;
+}
+
+circle:nth-child(11n) {
+  opacity: .5;
+}
+</style>
+
+<script>
+  const svg = document.querySelector('svg');
+  const points = [];
+  const qty = 1000;
+  const bounds = 1000;
+
+  for (let i = 0; i < qty; i++) {
+    const cx = Math.floor(Math.random() * bounds);
+    const cy = Math.floor(Math.random() * bounds);
+    const r = (Math.floor(Math.random() * 3) + 1) / 2;
+    points.push([cx, cy, r]);
+  }
+
+  for (const point of points) {
+    const [cx, cy, r] = point;
+    svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="${r}"/>`;
+  };
+</script>

@@ -126,6 +126,9 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   position: relative;
   transition: opacity .5s;
   z-index: 3;
+
+  // block-size: 100dvh;
+  // overflow: hidden;
 }
 
 .intro > * {
@@ -149,6 +152,11 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   font-size: 1.5rem;
   line-height: 1.5;
   max-inline-size: 40rem;
+}
+
+[id='starfield'] {
+  position: absolute;
+  z-index: -1;
 }
 
 // ----------------------------------------
