@@ -154,13 +154,13 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   animation: 30s 1 linear stars;
 }
 
-// "...light years?"
+// "...light years"
 [id='intro'] > p:nth-of-type(1) {
   animation: 5s 2s 1 textFade;
 }
 
 [id='atom'] {
-  animation: 11s 6s 1 linear atom;
+  animation: 10s 6s 1 linear atom;
 }
 
 // "...atom"
@@ -273,13 +273,9 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   stroke-width: 2;
 }
 
-.nucleus,
-.electron {
-  background: white;
-}
-
 .nucleus {
   animation: .5s infinite alternate nucleus;
+  background-color: rgba(white, .5);
   block-size: 80px;
   border-radius: 40px;
   inline-size: 80px;
@@ -288,6 +284,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 
 .electron {
   animation: 1s infinite linear electron;
+  background-color: white;
   block-size: 40px;
   border-radius: 20px;
   inline-size: 40px;
