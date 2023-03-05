@@ -27,7 +27,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   @media (min-width: #{$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{$max-size} 1fr;
     --scene-gap: #{$gap-medium} 0;
-    --scene-grid: '. .' 1fr 'image image' #{$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
+    --scene-grid: '. .' #{$gap-medium} 'image image' #{$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
   }
 
   @media (min-width: #{$breakpoint-2}) {
@@ -121,7 +121,6 @@ img {
 .power {
   font-size: 1.5rem;
   grid-area: power;
-  justify-self: end;
 }
 
 sup {
