@@ -1,33 +1,51 @@
-$buffer: 5rem; // TODO: Rename.
-$max-size: 40rem; // TODO: Rename.
-$breakpoint-1: $max-size + ($buffer * 2); // TODO: Refactor.
-$breakpoint-2: $max-size * 2;
+// Colors.
+$button-color: #999;
+$button-hover: white;
 
+// Static dimensions.
+$button-size: 3rem;
+$gap-small: 1rem;
+$gap-medium: 2rem;
+$gap-large: 4rem;
+$max-size: 40rem;
+
+// Computed dimensions.
+$button-space: $button-size + ($gap-small * 2);
+
+// Computed breakpoints based on content.
+$breakpoint-1: $max-size + ($button-space * 2);
+$breakpoint-2: ($max-size * 2) + ($button-space * 2);
+
+// [1] Ensures buttons are anchored to bottom of viewport on small screens and
+//     provides vertical centering on large screens.
+// [2] Prevents scrolling otherwise caused by the 10x images.
 :host {
-  --app-grid: 'scenes scenes scenes' 'prev . next' #{$buffer} / #{$buffer} 1fr #{$buffer};
-  --scene-gap: 1rem;
+  --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{$button-space} / #{$button-space} 1fr #{$button-space};
+  --scene-gap: #{$gap-small};
   --scene-grid: 'image image image image' '. distance power .' '. blurb blurb .' 1fr / 0 1fr auto 0;
 
   @media (min-width: #{$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{$max-size} 1fr;
+    --scene-gap: #{$gap-medium} 0;
     --scene-grid: '. .' 1fr 'image image' #{$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
   }
 
   @media (min-width: #{$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{$max-size * 2} 1fr;
-    --scene-grid: 'distance power . image' 'blurb blurb . image' / 1fr auto #{$buffer} #{$max-size};
+    --scene-gap: #{$gap-medium} #{$gap-large};
+    --scene-grid: 'distance power image' 'blurb blurb image' / 1fr auto #{$max-size};
   }
 
   display: grid;
   font-family: 'Avenir Variable', sans-serif;
   font-variation-settings: 'wght' 500;
   grid: var(--app-grid);
-  max-block-size: 100%;
-  overflow: hidden; //
+  min-block-size: 100dvh; // [1]
+  overflow: hidden; // [2]
 }
 
 * {
-  box-sizing: border-box;;
+  box-sizing: border-box;
 }
 
 .intro {
@@ -35,7 +53,6 @@ $breakpoint-2: $max-size * 2;
 }
 
 ul {
-  block-size: 100dvh; //
   display: grid;
   grid: 1fr / 1fr;
   grid-area: scenes;
@@ -43,7 +60,6 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  place-self: center;
   z-index: 1;
 }
 
@@ -120,22 +136,19 @@ button {
   appearance: none;
   backdrop-filter: blur(8px);
   background: 0;
-  block-size: 3rem;
-  border: 4px solid #666;
+  block-size: $button-size;
+  border: 4px solid $button-color;
   border-radius: 1.5rem;
-  color: #666;
+  color: $button-color;
   cursor: pointer;
   display: grid;
   font-size: 2em;
-  inline-size: 3rem;
-  inset-block: auto .5rem;
+  inline-size: $button-size;
   outline: 0;
   padding: 0;
   place-content: center;
   place-self: center;
-  position: sticky;
   text-decoration: none;
-  text-transform: uppercase;
   transition: opacity .2s, transform .2s;
   z-index: 2;
 
@@ -146,8 +159,8 @@ button {
 
   &:hover,
   &:focus {
-    border-color: white;
-    color: white;
+    border-color: $button-hover;
+    color: $button-hover;
   }
 
   &:active {

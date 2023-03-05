@@ -5,18 +5,15 @@
   src: url('https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2') format('woff2');
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   -webkit-tap-highlight-color: transparent;
 }
 
+// [1] Always fill the viewport's available height.
 body {
   background: black;
-  block-size: 100dvh;
   color: white;
   margin: 0;
+  min-block-size: 100dvh; // [1]
   touch-action: manipulation;
 }
