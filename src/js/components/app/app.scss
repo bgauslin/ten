@@ -16,6 +16,18 @@ $button-space: $button-size + ($gap-small * 2);
 $breakpoint-1: $max-size + ($button-space * 2);
 $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 
+// Animations.
+@keyframes textFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
+
 // [1] Ensures buttons are anchored to bottom of viewport on small screens and
 //     provides vertical centering on large screens.
 // [2] Prevents scrolling otherwise caused by the 10x images.
@@ -48,9 +60,56 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   box-sizing: border-box;
 }
 
+// TODO: Intro animation sequence.
 .intro {
-  display: none; //
-  
+  background: black;
+  display: grid;
+  // display: none;
+  grid: 1fr / 1fr;
+  grid-area: 1 / 1 / -1 / -1;
+  position: relative;
+  place-items: center;
+  z-index: 3;
+}
+
+.intro > * {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+.intro :is(h1, p) {
+  margin: 0;
+  opacity: 0;
+  text-align: center;
+}
+
+.intro p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  max-inline-size: 40rem;
+}
+
+.intro > p:nth-of-type(1) {
+  animation: 6s 1 textFade;
+}
+
+.intro > p:nth-of-type(2) {
+  animation: 6s 6s 1 textFade;
+}
+
+.intro > p:nth-of-type(3) {
+  animation: 6s 12s 1 textFade;
+}
+
+.intro h1 {
+  animation: 6s 18s 1 textFade;
+  font-size: 6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.intro .tagline {
+  animation: 4s 20s 1 textFade;
+  max-inline-size: none;
 }
 
 ul {
@@ -61,6 +120,7 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
   z-index: 1;
 
   @media (min-width: #{$breakpoint-2}) {
@@ -72,7 +132,7 @@ li {
   display: grid;
   gap: var(--scene-gap);
   grid: var(--scene-grid);
-  grid-area: 1 / -1 / 1 / -1;
+  grid-area: 1 / 1 / -1 / -1;
   inline-size: 100%;
 }
 
@@ -156,6 +216,7 @@ button {
   padding: 0;
   place-content: center;
   place-self: center;
+  position: relative;
   text-decoration: none;
   transition: opacity .2s, transform .2s;
   z-index: 2;

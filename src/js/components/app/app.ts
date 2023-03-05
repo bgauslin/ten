@@ -60,9 +60,9 @@ class App extends LitElement {
     if (this.ready) {
       return html`
         ${this.renderIntro()}
-        ${this.renderScenes()}
         ${this.renderPrev()}
         ${this.renderNext()}
+        ${this.renderScenes()}
       `;
     }
   }
@@ -71,11 +71,11 @@ class App extends LitElement {
     const {copy, tagline, title} = this.intro;
     return html`
       <div class="intro">
-        <h1>${title}</h1>
-        <p class="tagline">${tagline}</p>
-        <div class="copy">
-          ${unsafeHTML(copy)}
-        </div>
+        <header>
+          <h1>${title}</h1>
+          <p class="tagline">${tagline}</p>
+        </header>
+        ${unsafeHTML(copy)}
       </div>
     `;
   }
