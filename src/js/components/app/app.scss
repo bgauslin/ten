@@ -220,7 +220,6 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 [id='intro'] :is(h1, p) {
   margin: 0;
   opacity: 0;
-  padding-inline: 2rem;
   text-align: center;
 }
 
@@ -233,7 +232,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 [id='intro'] p {
   font-size: 1.5rem;
   line-height: 1.5;
-  max-inline-size: 40rem;
+  max-inline-size: 43rem;
 }
 
 [id='stars'] {
