@@ -16,27 +16,6 @@ $button-space: $button-size + ($gap-small * 2);
 $breakpoint-1: $max-size + ($button-space * 2);
 $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 
-// Animations.
-@keyframes textFade {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  25%,
-  75% {
-    opacity: 1;
-  }
-}
-
-@keyframes introFade {
-  0%,
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 
 // [1] Ensures buttons are anchored to bottom of viewport on small screens and
 //     provides vertical centering on large screens.
@@ -70,18 +49,39 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
   box-sizing: border-box;
 }
 
-// TODO: Intro animation sequence.
+// ----------------------------------------
+// Intro.
+
+@keyframes textFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
+
+@keyframes introFade {
+  0%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .intro {
-  animation: 36s 1 introFade;
   background: black;
-  display: none;
-  // display: grid;
+  display: grid;
   grid: 1fr / 1fr;
   grid-area: 1 / 1 / -1 / -1;
   opacity: 0;
+  place-items: center;
   pointer-events: none;
   position: relative;
-  place-items: center;
   z-index: 3;
 }
 
@@ -92,13 +92,25 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 .intro :is(h1, p) {
   margin: 0;
   opacity: 0;
+  padding-inline: 2rem;
   text-align: center;
+}
+
+.intro h1 {
+  font-size: 4rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
 }
 
 .intro p {
   font-size: 1.5rem;
   line-height: 1.5;
   max-inline-size: 40rem;
+}
+
+// Intro animation sequence.
+.intro {
+  animation: 36s 1 introFade;
 }
 
 .intro > p:nth-of-type(1) {
@@ -115,15 +127,14 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 
 .intro h1 {
   animation: 8s 24s 1 textFade;
-  font-size: 5rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
 }
 
 .intro .tagline {
   animation: 6s 26s 1 textFade;
-  max-inline-size: none;
 }
+
+// ----------------------------------------
+// All scenes.
 
 ul {
   display: grid;
@@ -141,6 +152,9 @@ ul {
   }
 }
 
+// ----------------------------------------
+// Individual scene.
+
 li {
   display: grid;
   gap: var(--scene-gap);
@@ -149,6 +163,7 @@ li {
   inline-size: 100%;
 }
 
+// Scene media.
 img {
   aspect-ratio: 1;
   background: white;
@@ -170,6 +185,7 @@ img {
   }
 }
 
+// Scene text.
 :is(.distance, .power, .blurb) {
   transition: opacity 1s;
 }
@@ -212,6 +228,9 @@ sup {
 .blurb > p {
   margin-block: 0 1rem;
 }
+
+// ----------------------------------------
+// Prev/next buttons.
 
 button {
   appearance: none;
@@ -262,6 +281,7 @@ button {
   grid-area: next;
 }
 
+// Prev/next button icons.
 svg {
   block-size: auto;
   pointer-events: none;
