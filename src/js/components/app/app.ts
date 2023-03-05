@@ -4,8 +4,19 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './app.scss';
 
+interface AppData {
+  intro: Intro,
+  scenes: Scene[],
+}
+
+interface Intro {
+  copy: string,
+  tagline: string,
+  title: string,
+}
+
 interface Scene {
-  content: string,
+  blurb: string,
   distance: string[],
   image: string,
   power: string,
@@ -14,8 +25,9 @@ interface Scene {
 /**
  * Web component for Powers Of Ten app.
  */
-@customElement('ten-app')
+@customElement('powers-of-ten')
 class App extends LitElement {
+  @state() intro: Intro;
   @state() level = 0;
   @state() ready: boolean = false;
   @state() scenes: Scene[];
@@ -27,7 +39,7 @@ class App extends LitElement {
     this.fetchData();
   }
 
-  private async fetchData(): Promise<any> {
+  private async fetchData(): Promise<AppData> {
     if (this.ready) {
       return;
     }
@@ -35,6 +47,7 @@ class App extends LitElement {
     try {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
+      this.intro = data.intro;
       this.scenes = data.scenes;
       this.ready = true;
     } catch (error) {
@@ -46,7 +59,7 @@ class App extends LitElement {
   render() {
     if (this.ready) {
       return html`
-        ${this.renderMeta()}
+        ${this.renderIntro()}
         ${this.renderScenes()}
         ${this.renderPrev()}
         ${this.renderNext()}
@@ -54,9 +67,16 @@ class App extends LitElement {
     }
   }
 
-  renderMeta() {
+  renderIntro() {
+    const {copy, tagline, title} = this.intro;
     return html`
-
+      <div class="intro">
+        <h1>${title}</h1>
+        <p class="tagline">${tagline}</p>
+        <div class="copy">
+          ${unsafeHTML(copy)}
+        </div>
+      </div>
     `;
   }
 
@@ -64,15 +84,13 @@ class App extends LitElement {
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
-        const disabled = index !== this.level;
-        const visited = index <= this.level;
-        const {content, distance, power} = scene;
+        const {blurb, distance, image, power} = scene;
         return html`
           <li
-            ?data-visited="${visited}"
-            ?disabled="${disabled}">
+            aria-hidden="${index !== this.level}"  
+            ?data-viewed="${index <= this.level}">
             <img
-              alt=""
+              alt="${image} (TEMPORARY)"
               src="https://picsum.photos/800"
               srcset=""
               sizes="100vw">
@@ -83,7 +101,7 @@ class App extends LitElement {
               10<sup>${power}</sup>
             </p>
             <div class="blurb">
-              ${unsafeHTML(content)}
+              ${unsafeHTML(blurb)}
             </div>
           </li>
         `;
@@ -96,6 +114,7 @@ class App extends LitElement {
     return html`
       <button
         aria-label="Zoom out to previous scene"
+        id="prev"
         ?disabled="${this.level === 0}"
         @click="${() => this.level -= 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
@@ -109,6 +128,7 @@ class App extends LitElement {
     return html`
       <button
         aria-label="Zoom in to next scene"
+        id="next"
         ?disabled="${this.level === this.scenes.length - 1}"
         @click="${() => this.level += 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
