@@ -26,18 +26,18 @@ interface Scene {
 @customElement('powers-of-ten')
 class App extends LitElement {
   @state() intro: Intro;
-  @state() level = 0;
   @state() ready: boolean = false;
+  @state() scene = 0;
   @state() scenes: Scene[];
   @state() skipIntro: boolean = false;
+
+  createRenderRoot() {
+    return this;
+  }
 
   connectedCallback() {
     super.connectedCallback();
     this.fetchData();
-  }
-
-  createRenderRoot() {
-    return this;
   }
 
   async fetchData(): Promise<AppData> {
@@ -72,8 +72,8 @@ class App extends LitElement {
     const {copy, tagline, title} = this.intro;
     return html`
       <div
-        id="intro"
-        ?data-skip="${this.skipIntro}">
+        aria-hidden="${this.skipIntro}"
+        id="intro">
         <header>
           <h1>${title}</h1>
           <p class="tagline">${tagline}</p>
@@ -137,8 +137,8 @@ class App extends LitElement {
         const {blurb, distance, image, power} = scene;
         return html`
           <li
-            aria-hidden="${index !== this.level}"  
-            ?data-viewed="${index <= this.level}">
+            aria-hidden="${index !== this.scene}"  
+            ?data-viewed="${index <= this.scene}">
             <img
               alt="${image} (TEMPORARY)"
               src="https://picsum.photos/600"
@@ -166,8 +166,8 @@ class App extends LitElement {
         class="zoom"
         id="prev"
         title="Zoom out to previous scene"
-        ?disabled="${this.level === 0}"
-        @click="${() => this.level -= 1}">
+        ?disabled="${this.scene === 0}"
+        @click="${() => this.scene -= 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
         </svg>
@@ -181,8 +181,8 @@ class App extends LitElement {
         class="zoom"
         id="next"
         title="Zoom in to next scene"
-        ?disabled="${this.level === this.scenes.length - 1}"
-        @click="${() => this.level += 1}">
+        ?disabled="${this.scene === this.scenes.length - 1}"
+        @click="${() => this.scene += 1}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
           <line x1="12" y1="6" x2="12" y2="18"/>

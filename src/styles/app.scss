@@ -3,19 +3,26 @@
 
 :root {
   --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
+  --distance-align-self: end;
   --scene-gap: #{const.$gap-small};
   --scene-grid: 'image image image image' '. distance power .' '. blurb blurb .' 1fr / 0 1fr auto 0;
+  --zoom-position: fixed;
 
   @media (min-width: #{const.$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
+    --distance-display: flex;
+    --distance-position: relative;
     --scene-gap: #{const.$gap-medium} 0;
     --scene-grid: '. .' #{const.$gap-medium} 'image image' #{const.$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
+    --zoom-position: relative;
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size * 2} 1fr;
+    --distance-align-self: start;
     --scene-gap: #{const.$gap-medium} #{const.$gap-large};
     --scene-grid: 'image distance power' 'image blurb blurb' 'image . .' 1rem / #{const.$max-size} 1fr auto;
+    --scenes-place-self: center;
   }
 }
 
@@ -42,12 +49,9 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  place-self: var(--scenes-place-self, start);
   position: relative;
   z-index: 1;
-
-  @media (min-width: #{const.$breakpoint-2}) {
-    place-self: center;
-  }
 }
 
 // ----------------------------------------
@@ -86,10 +90,10 @@ img {
 // Scene text.
 :is(.distance, .power, .blurb) {
   transition: opacity 1s;
-}
 
-[aria-hidden='true'] :is(.distance, .power, .blurb) {
-  opacity: 0;
+  [aria-hidden='true'] & {
+    opacity: 0;
+  }
 }
 
 :is(.distance, .power) {
@@ -98,26 +102,39 @@ img {
 }
 
 .distance {
-  display: flex;
+  align-self: var(--distance-align-self);
+  display: var(--distance-display);
+  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
   gap: 1rem;
   grid-area: distance;
-  position: relative;
-  inset-block: .5rem;
 }
+
+.distance > span {
+  display: block; 
+}
+
+.distance > span:nth-child(2) {
+  opacity: .8;
+}
+
+// .distance > span,
+// .power {
+//   margin-block: .25rem;
+// }
 
 .power {
   font-size: 1.5rem;
   grid-area: power;
 }
 
-.power sup {
-  font-variation-settings: 'wght' 400;
+.power > sup {
   font-size: 75%;
+  font-variation-settings: 'wght' 400;
   margin-inline: .25em 0;
 }
 
 .blurb {
-  font-size: clamp(.875rem, .875rem + 1vw, 1rem);
+  font-size: clamp(.75rem, .75rem + 1vw, 1rem);
   font-variation-settings: 'wght' 400;
   grid-area: blurb;
   line-height: 1.5;
@@ -128,69 +145,35 @@ img {
 }
 
 // ----------------------------------------
-// Buttons.
-
-button {
-  appearance: none;
-  backdrop-filter: blur(8px);
-  background: 0;
-  block-size: const.$button-size;
-  border: 0;
-  color: const.$button-color;
-  cursor: pointer;
-  display: grid;
-  font-family: inherit;
-  font-size: 1rem;
-  outline: 0;
-  padding: 0 1rem;
-  place-content: center;
-  place-self: center;
-  transition: opacity .2s;
-
-  &[disabled] {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  &:hover,
-  &:focus {
-    color: const.$button-hover;
-  }
-
-  @media (any-hover: hover) {
-    transition: color .2s, opacity .2s;
-  }
-}
-
 // Prev/next buttons.
+
 .zoom {
+  backdrop-filter: blur(8px);
   border: 4px solid const.$button-color;
   border-radius: math.div(const.$button-size, 2);
+  color: const.$button-color;
+  display: grid;
   inline-size: const.$button-size;
   inset-block: auto 1rem;
   padding: 0;
-  position: fixed;
-  transition: opacity .2s, transform .2s;
+  place-content: center;
+  place-self: center;
+  position: var(--zoom-position);
   z-index: 2;
 
   &:hover,
   &:focus {
     border-color: const.$button-hover;
-  }
-
-  &:active {
-    transform: scale(.8);
+    color: const.$button-hover;
   }
 
   @media (any-hover: hover) {
     transition: border-color .2s, color .2s, opacity .2s, transform .2s;
   }
-
-  @media (min-width: #{const.$breakpoint-1}) {
-    position: relative;
-  }
 }
 
+// Prev/next buttons have fixed position on small screens, then use grid
+// placement when the viewport gets wider.
 [id='prev'] {
   grid-area: prev;
   inset-inline: 1rem auto;
@@ -201,15 +184,8 @@ button {
   inset-inline: auto 1rem;
 }
 
-// Prev/next button icons.
-svg {
-  block-size: auto;
-  fill: currentColor;
-  pointer-events: none;
-  inline-size: 100%;
-}
-
-line {
+// Prev/next icons.
+.zoom line {
   stroke: currentColor;
   stroke-width: 2px;
 }
