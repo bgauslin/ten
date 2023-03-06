@@ -36,6 +36,7 @@
 
 [id='intro'] p {
   font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
+  line-height: 1.6;
   max-inline-size: min(90vw, 44rem);
 }
 

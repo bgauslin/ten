@@ -1,7 +1,9 @@
-import {LitElement, html} from 'lit';
+import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {AppData, Scene} from '../../shared';
+
+import shadowStyles from './app.scss';
 
 /**
  * Web component for Powers Of Ten app.
@@ -12,9 +14,7 @@ class App extends LitElement {
   @state() scene = 0;
   @state() scenes: Scene[];
 
-  createRenderRoot() {
-    return this;
-  }
+  static styles = css`${shadowStyles}`;
 
   connectedCallback() {
     super.connectedCallback();

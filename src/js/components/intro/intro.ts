@@ -52,6 +52,7 @@ class AppIntro extends LitElement {
           ${unsafeHTML(this.renderStars())}
           ${this.renderAtom()}
         </div>
+
         <button
           id="skip"
           type="button"

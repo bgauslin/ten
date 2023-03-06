@@ -14,6 +14,7 @@ html {
 // [1] Always fill the viewport's available height.
 body {
   background: black;
+  box-sizing: border-box;
   color: white;
   font-family: 'Avenir Variable', sans-serif;
   font-size: clamp(.75rem, .75rem + .5vw, 1rem);
@@ -21,19 +22,4 @@ body {
   margin: 0;
   min-block-size: 100dvh; // [1]
   touch-action: manipulation;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-p {
-  line-height: 1.5;
-}
-
-svg {
-  block-size: auto;
-  fill: currentColor;
-  inline-size: 100%;
-  pointer-events: none;
 }
