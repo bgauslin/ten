@@ -22,7 +22,7 @@ $breakpoint-2: ($max-size * 2) + ($button-space * 2);
 // [1] Ensures buttons are anchored to bottom of viewport on small screens and
 //     provides vertical centering on large screens.
 // [2] Prevents scrolling otherwise caused by the 10x images.
-:host {
+powers-of-ten {
   --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{$button-space} / #{$button-space} 1fr #{$button-space};
   --scene-gap: #{$gap-small};
   --scene-grid: 'image image image image' '. distance power .' '. blurb blurb .' 1fr / 0 1fr auto 0;

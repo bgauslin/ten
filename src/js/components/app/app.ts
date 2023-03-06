@@ -1,8 +1,6 @@
-import {LitElement, css, html} from 'lit';
+import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-
-import shadowStyles from './app.scss';
 
 interface AppData {
   intro: Intro,
@@ -33,11 +31,13 @@ class App extends LitElement {
   @state() scenes: Scene[];
   @state() skipIntro: boolean = false;
 
-  static styles = css`${shadowStyles}`;
-
   connectedCallback() {
     super.connectedCallback();
     this.fetchData();
+  }
+
+  createRenderRoot() {
+    return this;
   }
 
   async fetchData(): Promise<AppData> {
