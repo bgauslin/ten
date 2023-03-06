@@ -1,0 +1,23 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Avenir Variable';
+  font-weight: 1 999;
+  src: url('https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2') format('woff2');
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+// [1] Always fill the viewport's available height.
+body {
+  background: black;
+  color: white;
+  margin: 0;
+  min-block-size: 100dvh; // [1]
+  touch-action: manipulation;
+}
+
+* {
+  box-sizing: border-box;
+}
