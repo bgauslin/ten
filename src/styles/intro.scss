@@ -8,7 +8,6 @@
   display: grid;
   grid: 1fr / 1fr;
   grid-area: 1 / 1 / -1 / -1;
-  opacity: 0;
   place-content: center;
   place-items: center;
   pointer-events: none;
@@ -24,7 +23,6 @@
 
 [id='intro'] :is(h1, p) {
   margin: 0;
-  opacity: 0;
   text-align: center;
 }
 
@@ -36,7 +34,6 @@
 
 [id='intro'] p {
   font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
-  line-height: 1.5;
   max-inline-size: min(90vw, 44rem);
 }
 
@@ -44,21 +41,11 @@
 // Stars.
 
 [id='stars'] {
-  opacity: 0;
   position: absolute;
-  z-index: -1;
 }
 
 [id='stars'] circle {
   fill: white;
-}
-
-[id='stars'] circle :nth-child(7n) {
-  opacity: .2;
-}
-
-[id='stars'] circle :nth-child(11n) {
-  opacity: .5;
 }
 
 // ----------------------------------------
@@ -69,7 +56,6 @@
   display: grid;
   grid: 1fr / 1fr;
   inline-size: 600px;
-  opacity: 0;
 }
 
 [id='atom'] > * {
@@ -225,6 +211,13 @@
 
 // ----------------------------------------
 // Intro animation sequence.
+
+[id='intro'],
+[id='stars'],
+[id='atom'],
+[id='intro'] :is(h1, p) {
+  opacity: 0;
+}
 
 [id='stars'] {
   animation: 10s 1 linear stars;
