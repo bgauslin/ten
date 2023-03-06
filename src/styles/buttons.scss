@@ -1,0 +1,23 @@
+@use './const';
+
+button {
+  appearance: none;
+  background: 0;
+  block-size: const.$button-size;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: 0;
+  padding: 0 1rem;
+  transition: opacity .2s, transform .2s;
+
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:active {
+    transform: scale(.8);
+  }
+}
