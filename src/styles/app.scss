@@ -21,6 +21,16 @@
   }
 }
 
+// Animations.
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 // [1] Ensures buttons are anchored to bottom of viewport on small screens and
 //     provides vertical centering on large screens.
 // [2] Prevents scrolling otherwise caused by the 10x images.
