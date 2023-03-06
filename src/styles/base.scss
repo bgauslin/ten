@@ -15,9 +15,16 @@ html {
 body {
   background: black;
   color: white;
+  font-family: 'Avenir Variable', sans-serif;
+  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
+  font-variation-settings: 'wght' 500;
   margin: 0;
   min-block-size: 100dvh; // [1]
   touch-action: manipulation;
+}
+
+p {
+  line-height: 1.5;
 }
 
 * {

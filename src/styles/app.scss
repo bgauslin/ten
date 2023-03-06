@@ -3,23 +3,18 @@
 
 :root {
   --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
-  --distance-align-self: end;
   --scene-gap: #{const.$gap-small};
-  --scene-grid: 'image image image image' '. distance power .' '. blurb blurb .' 1fr / 0 1fr auto 0;
+  --scene-grid: '. . . .' 0 '. distance power .' 'image image image image' '. blurb blurb .' 1fr / 0 1fr auto 0;
   --zoom-position: fixed;
 
   @media (min-width: #{const.$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
-    --distance-display: flex;
-    --distance-position: relative;
-    --scene-gap: #{const.$gap-medium} 0;
-    --scene-grid: '. .' #{const.$gap-medium} 'image image' #{const.$max-size} 'distance power' 'blurb blurb' 1fr / 1fr auto;
-    --zoom-position: relative;
+    --scene-grid: '. .' 0 'distance power' 'image image' #{const.$max-size} 'blurb blurb' 1fr / 1fr auto;
+    --zoom-position: static;
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size * 2} 1fr;
-    --distance-align-self: start;
     --scene-gap: #{const.$gap-medium} #{const.$gap-large};
     --scene-grid: 'image distance power' 'image blurb blurb' 'image . .' 1rem / #{const.$max-size} 1fr auto;
     --scenes-place-self: center;
@@ -31,8 +26,6 @@
 // [2] Prevents scrolling otherwise caused by the 10x images.
 powers-of-ten {
   display: grid;
-  font-family: 'Avenir Variable', sans-serif;
-  font-variation-settings: 'wght' 500;
   grid: var(--app-grid);
   min-block-size: 100dvh; // [1]
   overflow: hidden; // [2]
@@ -97,42 +90,33 @@ img {
 }
 
 :is(.distance, .power) {
-  font-family: 'Avenir Variable', sans-serif;
+  align-self: baseline;
   margin-block: 0;
 }
 
 .distance {
-  align-self: var(--distance-align-self);
-  display: var(--distance-display);
-  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
   grid-area: distance;
 }
 
-.distance > span {
-  display: block; 
-}
-
-.distance > span:nth-child(2) {
-  opacity: .8;
+.distance > :nth-child(2) {
+  opacity: .9;
 }
 
 .power {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1rem + .5vw, 1.5rem);
   grid-area: power;
 }
 
 .power > sup {
-  font-size: 75%;
-  font-variation-settings: 'wght' 400;
-  margin-inline: .25em 0;
+  font-size: .75em;
+  margin-inline: .125em 0;
 }
 
 .blurb {
-  font-size: clamp(.75rem, .75rem + 1vw, 1rem);
-  font-variation-settings: 'wght' 400;
   grid-area: blurb;
-  line-height: 1.5;
 }
 
 .blurb > p {
