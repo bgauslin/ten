@@ -81,17 +81,14 @@ img {
 }
 
 // Scene text.
-:is(.distance, .power, .blurb) {
+:is(.distance, .power) {
+  align-self: baseline;
+  margin-block: 0;
   transition: opacity 1s;
 
   [aria-hidden='true'] & {
     opacity: 0;
   }
-}
-
-:is(.distance, .power) {
-  align-self: baseline;
-  margin-block: 0;
 }
 
 .distance {
@@ -117,6 +114,16 @@ img {
 
 .blurb {
   grid-area: blurb;
+  opacity: 0;
+  
+  [aria-hidden='true'] & {
+    block-size: 0;
+    overflow: hidden;
+  }
+  
+  [aria-hidden='false'] & {
+    animation: 1s .75s forwards fadeIn;
+  }
 }
 
 .blurb > p {
