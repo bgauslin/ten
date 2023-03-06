@@ -1,4 +1,147 @@
 // ----------------------------------------
+// Intro elements.
+
+// [1] Prevent scrolling for scaled SVGs.
+[id='intro'] {
+  background: black;
+  block-size: 100dvh; // [1]
+  display: grid;
+  grid: 1fr / 1fr;
+  grid-area: 1 / 1 / -1 / -1;
+  opacity: 0;
+  place-content: center;
+  place-items: center;
+  pointer-events: none;
+  position: relative;
+  transition: opacity .5s;
+  z-index: 3;
+  overflow: hidden; // [1]
+}
+
+[id='intro'] > * {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+[id='intro'] :is(h1, p) {
+  margin: 0;
+  opacity: 0;
+  text-align: center;
+}
+
+[id='intro'] h1 {
+  font-size: clamp(1.5rem, 1.5rem + 2vw, 4rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+[id='intro'] p {
+  font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
+  line-height: 1.5;
+  max-inline-size: min(90vw, 44rem);
+}
+
+// ----------------------------------------
+// Stars.
+
+[id='stars'] {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+[id='stars'] circle {
+  fill: white;
+}
+
+[id='stars'] circle :nth-child(7n) {
+  opacity: .2;
+}
+
+[id='stars'] circle :nth-child(11n) {
+  opacity: .5;
+}
+
+// ----------------------------------------
+// Atom.
+
+[id='atom'] {
+  block-size: 600px;
+  display: grid;
+  grid: 1fr / 1fr;
+  inline-size: 600px;
+  opacity: 0;
+}
+
+[id='atom'] > * {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+[id='atom'] path {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.nucleus {
+  animation: .5s infinite alternate nucleus;
+  background-color: rgba(white, .5);
+  block-size: 80px;
+  border-radius: 40px;
+  inline-size: 80px;
+  place-self: center;
+}
+
+.electron {
+  animation: 1s infinite linear electron;
+  background-color: white;
+  block-size: 40px;
+  border-radius: 20px;
+  inline-size: 40px;
+  place-self: start;
+}
+
+[id='electron-2'],
+[id='electron-3'] {
+  animation-delay: .5s;
+}
+
+[id='electron-1'] {
+  offset-path: path("M 384 299 C 384 151.539978 346.391907 32 300 32 C 253.608078 32 216 151.539978 216 299 C 216 446.460022 253.608078 566 300 566 C 346.391907 566 384 446.460022 384 299 Z");
+}
+
+[id='electron-2'] {
+  offset-path: path("M 342 371.746124 C 469.704102 298.016113 554.424744 205.676575 531.22876 165.5 C 508.032837 125.323425 385.704102 152.523865 258 226.253845 C 130.295868 299.983887 45.575256 392.323425 68.77121 432.5 C 91.967163 472.676575 214.295868 445.476135 342 371.746124 Z");
+}
+
+[id='electron-3'] {
+  offset-path: path("M 342 226.253845 C 214.295868 152.523865 91.967163 125.323425 68.77121 165.5 C 45.575256 205.676575 130.295868 298.016113 258 371.746124 C 385.704102 445.476135 508.032837 472.676575 531.22876 432.5 C 554.424744 392.323425 469.704102 299.983887 342 226.253845 Z");
+}
+
+// ----------------------------------------
+// 'Skip intro' button.
+
+[id='skip'] {
+  background: black;
+  border: 2px solid white;
+  border-radius: .5rem;
+  color: white;
+  inset-block: auto 5vw;
+  inset-inline: auto 5vw;
+  position: fixed;
+  z-index: 3;
+
+  &:hover,
+  &:focus {
+    background: white;
+    color: black;
+  }
+
+  @media (any-hover: hover) {
+    transition: background-color .2s, color .2s, opacity .2s;
+  }
+}
+
+// ----------------------------------------
 // Intro animations.
 
 @keyframes textFade {
@@ -125,147 +268,4 @@
   &[aria-hidden='true'] {
     animation: 1s 1 fadeOut;
   } 
-}
-
-// ----------------------------------------
-// Intro elements.
-
-// [1] Prevent scrolling for scaled SVGs.
-[id='intro'] {
-  background: black;
-  block-size: 100dvh; // [1]
-  display: grid;
-  grid: 1fr / 1fr;
-  grid-area: 1 / 1 / -1 / -1;
-  min-inline-size: 0; //
-  opacity: 0;
-  place-items: center;
-  pointer-events: none;
-  position: relative;
-  transition: opacity .5s;
-  z-index: 3;
-  overflow: hidden; // [1]
-}
-
-[id='intro'] > * {
-  grid-area: 1 / 1 / -1 / -1;
-}
-
-[id='intro'] :is(h1, p) {
-  margin: 0;
-  opacity: 0;
-  text-align: center;
-}
-
-[id='intro'] h1 {
-  font-size: clamp(1.5rem, 1.5rem + 2vw, 4rem);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
-
-[id='intro'] p {
-  font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
-  line-height: 1.5;
-  max-inline-size: 43rem;
-}
-
-// ----------------------------------------
-// Stars.
-
-[id='stars'] {
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-}
-
-[id='stars'] circle {
-  fill: white;
-}
-
-[id='stars'] circle :nth-child(7n) {
-  opacity: .2;
-}
-
-[id='stars'] circle :nth-child(11n) {
-  opacity: .5;
-}
-
-// ----------------------------------------
-// Atom.
-
-[id='atom'] {
-  block-size: 600px;
-  display: grid;
-  grid: 1fr / 1fr;
-  inline-size: 600px;
-  opacity: 0;
-}
-
-[id='atom'] > * {
-  grid-area: 1 / 1 / -1 / -1;
-}
-
-[id='atom'] path {
-  fill: none;
-  stroke: white;
-  stroke-width: 2;
-}
-
-.nucleus {
-  animation: .5s infinite alternate nucleus;
-  background-color: rgba(white, .5);
-  block-size: 80px;
-  border-radius: 40px;
-  inline-size: 80px;
-  place-self: center;
-}
-
-.electron {
-  animation: 1s infinite linear electron;
-  background-color: white;
-  block-size: 40px;
-  border-radius: 20px;
-  inline-size: 40px;
-  place-self: start;
-}
-
-[id='electron-2'],
-[id='electron-3'] {
-  animation-delay: .5s;
-}
-
-[id='electron-1'] {
-  offset-path: path("M 384 299 C 384 151.539978 346.391907 32 300 32 C 253.608078 32 216 151.539978 216 299 C 216 446.460022 253.608078 566 300 566 C 346.391907 566 384 446.460022 384 299 Z");
-}
-
-[id='electron-2'] {
-  offset-path: path("M 342 371.746124 C 469.704102 298.016113 554.424744 205.676575 531.22876 165.5 C 508.032837 125.323425 385.704102 152.523865 258 226.253845 C 130.295868 299.983887 45.575256 392.323425 68.77121 432.5 C 91.967163 472.676575 214.295868 445.476135 342 371.746124 Z");
-}
-
-[id='electron-3'] {
-  offset-path: path("M 342 226.253845 C 214.295868 152.523865 91.967163 125.323425 68.77121 165.5 C 45.575256 205.676575 130.295868 298.016113 258 371.746124 C 385.704102 445.476135 508.032837 472.676575 531.22876 432.5 C 554.424744 392.323425 469.704102 299.983887 342 226.253845 Z");
-}
-
-// ----------------------------------------
-// 'Skip intro' button.
-
-[id='skip'] {
-  background: black;
-  border: 2px solid white;
-  border-radius: .5rem;
-  color: white;
-  inset-block: auto max(3vw, 1rem);
-  inset-inline: auto max(3vw, 1rem);
-  position: fixed;
-  z-index: 3;
-
-  &:hover,
-  &:focus {
-    background: white;
-    color: black;
-  }
-
-  @media (any-hover: hover) {
-    transition: background-color .2s, color .2s, opacity .2s;
-  }
 }
