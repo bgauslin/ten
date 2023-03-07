@@ -48,12 +48,12 @@ p {
 .atom {
   block-size: 600px;
   display: grid;
-  grid: 1fr / 1fr;
+  grid: 'elements' 1fr / 1fr;
   inline-size: 600px;
 }
 
 .atom > * {
-  grid-area: 1 / 1 / -1 / -1;
+  grid-area: elements;
 }
 
 // Electron orbits within an SVG element.
