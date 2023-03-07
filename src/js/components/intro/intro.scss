@@ -4,37 +4,37 @@
 // Intro elements.
 
 // [1] Prevent scrolling for scaled SVGs.
-[id='intro'] {
+:host {
   background: black;
   block-size: 100dvh; // [1]
-  display: grid;
-  grid: 1fr / 1fr;
-  grid-area: 1 / 1 / -1 / -1;
-  place-content: center;
-  place-items: center;
-  pointer-events: none;
-  position: relative;
-  transition: opacity .5s;
-  z-index: 3;
+  display: block;
   overflow: hidden; // [1]
 }
 
-[id='intro'] > * {
+.intro {
+  display: grid;
+  grid: 1fr / 1fr;
+  // grid-area: 1 / 1 / -1 / -1;
+  place-content: center;
+  place-items: center;
+}
+
+.intro > * {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-[id='intro'] :is(h1, p) {
+:is(h1, p) {
   margin: 0;
   text-align: center;
 }
 
-[id='intro'] h1 {
+h1 {
   font-size: clamp(1.5rem, 1.5rem + 2vw, 4rem);
   letter-spacing: .2em;
   text-transform: uppercase;
 }
 
-[id='intro'] p {
+p {
   font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
   line-height: 1.6;
   max-inline-size: min(90vw, 44rem);
@@ -43,35 +43,35 @@
 // ----------------------------------------
 // Stars.
 
-[id='stars'] {
+.stars {
   position: absolute;
 }
 
-[id='stars'] circle {
+.stars > circle {
   fill: white;
 }
 
 // ----------------------------------------
 // Atom.
 
-[id='atom'] {
+.atom {
   block-size: 600px;
   display: grid;
   grid: 1fr / 1fr;
   inline-size: 600px;
 }
 
-[id='atom'] > * {
+.atom > * {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-[id='atom'] path {
+.atom path {
   fill: none;
   stroke: white;
   stroke-width: 2;
 }
 
-.nucleus {
+.atom__nucleus {
   animation: .5s infinite alternate nucleus;
   background-color: rgba(white, .5);
   block-size: 80px;
@@ -80,7 +80,7 @@
   place-self: center;
 }
 
-.electron {
+.atom__electron {
   animation: 1s infinite linear electron;
   background-color: white;
   block-size: 40px;
@@ -109,7 +109,7 @@
 // ----------------------------------------
 // 'Skip intro' button.
 
-[id='skip'] {
+button {
   background: black;
   border: 2px solid white;
   border-radius: .5rem;
@@ -117,7 +117,11 @@
   inset-block: auto 5vw;
   inset-inline: auto 5vw;
   position: fixed;
-  z-index: 3;
+  z-index: 2;
+
+  &[disabled] {
+    animation: .2s fadeOut;
+  }
 
   &:hover,
   &:focus {
@@ -126,14 +130,14 @@
   }
 
   @media (any-hover: hover) {
-    transition: background-color .2s, color .2s, opacity .2s;
+    transition: background-color .2s, color .2s, transform .2s;
   }
 }
 
 // ----------------------------------------
 // Intro animations.
 
-@keyframes textFade {
+@keyframes fadeInFadeOut {
   0%,
   100% {
     opacity: 0;
@@ -141,16 +145,6 @@
   25%,
   75% {
     opacity: 1;
-  }
-}
-
-@keyframes introFade {
-  0%,
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 
@@ -182,14 +176,14 @@
     opacity: 0;
     transform: scale(.1) rotate(0);
   }
-  35%,
-  95% {
+  50% {
+    opacity: .5;
+  }
+  75% {
     opacity: 1;
   }
-  95% {
-    opacity: 0;
-  }
   100% {
+    opacity: 0;
     transform: scale(1.5) rotate(360deg);
   }
 }
@@ -215,53 +209,45 @@
 // ----------------------------------------
 // Intro animation sequence.
 
-[id='intro'],
-[id='stars'],
-[id='atom'],
-[id='intro'] :is(h1, p) {
+h1,
+p,
+button,
+.stars,
+.atom {
   opacity: 0;
 }
 
-[id='stars'] {
-  animation: 10s 1 linear stars;
+.stars {
+  animation: 10s 0s 1 linear stars;
+}
+
+button {
+  animation: 27.5s 0s 1 fadeInFadeOut;
 }
 
 // "...light years"
-[id='intro'] > p:nth-of-type(1) {
-  animation: 5s 2s 1 textFade;
+.intro > p:nth-of-type(1) {
+  animation: 5s 2.5s 1 fadeInFadeOut;
 }
 
-[id='atom'] {
-  animation: 10s 8s 1 linear atom;
+.atom {
+  animation: 10s 7.5s 1 linear atom;
 }
 
 // "...atom"
-[id='intro'] > p:nth-of-type(2) {
-  animation: 5s 12s 1 textFade;
+.intro > p:nth-of-type(2) {
+  animation: 5s 10s 1 fadeInFadeOut;
 }
 
 // "...forty-two scenes..."
-[id='intro'] > p:nth-of-type(3) {
-  animation: 6s 18s 1 textFade;
+.intro > p:nth-of-type(3) {
+  animation: 5s 17.5s 1 fadeInFadeOut;
 }
 
-[id='skip'] {
-  animation: 2s 22s 1 forwards fadeOut;
+h1 {
+  animation: 10s 22.5s 1 fadeInFadeOut;
 }
 
-[id='intro'] h1 {
-  animation: 8s 24s 1 textFade;
-}
-
-[id='intro'] .tagline {
-  animation: 4s 26s 1 textFade;
-}
-
-// Overall wrapper element.
-[id='intro'] {
-  animation: 35s 1 introFade;
-
-  &[aria-hidden='true'] {
-    animation: 1s 1 fadeOut;
-  } 
+.tagline {
+  animation: 5s 25s 1 fadeInFadeOut;
 }

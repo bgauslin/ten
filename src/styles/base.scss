@@ -16,10 +16,29 @@ body {
   background: black;
   box-sizing: border-box;
   color: white;
+  display: grid;
+  grid: 1fr / 1fr;
   font-family: 'Avenir Variable', sans-serif;
   font-size: clamp(.75rem, .75rem + .5vw, 1rem);
   font-variation-settings: 'wght' 500;
   margin: 0;
   min-block-size: 100dvh; // [1]
   touch-action: manipulation;
+}
+
+body > * {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+powers-of-ten-intro {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+powers-of-ten-intro[playing] {
+  opacity: 1;
+}
+
+noscript {
+  place-self: center;
 }
