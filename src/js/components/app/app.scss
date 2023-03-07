@@ -74,8 +74,9 @@
 // All scenes.
 
 ul {
+  align-items: start;
   display: grid;
-  grid: 'scene' 1fr / 1fr;
+  grid: 'scene' / 1fr;
   grid-area: scenes;
   inline-size: 100%;
   list-style: none;
