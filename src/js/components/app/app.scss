@@ -23,7 +23,7 @@
 
   @media (min-width: #{const.$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
-    --blurb-padding-block: 2rem 0;
+    --blurb-padding-block: 2rem;
     --blurb-padding-inline: 0;
     --info-block-size: 4rem;
     --info-max-inline-size: #{const.$max-size};
@@ -106,7 +106,6 @@ img {
   display: grid;
   grid-area: image;
   inline-size: 100%;
-  place-self: center;
   transition: opacity 1s, transform 1s;
   vertical-align: middle;
 
@@ -168,10 +167,14 @@ img {
   padding-block: var(--blurb-padding-block);
   padding-inline: var(--blurb-padding-inline);
   place-self: var(--blurb-place-self, start);
-  transition: opacity 1s;
+
+  [aria-hidden='true'] & {
+    block-size: 0;
+    overflow: hidden;
+  }
   
   [aria-hidden='false'] & {
-    opacity: 1;
+    animation: 1s .75s forwards fadeIn;
   }
 }
 
