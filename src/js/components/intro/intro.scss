@@ -206,14 +206,14 @@ h1 {
 @keyframes stars {
   0% {
     opacity: 0;
-    transform: scale(1.5) rotate(0);
+    transform: scale(2) rotate(0);
   }
   50% {
     opacity: .8;
   }
   100% {
     opacity: 0;
-    transform: scale(1) rotate(-90deg);
+    transform: scale(1.5) rotate(-90deg);
   }
 }
 
