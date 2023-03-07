@@ -11,9 +11,11 @@
   --blurb-padding-block: 1rem 0;
   --blurb-padding-inline: 1rem;
   --info-background: #{rgba(black, .75)};
+  --info-block-size: 3rem;
+  --info-inset-block: 0 auto;
   --info-padding-inline: 1rem;
   --info-position: fixed;
-  --scene-grid: 'info' #{const.$info-size} 'image' 'blurb' / auto;
+  --scene-grid: 'info' 3rem 'image' 'blurb' / auto;
   --zoom-inset-block: auto 1rem;
   --zoom-next-inset-inline: auto 1rem;
   --zoom-position: fixed;
@@ -21,12 +23,14 @@
 
   @media (min-width: #{const.$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
+    --blurb-padding-block: 2rem 0;
     --blurb-padding-inline: 0;
-    --scene-grid: '.' 0 'info' #{const.$info-size} 'image' #{const.$max-size} 'blurb' 1fr / 1fr auto;
+    --info-block-size: 4rem;
     --info-max-inline-size: #{const.$max-size};
-    --zoom-inset-block: #{math.div(const.$max-size, 2)} auto;
-    --zoom-next-inset-inline: auto 2rem;
-    --zoom-prev-inset-inline: 2rem auto;
+    --scene-grid: 'info' 4rem 'image' #{const.$max-size} 'blurb' 1fr / 1fr auto;
+    --zoom-inset-block: 50dvh auto;
+    --zoom-next-inset-inline: auto 3rem;
+    --zoom-prev-inset-inline: 3rem auto;
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
@@ -34,11 +38,13 @@
     --blurb-padding-block: 0;
     --blurb-place-self: center;
     --info-background: unset;
+    --info-block-size: 2rem;
+    --info-inset-block: unset;
     --info-max-inline-size: unset;
     --info-padding-inline: 0;
     --info-position: static;
     --scene-gap: #{const.$gap-medium};
-    --scene-grid: 'image info' #{const.$info-size} 'image blurb' 1fr 'image .' #{const.$info-size} / 1fr 1fr;
+    --scene-grid: 'image info' 2rem 'image blurb' 1fr 'image .' 2rem / 1fr 1fr;
     --scenes-place-self: center;
     --zoom-position: static;
   }
@@ -117,12 +123,12 @@ img {
 .info {
   align-items: center;
   background: var(--info-background);
-  block-size: const.$info-size;
+  block-size: var(--info-block-size);
   display: flex;
   gap: 0 1rem;
   grid-area: info;
   inline-size: 100%;
-  inset-block: 0 auto;
+  inset-block: var(--info-inset-block);
   max-inline-size: var(--info-max-inline-size);
   padding-inline: var(--info-padding-inline);
   position: var(--info-position); 
@@ -132,6 +138,10 @@ img {
   [aria-hidden='true'] & {
     opacity: 0;
   }
+}
+
+.info p {
+  margin: 0;
 }
 
 .distance {
@@ -157,14 +167,10 @@ img {
   padding-block: var(--blurb-padding-block);
   padding-inline: var(--blurb-padding-inline);
   place-self: var(--blurb-place-self, start);
-  
-  [aria-hidden='true'] & {
-    block-size: 0;
-    overflow: hidden;
-  }
+  transition: opacity 1s;
   
   [aria-hidden='false'] & {
-    animation: 1s .75s forwards fadeIn;
+    opacity: 1;
   }
 }
 
