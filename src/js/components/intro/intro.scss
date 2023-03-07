@@ -29,10 +29,18 @@ $skip-icon-size: 1.5rem;
   text-align: center;
 }
 
+header {
+  inline-size: 90vw;
+}
+
 h1 {
   font-size: clamp(1.5rem, 1.5rem + 3vw, 5rem);
   letter-spacing: .2em;
   text-transform: uppercase;
+}
+
+.tagline {
+  margin-inline: auto;
 }
 
 p {
@@ -141,35 +149,35 @@ p,
   opacity: 0;
 }
 
-.stars {
-  animation: 10s 0s 1 linear stars;
-}
-
 // "...light years"
 :host > p:nth-of-type(1) {
-  animation: 5s 2.5s 1 fade;
+  animation: 5s 0s 1 fade;
+}
+
+.stars {
+  animation: 7.5s 0s 1 linear stars;
 }
 
 .atom {
-  animation: 10s 7.5s 1 linear atom;
+  animation: 10s 5s 1 linear atom;
 }
 
 // "...atom"
 :host > p:nth-of-type(2) {
-  animation: 5s 10s 1 fade;
+  animation: 5s 7.5s 1 fade;
 }
 
 // "...forty-two scenes..."
 :host > p:nth-of-type(3) {
-  animation: 5s 17.5s 1 fade;
+  animation: 5s 15s 1 fade;
 }
 
 h1 {
-  animation: 10s 22.5s 1 fade;
+  animation: 10s 20s 1 fade;
 }
 
 .tagline {
-  animation: 5s 25s 1 fade;
+  animation: 5s 22.5s 1 fade;
 }
 
 // ----------------------------------------
@@ -212,13 +220,10 @@ h1 {
 @keyframes atom {
   0% {
     opacity: 0;
-    transform: scale(.1) rotate(0);
+    transform: scale(.01) rotate(0);
   }
   50% {
     opacity: .5;
-  }
-  75% {
-    opacity: 1;
   }
   100% {
     opacity: 0;
