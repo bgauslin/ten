@@ -136,7 +136,6 @@ button > svg {
 
 h1,
 p,
-button,
 .stars,
 .atom {
   opacity: 0;
@@ -144,10 +143,6 @@ button,
 
 .stars {
   animation: 10s 0s 1 linear stars;
-}
-
-button {
-  animation: 27.5s 0s 1 fade;
 }
 
 // "...light years"
