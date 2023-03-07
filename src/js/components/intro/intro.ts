@@ -80,6 +80,8 @@ class AppIntro extends LitElement {
     }
   }
 
+  // TODO: Simpler orbit paths. (Coordinate with CSS motion-path.)
+  // TODO: Replace single nucleus with protons and neutons (with animations).
   renderAtom() {
     return html`
       <div class="atom" aria-hidden="true">
@@ -96,6 +98,7 @@ class AppIntro extends LitElement {
     `;
   }
 
+  // TODO: Add meteors and animations.
   renderStars() {
     const bounds = 1000;
     const points = [];
