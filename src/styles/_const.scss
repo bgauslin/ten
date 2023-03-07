@@ -1,9 +1,10 @@
 // Static dimensions.
 $button-size: 2.75rem;
+$info-size: 3rem;
+$max-size: 37.5rem; // 600px
+
 $gap-small: 1rem;
 $gap-medium: 2rem;
-$gap-large: 4rem;
-$max-size: 37.5rem; // 600px
 
 // Computed dimensions.
 $button-space: $button-size + ($gap-small * 2);

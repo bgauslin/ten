@@ -57,16 +57,18 @@ class App extends LitElement {
             aria-hidden="${index !== this.scene}"  
             ?data-viewed="${index <= this.scene}">
             <img
-              alt="${image} (TEMPORARY)"
+              alt=""
               src="https://picsum.photos/600"
               srcset="https://picsum.photos/1200 1200w, https://picsum.photos/600 600w"
               sizes="(min-width: 37.5rem) 600px, 100vw">
-            <p class="distance">
-              ${distance.map(value => html`<span>${value}</span>`)}
-            </p>
-            <p class="power">
-              10<sup>${power}</sup>
-            </p>
+            <div class="info">
+              <p class="distance">
+                ${distance.map(value => html`<span>${value}</span>`)}
+              </p>
+              <p class="power">
+                10<sup>${power}</sup>
+              </p>
+            </div>
             <div class="blurb">
               ${unsafeHTML(blurb)}
             </div>
