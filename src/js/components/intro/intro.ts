@@ -54,7 +54,7 @@ class AppIntro extends LitElement {
   }
 
   render() {
-    if (this.ready) {
+    if (this.ready && this.playing) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>
