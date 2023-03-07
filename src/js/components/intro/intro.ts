@@ -12,18 +12,17 @@ import shadowStyles from './intro.scss';
 class AppIntro extends LitElement {
   @property({attribute: 'playing', type: Boolean, reflect: true}) playing = true;
   @state() animationListener: EventListenerObject;
-  @state() intro: Intro;  
-  @state() skip: boolean = false;
+  @state() intro: Intro;
   @state() ready: boolean = false;
+  @state() skip: boolean = false;
 
   static styles = css`${shadowStyles}`;
 
   connectedCallback() {
     super.connectedCallback();
-    this.fetchData();
-
     this.animationListener = this.checkAnimation.bind(this);
     this.renderRoot.addEventListener('animationend', this.animationListener);
+    this.fetchData();
   }
 
   disconnectedCallback() {
@@ -33,7 +32,6 @@ class AppIntro extends LitElement {
 
   checkAnimation(e: AnimationEvent) {
     const target = <HTMLElement>e.target;
-
     if (target.tagName === 'H1' || target.tagName === 'BUTTON' && this.skip) {
       this.playing = false;
     }
@@ -59,23 +57,21 @@ class AppIntro extends LitElement {
     if (this.ready) {
       const {copy, tagline, title} = this.intro;
       return html`
+        <header>
+          <h1>${title}</h1>
+          <p class="tagline">${tagline}</p>
+        </header>
+
+        ${unsafeHTML(copy)}
+        ${unsafeHTML(this.renderStars())}
+        ${this.renderAtom()}
+
         <button
           type="button"
           ?disabled="${this.skip}"
           @click="${() => this.skip = true}">
           Skip intro
         </button>
-
-        <div class="intro">
-          <header>
-            <h1>${title}</h1>
-            <p class="tagline">${tagline}</p>
-          </header>
-
-          ${unsafeHTML(copy)}
-          ${unsafeHTML(this.renderStars())}
-          ${this.renderAtom()}
-        </div>
       `;
     }
   }

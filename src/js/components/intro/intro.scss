@@ -7,20 +7,15 @@
 :host {
   background: black;
   block-size: 100dvh; // [1]
-  display: block;
-  overflow: hidden; // [1]
-}
-
-.intro {
   display: grid;
-  grid: 1fr / 1fr;
-  // grid-area: 1 / 1 / -1 / -1;
+  grid: 'items' 1fr / 1fr;
+  overflow: hidden; // [1]
   place-content: center;
   place-items: center;
 }
 
-.intro > * {
-  grid-area: 1 / 1 / -1 / -1;
+:host > * {
+  grid-area: items;
 }
 
 :is(h1, p) {
@@ -29,7 +24,7 @@
 }
 
 h1 {
-  font-size: clamp(1.5rem, 1.5rem + 2vw, 4rem);
+  font-size: clamp(1.5rem, 1.5rem + 3vw, 5rem);
   letter-spacing: .2em;
   text-transform: uppercase;
 }
@@ -42,10 +37,6 @@ p {
 
 // ----------------------------------------
 // Stars.
-
-.stars {
-  position: absolute;
-}
 
 .stars > circle {
   fill: white;
@@ -65,27 +56,30 @@ p {
   grid-area: 1 / 1 / -1 / -1;
 }
 
+// Electron orbits within an SVG element.
 .atom path {
   fill: none;
   stroke: white;
-  stroke-width: 2;
+  stroke-width: 1.5;
+}
+
+:is(.atom__nucleus, .atom__electron) {
+  background-color: white;
 }
 
 .atom__nucleus {
   animation: .5s infinite alternate nucleus;
-  background-color: rgba(white, .5);
-  block-size: 80px;
-  border-radius: 40px;
-  inline-size: 80px;
+  block-size: 72px;
+  border-radius: 72px;
+  inline-size: 72px;
   place-self: center;
 }
 
 .atom__electron {
   animation: 1s infinite linear electron;
-  background-color: white;
-  block-size: 40px;
-  border-radius: 20px;
-  inline-size: 40px;
+  block-size: 32px;
+  border-radius: 16px;
+  inline-size: 32px;
   place-self: start;
 }
 
@@ -135,15 +129,15 @@ button {
 }
 
 // ----------------------------------------
-// Intro animations.
+// Animations.
 
-@keyframes fadeInFadeOut {
+@keyframes fade {
   0%,
   100% {
     opacity: 0;
   }
-  25%,
-  75% {
+  30%,
+  70% {
     opacity: 1;
   }
 }
@@ -207,7 +201,7 @@ button {
 }
 
 // ----------------------------------------
-// Intro animation sequence.
+// Animation sequence.
 
 h1,
 p,
@@ -222,12 +216,12 @@ button,
 }
 
 button {
-  animation: 27.5s 0s 1 fadeInFadeOut;
+  animation: 27.5s 0s 1 fade;
 }
 
 // "...light years"
-.intro > p:nth-of-type(1) {
-  animation: 5s 2.5s 1 fadeInFadeOut;
+:host > p:nth-of-type(1) {
+  animation: 5s 2.5s 1 fade;
 }
 
 .atom {
@@ -235,19 +229,19 @@ button {
 }
 
 // "...atom"
-.intro > p:nth-of-type(2) {
-  animation: 5s 10s 1 fadeInFadeOut;
+:host > p:nth-of-type(2) {
+  animation: 5s 10s 1 fade;
 }
 
 // "...forty-two scenes..."
-.intro > p:nth-of-type(3) {
-  animation: 5s 17.5s 1 fadeInFadeOut;
+:host > p:nth-of-type(3) {
+  animation: 5s 17.5s 1 fade;
 }
 
 h1 {
-  animation: 10s 22.5s 1 fadeInFadeOut;
+  animation: 10s 22.5s 1 fade;
 }
 
 .tagline {
-  animation: 5s 25s 1 fadeInFadeOut;
+  animation: 5s 25s 1 fade;
 }

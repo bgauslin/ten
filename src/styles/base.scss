@@ -32,11 +32,13 @@ body > * {
 
 powers-of-ten-intro {
   opacity: 0;
+  pointer-events: none;
   transition: opacity 1s;
 }
 
 powers-of-ten-intro[playing] {
   opacity: 1;
+  pointer-events: auto;
 }
 
 noscript {
