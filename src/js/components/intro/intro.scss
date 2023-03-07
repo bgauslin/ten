@@ -1,7 +1,10 @@
+@use 'sass:math';
 @use '../../../styles/buttons';
 
-// ----------------------------------------
-// Intro elements.
+$atom-electron-size: 32px;
+$atom-nucleus-size: 72px;
+$atom-size: 600px; // Must match SVG viewbox.
+$skip-icon-size: 1.5rem;
 
 // [1] Prevent scrolling for scaled SVGs.
 :host {
@@ -17,6 +20,9 @@
 :host > * {
   grid-area: items;
 }
+
+// ----------------------------------------
+// Text elements.
 
 :is(h1, p) {
   margin: 0;
@@ -36,20 +42,17 @@ p {
 }
 
 // ----------------------------------------
-// Stars.
+// Graphic elements.
 
 .stars > circle {
   fill: white;
 }
 
-// ----------------------------------------
-// Atom.
-
 .atom {
-  block-size: 600px;
+  block-size: $atom-size;
   display: grid;
   grid: 'elements' 1fr / 1fr;
-  inline-size: 600px;
+  inline-size: $atom-size;
 }
 
 .atom > * {
@@ -64,22 +67,22 @@ p {
 }
 
 :is(.atom__nucleus, .atom__electron) {
-  background-color: white;
+  background: white;
 }
 
 .atom__nucleus {
   animation: .5s infinite alternate nucleus;
-  block-size: 72px;
-  border-radius: 72px;
-  inline-size: 72px;
+  block-size: $atom-nucleus-size;
+  border-radius: math.div($atom-nucleus-size, 2);
+  inline-size: $atom-nucleus-size;
   place-self: center;
 }
 
 .atom__electron {
   animation: 1s infinite linear electron;
-  block-size: 32px;
-  border-radius: 16px;
-  inline-size: 32px;
+  block-size: $atom-electron-size;
+  border-radius: math.div($atom-electron-size, 2);
+  inline-size: $atom-electron-size;
   place-self: start;
 }
 
@@ -101,31 +104,77 @@ p {
 }
 
 // ----------------------------------------
-// 'Skip intro' button.
+// 'Skip' button.
 
 button {
-  background: black;
-  border: 2px solid white;
-  border-radius: .5rem;
-  color: white;
+  align-items: center;
+  border-radius: .5em;
+  display: flex;
+  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
+  gap: 0 .25em;
   inset-block: auto 5vw;
   inset-inline: auto 5vw;
+  padding-block: .5em;
+  padding-inline: 1em .75em;
   position: fixed;
   z-index: 2;
 
   &[disabled] {
     animation: .2s fadeOut;
   }
+}
 
-  &:hover,
-  &:focus {
-    background: white;
-    color: black;
-  }
+button > svg {
+  block-size: $skip-icon-size;
+  fill: currentColor;
+  inline-size: $skip-icon-size;
+  pointer-events: none;
+}
 
-  @media (any-hover: hover) {
-    transition: background-color .2s, color .2s, transform .2s;
-  }
+// ----------------------------------------
+// Animation sequence.
+
+h1,
+p,
+button,
+.stars,
+.atom {
+  opacity: 0;
+}
+
+.stars {
+  animation: 10s 0s 1 linear stars;
+}
+
+button {
+  animation: 27.5s 0s 1 fade;
+}
+
+// "...light years"
+:host > p:nth-of-type(1) {
+  animation: 5s 2.5s 1 fade;
+}
+
+.atom {
+  animation: 10s 7.5s 1 linear atom;
+}
+
+// "...atom"
+:host > p:nth-of-type(2) {
+  animation: 5s 10s 1 fade;
+}
+
+// "...forty-two scenes..."
+:host > p:nth-of-type(3) {
+  animation: 5s 17.5s 1 fade;
+}
+
+h1 {
+  animation: 10s 22.5s 1 fade;
+}
+
+.tagline {
+  animation: 5s 25s 1 fade;
 }
 
 // ----------------------------------------
@@ -143,10 +192,10 @@ button {
 }
 
 @keyframes fadeOut {
-  from {
+  0% {
     opacity: 1;
   }
-  to {
+  100% {
     opacity: 0;
   }
 }
@@ -198,50 +247,4 @@ button {
   100% {
     transform: scale(1.1);
   }
-}
-
-// ----------------------------------------
-// Animation sequence.
-
-h1,
-p,
-button,
-.stars,
-.atom {
-  opacity: 0;
-}
-
-.stars {
-  animation: 10s 0s 1 linear stars;
-}
-
-button {
-  animation: 27.5s 0s 1 fade;
-}
-
-// "...light years"
-:host > p:nth-of-type(1) {
-  animation: 5s 2.5s 1 fade;
-}
-
-.atom {
-  animation: 10s 7.5s 1 linear atom;
-}
-
-// "...atom"
-:host > p:nth-of-type(2) {
-  animation: 5s 10s 1 fade;
-}
-
-// "...forty-two scenes..."
-:host > p:nth-of-type(3) {
-  animation: 5s 17.5s 1 fade;
-}
-
-h1 {
-  animation: 10s 22.5s 1 fade;
-}
-
-.tagline {
-  animation: 5s 25s 1 fade;
 }

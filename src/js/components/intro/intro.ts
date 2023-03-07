@@ -70,7 +70,11 @@ class AppIntro extends LitElement {
           type="button"
           ?disabled="${this.skip}"
           @click="${() => this.skip = true}">
-          Skip intro
+          Skip
+          <svg viewbox="0 0 24 24">
+            <path d="M 6,6 L 12,12 L 6,18 Z" />
+            <path d="M 14,6 L 20,12 L 14,18 Z" />
+          </svg>
         </button>
       `;
     }

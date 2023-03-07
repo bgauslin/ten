@@ -2,9 +2,10 @@
 
 button {
   appearance: none;
-  background: 0;
-  block-size: const.$button-size;
+  backdrop-filter: blur(8px);
+  background: rgba(white, .25);
   border: 0;
+  color: white;
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
@@ -17,7 +18,17 @@ button {
     pointer-events: none;
   }
 
+  &:hover,
+  &:focus {
+    background: white;
+    color: black;
+  }
+
   &:active {
     transform: scale(.8);
+  }
+
+  @media (any-hover: hover) {
+    transition: background-color .2s, color .2s, transform .2s;
   }
 }

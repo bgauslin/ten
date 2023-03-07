@@ -2,6 +2,10 @@
 @use '../../../styles/const';
 @use '../../../styles/buttons';
 
+* {
+  box-sizing: border-box;
+}
+
 :host {
   --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
   --scene-gap: #{const.$gap-small};
@@ -146,10 +150,9 @@ img {
 // Prev/next buttons.
 
 .zoom {
-  backdrop-filter: blur(8px);
-  border: 4px solid const.$button-color;
+  block-size: const.$button-size;
   border-radius: math.div(const.$button-size, 2);
-  color: const.$button-color;
+  color: #ccc;
   display: grid;
   inline-size: const.$button-size;
   inset-block: auto 1rem;
@@ -158,16 +161,6 @@ img {
   place-self: center;
   position: var(--zoom-position);
   z-index: 2;
-
-  &:hover,
-  &:focus {
-    border-color: const.$button-hover;
-    color: const.$button-hover;
-  }
-
-  @media (any-hover: hover) {
-    transition: border-color .2s, color .2s, opacity .2s, transform .2s;
-  }
 }
 
 // Prev/next buttons have fixed position on small screens, then use grid
