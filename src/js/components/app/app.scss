@@ -10,30 +10,37 @@
   --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
   --blurb-padding-block: 1rem 0;
   --blurb-padding-inline: 1rem;
-  --info-backdrop-filter: blur(16px);
+  --info-background: #{rgba(black, .75)};
   --info-padding-inline: 1rem;
   --info-position: fixed;
   --scene-grid: 'info' #{const.$info-size} 'image' 'blurb' / auto;
+  --zoom-inset-block: auto 1rem;
+  --zoom-next-inset-inline: auto 1rem;
   --zoom-position: fixed;
+  --zoom-prev-inset-inline: 1rem auto;
 
   @media (min-width: #{const.$breakpoint-1}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
     --blurb-padding-inline: 0;
     --scene-grid: '.' 0 'info' #{const.$info-size} 'image' #{const.$max-size} 'blurb' 1fr / 1fr auto;
     --info-max-inline-size: #{const.$max-size};
-    --zoom-position: static;
+    --zoom-inset-block: #{math.div(const.$max-size, 2)} auto;
+    --zoom-next-inset-inline: auto 2rem;
+    --zoom-prev-inset-inline: 2rem auto;
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size * 2} 1fr;
     --blurb-padding-block: 0;
-    --info-backdrop-filter: unset;
+    --blurb-place-self: center;
+    --info-background: unset;
     --info-max-inline-size: unset;
     --info-padding-inline: 0;
     --info-position: static;
     --scene-gap: #{const.$gap-medium};
     --scene-grid: 'image info' #{const.$info-size} 'image blurb' 1fr 'image .' #{const.$info-size} / 1fr 1fr;
     --scenes-place-self: center;
+    --zoom-position: static;
   }
 }
 
@@ -109,7 +116,7 @@ img {
 // Scene text.
 .info {
   align-items: center;
-  backdrop-filter: var(--info-backdrop-filter);
+  background: var(--info-background);
   block-size: const.$info-size;
   display: flex;
   gap: 0 1rem;
@@ -149,7 +156,7 @@ img {
   opacity: 0;
   padding-block: var(--blurb-padding-block);
   padding-inline: var(--blurb-padding-inline);
-  place-self: center;
+  place-self: var(--blurb-place-self, start);
   
   [aria-hidden='true'] & {
     block-size: 0;
@@ -187,12 +194,14 @@ img {
 // placement when the viewport gets wider.
 [id='prev'] {
   grid-area: prev;
-  inset-inline: 1rem auto;
+  inset-block: var(--zoom-inset-block);
+  inset-inline: var(--zoom-prev-inset-inline);
 }
 
 [id='next'] {
   grid-area: next;
-  inset-inline: auto 1rem;
+  inset-block: var(--zoom-inset-block);
+  inset-inline: var(--zoom-next-inset-inline);
 }
 
 // Prev/next icons.
