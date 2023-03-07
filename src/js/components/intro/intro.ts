@@ -8,7 +8,7 @@ import shadowStyles from './intro.scss';
 /**
  * Web component for Powers Of Ten intro animation.
  */
-@customElement('powers-of-ten-intro')
+@customElement('ten-intro')
 class AppIntro extends LitElement {
   @property({attribute: 'playing', type: Boolean, reflect: true}) playing = true;
   @state() animationListener: EventListenerObject;

@@ -8,7 +8,7 @@ import shadowStyles from './app.scss';
 /**
  * Web component for Powers Of Ten app.
  */
-@customElement('powers-of-ten')
+@customElement('ten-app')
 class App extends LitElement {
   @state() ready: boolean = false;
   @state() scene = 0;

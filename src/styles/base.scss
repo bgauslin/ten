@@ -30,7 +30,7 @@ body > * {
   grid-area: app;
 }
 
-powers-of-ten-intro {
+ten-intro {
   opacity: 0;
   pointer-events: none;
   position: relative;
@@ -38,9 +38,14 @@ powers-of-ten-intro {
   z-index: 3;
 }
 
-powers-of-ten-intro[playing] {
+ten-intro[playing] {
   opacity: 1;
   pointer-events: auto;
+}
+
+ten-intro[playing] + ten-app {
+  block-size: 100dvh;
+  overflow: hidden;
 }
 
 noscript {
