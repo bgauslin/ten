@@ -61,9 +61,14 @@ class AppIntro extends LitElement {
           <h1>${title}</h1>
           <p class="tagline">${tagline}</p>
         </header>
-
+        
         ${unsafeHTML(copy)}
-        ${unsafeHTML(this.renderStars())}
+        
+        <div aria-hidden="true" class="stars">
+          ${unsafeHTML(this.renderStars())}
+          ${this.renderMeteors()}
+        </div>
+
         ${this.renderAtom()}
 
         <button
@@ -95,9 +100,9 @@ class AppIntro extends LitElement {
     }
 
     return html`
-      <div class="atom" aria-hidden="true">
+      <div aria-hidden="true" class="atom">
+        <div class="nucleus"></div>  
         ${electrons}
-        <div class="nucleus"></div>
       </div>
     `;
   }
@@ -115,7 +120,7 @@ class AppIntro extends LitElement {
       points.push([cx, cy, r]);
     }
   
-    let svg = `<svg class="stars" viewbox="0 0 ${bounds} ${bounds}">`;
+    let svg = `<svg class="starfield" viewbox="0 0 ${bounds} ${bounds}">`;
     for (const point of points) {
       const [cx, cy, r] = point;
       svg += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;
@@ -123,5 +128,15 @@ class AppIntro extends LitElement {
     svg += '</svg>';
 
     return svg;
+  }
+
+  renderMeteors() {
+    const meteors = [];
+    for (let i = 0; i < 5; i++) {
+      meteors.push(html`
+        <div class="meteor" id="meteor-${i + 1}"></div>
+      `);
+    }
+    return html`${meteors}`;
   }
 }

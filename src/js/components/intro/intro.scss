@@ -4,6 +4,7 @@
 $atom-particle-size: 12px;
 $atom-nucleus-size: 24px;
 $atom-size: 200px; // Must match SVG viewbox.
+$meteor-size: 250px;
 $skip-icon-size: 1.5rem;
 
 // [1] Prevent scrolling for scaled SVGs.
@@ -50,15 +51,40 @@ p {
 }
 
 // ----------------------------------------
-// Graphic elements.
+// Stars graphics.
 
 .stars {
+  block-size: 1000px;
   clip-path: circle(50%);
+  inline-size: 1000px;
 }
 
-.stars > circle {
+.starfield circle {
   fill: white;
 }
+
+.meteor { 
+  animation: 5s linear infinite meteor;
+  background-image: linear-gradient(to right, white, rgba(white, 0));
+  block-size: 1px;
+  inline-size: $meteor-size;
+  position: absolute;
+  transform: rotate(-45deg);
+}
+
+@for $i from 1 through 5 {
+  $xOffset: random(90) + 9;
+  $yOffset: random(1000) + 50;
+
+  [id='meteor-#{$i}'] {
+    animation-delay: #{$i * 2}s;
+    inset-block-start: #{$yOffset}px;
+    inset-inline-start: ($xOffset * 1%);
+  }
+}
+
+// ----------------------------------------
+// Atom graphics.
 
 .atom {
   block-size: $atom-size;
@@ -149,6 +175,7 @@ button > svg {
 h1,
 p,
 .stars,
+.meteor,
 .atom {
   opacity: 0;
 }
@@ -159,7 +186,11 @@ p,
 }
 
 .stars {
-  animation: 7.5s 0s 1 linear stars;
+  animation: 7.5s 0s 1 linear fade;
+}
+
+.starfield {
+  animation: 7.5s 0s 1 linear starfield;
 }
 
 .atom {
@@ -207,31 +238,42 @@ h1 {
   }
 }
 
-@keyframes stars {
+@keyframes starfield {
   0% {
-    opacity: 0;
-    transform: scale(1.5) rotate(0);
-  }
-  50% {
-    opacity: .8;
+    transform: rotate(0) scale(1.5);
   }
   100% {
+    transform: rotate(-90deg) scale(1);
+  }
+}
+
+@keyframes meteor {
+  0% {
+    margin-block-start: ($meteor-size * -1);
+    margin-right: ($meteor-size * -1); //
+    opacity: 1;
+  }
+  12%,
+  100% {
     opacity: 0;
-    transform: scale(1) rotate(-90deg);
+  }
+  15% {
+    margin-block-start: $meteor-size;
+    margin-left: ($meteor-size * -2); //
   }
 }
 
 @keyframes atom {
   0% {
     opacity: 0;
-    transform: scale(.1) rotate(0);
+    transform: rotate(0) scale(.1);
   }
   50% {
     opacity: .5;
   }
   100% {
     opacity: 0;
-    transform: scale(4) rotate(360deg);
+    transform: rotate(360deg) scale(4);
   }
 }
 
