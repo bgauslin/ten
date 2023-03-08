@@ -1,9 +1,14 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {AppData, Intro} from '../../shared';
 
 import shadowStyles from './intro.scss';
+
+interface Intro {
+  copy: string[],
+  tagline: string,
+  title: string,
+}
 
 /**
  * Web component for Powers Of Ten intro animation.
@@ -47,13 +52,13 @@ class AppIntro extends LitElement {
     }
   }
 
-  async fetchData(): Promise<AppData> {
+  async fetchData(): Promise<Intro> {
     if (this.ready) {
       return;
     }
 
     try {
-      const response = await fetch('https://gauslin.com/api/ten.json');
+      const response = await fetch('https://gauslin.com/api/ten/intro.json');
       const data = await response.json();
       this.intro = data.intro;
       this.ready = true;
@@ -76,8 +81,8 @@ class AppIntro extends LitElement {
           <h1>${title}</h1>
           <p class="tagline">${tagline}</p>
         </header>
-        
-        ${unsafeHTML(copy)}
+
+        ${copy.map(blurb => html`<p>${blurb}</p>`)}
         
         <div aria-hidden="true" class="stars">
           ${unsafeHTML(this.renderStars())}

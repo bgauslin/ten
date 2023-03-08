@@ -1,9 +1,15 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {AppData, Scene} from '../../shared';
 
 import shadowStyles from './app.scss';
+
+interface Scene {
+  blurb: string,
+  distance: string[],
+  image: string,
+  power: string,
+}
 
 /**
  * Web component for Powers Of Ten app.
@@ -29,13 +35,13 @@ class App extends LitElement {
     window.removeEventListener('popstate', this.popstateListener, false);
   }
 
-  async fetchData(): Promise<AppData> {
+  async fetchData(): Promise<Scene[]> {
     if (this.ready) {
       return;
     }
 
     try {
-      const response = await fetch('https://gauslin.com/api/ten.json');
+      const response = await fetch('https://gauslin.com/api/ten/scenes.json');
       const data = await response.json();
       this.scenes = data.scenes;
       this.updateScene();
