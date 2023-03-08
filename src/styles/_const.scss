@@ -2,12 +2,6 @@
 $button-size: 2.75rem;
 $max-size: 37.5rem; // 600px
 
-$gap-small: 1rem;
-$gap-medium: 2rem;
-
-// Computed dimensions.
-$button-space: $button-size + ($gap-small * 2);
-
 // Computed breakpoints based on content.
-$breakpoint-1: $max-size + ($button-space * 2);
-$breakpoint-2: ($max-size * 2) + ($button-space * 2);
+$breakpoint-1: $max-size + ($button-size * 2) + 6rem;
+$breakpoint-2: ($max-size * 2) + ($button-size * 2);

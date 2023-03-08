@@ -7,9 +7,9 @@
 }
 
 :host {
-  --app-grid: 'scenes scenes scenes' 1fr '. . .' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
+  --app-grid: 'scenes' 1fr / 1fr;
   --blurb-background: #{rgba(black, .5)};
-  --blurb-padding-block: 1rem 0;
+  --blurb-padding-block: 1rem #{const.$button-size + 1rem};
   --blurb-padding-inline: 1rem;
   --buffer-display: block;
   --image-position: fixed;
@@ -30,9 +30,9 @@
     --buffer-display: none;
     --info-block-size: 4rem;
     --scene-grid: 'info' 4rem 'image' #{const.$max-size} 'blurb' 1fr / 1fr auto;
-    --zoom-inset-block: 50dvh auto;
-    --zoom-next-inset-inline: auto 3rem;
-    --zoom-prev-inset-inline: 3rem auto;
+    --zoom-inset-block: calc(50dvh - #{math.div(const.$button-size, 2)}) auto;
+    --zoom-next-inset-inline: auto 2rem;
+    --zoom-prev-inset-inline: 2rem auto;
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
@@ -46,7 +46,7 @@
     --info-max-inline-size: unset; // TODO: Rename/refactor.
     --info-padding-inline: 0;
     --info-position: static;
-    --scene-gap: #{const.$gap-medium};
+    --scene-gap: 3rem;
     --scene-grid: 'image info' 2rem 'image blurb' 1fr 'image .' 2rem / 1fr 1fr;
     --scenes-place-self: center;
     --zoom-position: static;
