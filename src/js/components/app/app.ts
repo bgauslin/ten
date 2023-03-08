@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {AppData, Scene, SCENE_COUNT} from '../../shared';
+import {AppData, Scene} from '../../shared';
 
 import shadowStyles from './app.scss';
 
@@ -46,7 +46,7 @@ class App extends LitElement {
   }
 
   nextScene() {
-    if (this.scene < SCENE_COUNT) {
+    if (this.scene < this.scenes.length) {
       this.scene += 1;
       this.updateUrl();
     }
@@ -68,7 +68,7 @@ class App extends LitElement {
     const {pathname} = window.location;
     const slug = pathname.split('/');
     const scene = Number(slug[1]);
-    if (scene > 0 && scene <= SCENE_COUNT) {
+    if (scene > 0 && scene <= this.scenes.length) {
       this.scene = scene - 1;
     } else {
       history.replaceState(null, '', '');
@@ -89,7 +89,7 @@ class App extends LitElement {
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
-        const {blurb, distance, image, power} = scene;
+        const {blurb, distance, power} = scene;
         return html`
           <li
             aria-hidden="${index !== this.scene}"  
@@ -126,7 +126,7 @@ class App extends LitElement {
         ?disabled="${this.scene === 0}"
         @click="${this.prevScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
-          <line x1="6" y1="12" x2="18" y2="12"/>
+          <path d="M7,12 h10"/>
         </svg>
       </button>
     `;
@@ -141,8 +141,7 @@ class App extends LitElement {
         ?disabled="${this.scene === this.scenes.length - 1}"
         @click="${this.nextScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
-          <line x1="6" y1="12" x2="18" y2="12"/>
-          <line x1="12" y1="6" x2="12" y2="18"/>
+          <path d="M6,12 h12 M12,6 v12"/>
         </svg>
       </button>
     `;

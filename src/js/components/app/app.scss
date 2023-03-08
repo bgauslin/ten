@@ -217,12 +217,9 @@ img {
 // Prev/next icons.
 svg {
   block-size: auto;
-  fill: currentColor;
+  fill: none;
   inline-size: 100%;
   pointer-events: none;
-}
-
-line {
   stroke: currentColor;
   stroke-width: 2px;
 }

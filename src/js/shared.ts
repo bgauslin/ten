@@ -15,5 +15,3 @@ export interface Scene {
   image: string,
   power: string,
 }
-
-export const SCENE_COUNT = 42;
