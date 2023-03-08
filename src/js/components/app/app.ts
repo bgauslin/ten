@@ -16,7 +16,11 @@ interface Scene {
  */
 @customElement('ten-app')
 class App extends LitElement {
+  @state() hasSlug: Boolean = false;
+  @state() intro?: HTMLElement;
+  @state() introObserver: MutationObserver;
   @state() popstateListener: EventListenerObject;
+  @state() playing: boolean = false;
   @state() ready: boolean = false;
   @state() scene = 0;
   @state() scenes: Scene[];
@@ -26,6 +30,7 @@ class App extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.fetchData();
+    this.watchIntro();
     this.popstateListener = this.updateScene.bind(this);
     window.addEventListener('popstate', this.popstateListener, false);
   }
@@ -33,6 +38,25 @@ class App extends LitElement {
   disconnectedCallback() {
     super.connectedCallback();
     window.removeEventListener('popstate', this.popstateListener, false);
+    this.introObserver.disconnect();
+  }
+
+  watchIntro() {
+    this.intro = document.querySelector('ten-intro');
+    if (this.intro) {
+      this.introObserver = new MutationObserver(this.waitForIntro.bind(this));
+      this.introObserver.observe(this.intro, {attributes: true});
+    }
+  }
+
+  waitForIntro(records: MutationRecord[]) {
+    for (const mutation of records) {
+      const {attributeName, target} = mutation;
+      this.playing = (<HTMLElement>target).hasAttribute('playing');
+      if (attributeName === 'playing' && !this.playing && !this.hasSlug) {
+        history.replaceState(null, '', '/1');
+      }
+    }
   }
 
   async fetchData(): Promise<Scene[]> {
@@ -53,13 +77,16 @@ class App extends LitElement {
 
   updateScene() {
     const {pathname} = window.location;
-    const slug = pathname.split('/');
-    const scene = Number(slug[1]);
-    if (scene > 0 && scene <= this.scenes.length) {
-      this.scene = scene - 1;
+    const slugs = pathname.split('/');
+    const slug = Number(slugs[1]);
+
+    if (slug > 0 && slug <= this.scenes.length) {
+      this.scene = slug - 1;
+      this.hasSlug = true;
     } else {
       this.scene = 0;
-      history.replaceState(null, '', '/1'); // TODO
+      const url = this.playing ? '/' : '/1';
+      history.replaceState(null, '', url);
     }
   }
 
