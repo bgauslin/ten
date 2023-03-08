@@ -59,8 +59,7 @@ class AppIntro extends LitElement {
 
     try {
       const response = await fetch('https://gauslin.com/api/ten/intro.json');
-      const data = await response.json();
-      this.intro = data.intro;
+      this.intro = await response.json();
       this.ready = true;
     } catch (error) {
       console.warn(error);

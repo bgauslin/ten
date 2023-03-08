@@ -42,8 +42,7 @@ class App extends LitElement {
 
     try {
       const response = await fetch('https://gauslin.com/api/ten/scenes.json');
-      const data = await response.json();
-      this.scenes = data.scenes;
+      this.scenes = await response.json();
       this.updateScene();
       this.ready = true;
     } catch (error) {
