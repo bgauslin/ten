@@ -23,6 +23,45 @@ $skip-icon-size: 1.5rem;
 }
 
 // ----------------------------------------
+// 'Skip' button.
+
+button {
+  align-items: center;
+  border-radius: .5em;
+  display: flex;
+  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
+  gap: 0 .25em;
+  inset-block: auto 5vw;
+  inset-inline: auto 5vw;
+  padding-block: .5em;
+  padding-inline: 1em .75em;
+  position: fixed;
+  z-index: 2;
+
+  &[disabled] {
+    animation: .2s fadeOut;
+  }
+}
+
+button > svg {
+  block-size: $skip-icon-size;
+  fill: currentColor;
+  inline-size: $skip-icon-size;
+  pointer-events: none;
+}
+
+// ----------------------------------------
+// Initial state for animated elements.
+
+h1,
+p,
+.stars,
+.meteor,
+.atom {
+  opacity: 0;
+}
+
+// ----------------------------------------
 // Text elements.
 
 :is(h1, p) {
@@ -141,46 +180,11 @@ p {
   transform: rotate(-120deg);
 }
 
-// ----------------------------------------
-// 'Skip' button.
-
-button {
-  align-items: center;
-  border-radius: .5em;
-  display: flex;
-  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
-  gap: 0 .25em;
-  inset-block: auto 5vw;
-  inset-inline: auto 5vw;
-  padding-block: .5em;
-  padding-inline: 1em .75em;
-  position: fixed;
-  z-index: 2;
-
-  &[disabled] {
-    animation: .2s fadeOut;
-  }
-}
-
-button > svg {
-  block-size: $skip-icon-size;
-  fill: currentColor;
-  inline-size: $skip-icon-size;
-  pointer-events: none;
-}
 
 // ----------------------------------------
 // Animation sequence.
 
-h1,
-p,
-.stars,
-.meteor,
-.atom {
-  opacity: 0;
-}
-
-// "...light years"
+// "light years"
 :host > p:nth-of-type(1) {
   animation: 5s 0s 1 fade;
 }
@@ -197,12 +201,12 @@ p,
   animation: 10s 5s 1 linear atom;
 }
 
-// "...atom"
+// "atom"
 :host > p:nth-of-type(2) {
   animation: 5s 7.5s 1 fade;
 }
 
-// "...forty-two scenes..."
+// "forty-two scenes"
 :host > p:nth-of-type(3) {
   animation: 5s 15s 1 fade;
 }
