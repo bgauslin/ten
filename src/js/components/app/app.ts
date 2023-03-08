@@ -20,7 +20,7 @@ class App extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.fetchData();
-    this.popstateListener = this.updateApp.bind(this);
+    this.popstateListener = this.updateScene.bind(this);
     window.addEventListener('popstate', this.popstateListener, false);
   }
 
@@ -38,10 +38,23 @@ class App extends LitElement {
       const response = await fetch('https://gauslin.com/api/ten.json');
       const data = await response.json();
       this.scenes = data.scenes;
+      this.updateScene();
       this.ready = true;
     } catch (error) {
       console.warn(error);
       return;
+    }
+  }
+
+  updateScene() {
+    const {pathname} = window.location;
+    const slug = pathname.split('/');
+    const scene = Number(slug[1]);
+    if (scene > 0 && scene <= this.scenes.length) {
+      this.scene = scene - 1;
+    } else {
+      this.scene = 0;
+      history.replaceState(null, '', '/1'); // TODO
     }
   }
 
@@ -62,18 +75,7 @@ class App extends LitElement {
   updateWindow() {
     const slug = this.scene + 1;
     history.pushState(null, '', slug.toString());
-    window.scrollTo(0, 0);
-  }
-
-  updateApp() {
-    const {pathname} = window.location;
-    const slug = pathname.split('/');
-    const scene = Number(slug[1]);
-    if (scene > 0 && scene <= this.scenes.length) {
-      this.scene = scene - 1;
-    } else {
-      history.replaceState(null, '', '');
-    }
+    window.requestAnimationFrame(() => window.scrollTo(0, 0));
   }
 
   render() {
