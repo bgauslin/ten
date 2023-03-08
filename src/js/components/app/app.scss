@@ -7,26 +7,28 @@
 }
 
 :host {
-  --app-grid: 'scenes scenes scenes' 1fr 'prev . next' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
+  --app-grid: 'scenes scenes scenes' 1fr '. . .' #{const.$button-space} / #{const.$button-space} 1fr #{const.$button-space};
+  --blurb-background: #{rgba(black, .5)};
   --blurb-padding-block: 1rem 0;
   --blurb-padding-inline: 1rem;
-  --info-background: #{rgba(black, .75)};
+  --buffer-display: block;
+  --image-position: fixed;
   --info-block-size: 3rem;
   --info-inset-block: 0 auto;
+  --info-max-inline-size: #{const.$max-size}; // TODO: Rename/refactor.
   --info-padding-inline: 1rem;
   --info-position: fixed;
-  --scene-grid: 'info' 3rem 'image' 'blurb' / auto;
+  --scene-grid: 'info' 3rem 'image' 'buffer' 'blurb' / auto;
   --zoom-inset-block: auto 1rem;
   --zoom-next-inset-inline: auto 1rem;
   --zoom-position: fixed;
   --zoom-prev-inset-inline: 1rem auto;
 
   @media (min-width: #{const.$breakpoint-1}) {
-    --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size} 1fr;
-    --blurb-padding-block: 2rem;
-    --blurb-padding-inline: 0;
+    --app-grid: '. scenes .' 1fr / 1fr #{const.$max-size} 1fr;
+    --blurb-padding-block: 1rem;
+    --buffer-display: none;
     --info-block-size: 4rem;
-    --info-max-inline-size: #{const.$max-size};
     --scene-grid: 'info' 4rem 'image' #{const.$max-size} 'blurb' 1fr / 1fr auto;
     --zoom-inset-block: 50dvh auto;
     --zoom-next-inset-inline: auto 3rem;
@@ -36,11 +38,12 @@
   @media (min-width: #{const.$breakpoint-2}) {
     --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-size * 2} 1fr;
     --blurb-padding-block: 0;
+    --blurb-padding-inline: 0;
     --blurb-place-self: center;
-    --info-background: unset;
+    --image-position: static;
     --info-block-size: 2rem;
     --info-inset-block: unset;
-    --info-max-inline-size: unset;
+    --info-max-inline-size: unset; // TODO: Rename/refactor.
     --info-padding-inline: 0;
     --info-position: static;
     --scene-gap: #{const.$gap-medium};
@@ -81,8 +84,9 @@ ul {
   inline-size: 100%;
   list-style: none;
   margin: 0;
+  max-inline-size: var(--info-max-inline-size); // TODO: Rename/refactor.
   padding: 0;
-  place-self: var(--scenes-place-self, start);
+  place-self: var(--scenes-place-self, start center);
   position: relative;
   z-index: 1;
 }
@@ -106,8 +110,10 @@ img {
   display: grid;
   grid-area: image;
   inline-size: 100%;
+  inset-block: var(--info-block-size);
+  max-inline-size: const.$max-size;
+  position: var(--image-position);
   transition: opacity 1s, transform 1s;
-  vertical-align: middle;
 
   [aria-hidden='true'] & {
     opacity: 0;
@@ -122,14 +128,13 @@ img {
 // Scene text.
 .info {
   align-items: center;
-  background: var(--info-background);
   block-size: var(--info-block-size);
   display: flex;
   gap: 0 1rem;
   grid-area: info;
   inline-size: 100%;
   inset-block: var(--info-inset-block);
-  max-inline-size: var(--info-max-inline-size);
+  max-inline-size: var(--info-max-inline-size); // TODO: Rename/refactor.
   padding-inline: var(--info-padding-inline);
   position: var(--info-position); 
   transition: opacity 1s;
@@ -161,7 +166,21 @@ img {
   margin-inline: .125em 0;
 }
 
+// Presentational element that provides a big gap before the blurb equal to the
+// image's height. Since the image is fixed, this makes the blurb start where
+// expected (instead of on top of the image) and makes it scroll over the image
+// on small screens, which is nicer than scrolling both the image and blurb.
+hr {
+  aspect-ratio: 1;
+  border: 0;
+  display: var(--buffer-display);
+  grid-area: buffer;
+  inline-size: 100%;
+  margin: 0;
+}
+
 .blurb {
+  background: var(--blurb-background);
   grid-area: blurb;
   opacity: 0;
   padding-block: var(--blurb-padding-block);

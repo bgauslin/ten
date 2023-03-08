@@ -48,20 +48,21 @@ class App extends LitElement {
   nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateUrl();
+      this.updateWindow();
     }
   }
 
   prevScene() {
     if (this.scene > 0) {
       this.scene -= 1;
-      this.updateUrl();
+      this.updateWindow();
     }
   }
 
-  updateUrl() {
+  updateWindow() {
     const slug = this.scene + 1;
     history.pushState(null, '', slug.toString());
+    window.scrollTo(0, 0);
   }
 
   updateApp() {
@@ -107,6 +108,7 @@ class App extends LitElement {
                 10<sup>${power}</sup>
               </p>
             </div>
+            <hr>
             <div class="blurb">
               ${unsafeHTML(blurb)}
             </div>
