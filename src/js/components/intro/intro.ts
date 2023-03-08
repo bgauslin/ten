@@ -116,7 +116,7 @@ class AppIntro extends LitElement {
     for (let i = 0; i < qty; i++) {
       const cx = Math.floor(Math.random() * bounds);
       const cy = Math.floor(Math.random() * bounds);
-      const r = (Math.floor(Math.random() * 3) + 1) / 2;
+      const r = (Math.floor(Math.random() * 2) + 1) / 2;
       points.push([cx, cy, r]);
     }
   

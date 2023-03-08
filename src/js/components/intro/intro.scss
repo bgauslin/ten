@@ -53,7 +53,7 @@ p {
 // ----------------------------------------
 // Stars graphics.
 
-.stars {
+.starfield {
   block-size: 1000px;
   clip-path: circle(50%);
   inline-size: 1000px;
@@ -240,10 +240,10 @@ h1 {
 
 @keyframes starfield {
   0% {
-    transform: rotate(0) scale(1.5);
+    transform: rotate(0) scale(2.5);
   }
   100% {
-    transform: rotate(-90deg) scale(1);
+    transform: rotate(-90deg) scale(1.5);
   }
 }
 
