@@ -22,7 +22,17 @@ class AppIntro extends LitElement {
     super.connectedCallback();
     this.animationListener = this.checkAnimation.bind(this);
     this.renderRoot.addEventListener('animationend', this.animationListener);
-    this.fetchData();
+    this.getStorage();
+  }
+
+  getStorage() {
+    const skip = JSON.parse(localStorage.getItem('skip'));
+    if (skip) {
+      this.skip = true;
+      this.playing = false;
+    } else {
+      this.fetchData();
+    }
   }
 
   disconnectedCallback() {
@@ -53,6 +63,11 @@ class AppIntro extends LitElement {
     }
   }
 
+  skipIntro() {
+    this.skip = true;
+    localStorage.setItem('skip', JSON.stringify(this.skip));
+  }
+
   render() {
     if (this.ready && this.playing) {
       const {copy, tagline, title} = this.intro;
@@ -74,7 +89,7 @@ class AppIntro extends LitElement {
         <button
           type="button"
           ?disabled="${this.skip}"
-          @click="${() => this.skip = true}">
+          @click="${this.skipIntro}">
           Skip
           <svg viewbox="0 0 24 24">
             <path d="M 6,6 L 12,12 L 6,18 Z" />
