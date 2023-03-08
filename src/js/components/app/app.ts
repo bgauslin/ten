@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {AppData, Scene} from '../../shared';
+import {AppData, Scene, SCENE_COUNT} from '../../shared';
 
 import shadowStyles from './app.scss';
 
@@ -10,6 +10,7 @@ import shadowStyles from './app.scss';
  */
 @customElement('ten-app')
 class App extends LitElement {
+  @state() popstateListener: EventListenerObject;
   @state() ready: boolean = false;
   @state() scene = 0;
   @state() scenes: Scene[];
@@ -19,6 +20,13 @@ class App extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.fetchData();
+    this.popstateListener = this.updateApp.bind(this);
+    window.addEventListener('popstate', this.popstateListener, false);
+  }
+
+  disconnectedCallback() {
+    super.connectedCallback();
+    window.removeEventListener('popstate', this.popstateListener, false);
   }
 
   async fetchData(): Promise<AppData> {
@@ -34,6 +42,36 @@ class App extends LitElement {
     } catch (error) {
       console.warn(error);
       return;
+    }
+  }
+
+  nextScene() {
+    if (this.scene < SCENE_COUNT) {
+      this.scene += 1;
+      this.updateUrl();
+    }
+  }
+
+  prevScene() {
+    if (this.scene > 0) {
+      this.scene -= 1;
+      this.updateUrl();
+    }
+  }
+
+  updateUrl() {
+    const slug = this.scene + 1;
+    history.pushState(null, '', slug.toString());
+  }
+
+  updateApp() {
+    const {pathname} = window.location;
+    const slug = pathname.split('/');
+    const scene = Number(slug[1]);
+    if (scene > 0 && scene <= SCENE_COUNT) {
+      this.scene = scene - 1;
+    } else {
+      history.replaceState(null, '', '');
     }
   }
 
@@ -86,7 +124,7 @@ class App extends LitElement {
         id="prev"
         title="Zoom out to previous scene"
         ?disabled="${this.scene === 0}"
-        @click="${() => this.scene -= 1}">
+        @click="${this.prevScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
         </svg>
@@ -101,7 +139,7 @@ class App extends LitElement {
         id="next"
         title="Zoom in to next scene"
         ?disabled="${this.scene === this.scenes.length - 1}"
-        @click="${() => this.scene += 1}">
+        @click="${this.nextScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <line x1="6" y1="12" x2="18" y2="12"/>
           <line x1="12" y1="6" x2="12" y2="18"/>
