@@ -51,21 +51,11 @@ button > svg {
 }
 
 // ----------------------------------------
-// Initial state for animated elements.
-
-h1,
-p,
-.stars,
-.meteor,
-.atom {
-  opacity: 0;
-}
-
-// ----------------------------------------
 // Text elements.
 
 :is(h1, p) {
   margin: 0;
+  opacity: 0;
   text-align: center;
 }
 
@@ -92,6 +82,10 @@ p {
 // ----------------------------------------
 // Stars graphics.
 
+.stars {
+  opacity: 0;
+}
+
 .starfield {
   block-size: 1000px;
   clip-path: circle(50%);
@@ -99,27 +93,47 @@ p {
 }
 
 .starfield circle {
-  fill: white;
+  fill: #999;
 }
 
-.meteor { 
-  animation: 5s linear infinite meteor;
+.meteor {
+  animation: .5s meteor;
   background-image: linear-gradient(to right, white, rgba(white, 0));
   block-size: 1px;
   inline-size: $meteor-size;
+  opacity: 0;
   position: absolute;
   transform: rotate(-45deg);
 }
 
-@for $i from 1 through 5 {
-  $xOffset: random(90) + 9;
-  $yOffset: random(1000) + 50;
+[id='meteor-1'] {
+  animation-delay: 1s;
+  inset-block: 10% auto;
+  inset-inline: 40% auto;
+}
 
-  [id='meteor-#{$i}'] {
-    animation-delay: #{$i * 2}s;
-    inset-block-start: #{$yOffset}px;
-    inset-inline-start: ($xOffset * 1%);
-  }
+[id='meteor-2'] {
+  animation-delay: 3s;
+  inset-block: 80% auto;
+  inset-inline: 60% auto;
+}
+
+[id='meteor-3'] {
+  animation-delay: 4s;
+  inset-block: 60% auto;
+  inset-inline: 40% auto;
+}
+
+[id='meteor-4'] {
+  animation-delay: 4.5s;
+  inset-block: 25% auto;
+  inset-inline: 20% auto;
+}
+
+[id='meteor-5'] {
+  animation-delay: 6s;
+  inset-block: 15% auto;
+  inset-inline: 30% auto;
 }
 
 // ----------------------------------------
@@ -130,6 +144,7 @@ p {
   display: grid;
   grid: 'elements' 1fr / 1fr;
   inline-size: $atom-size;
+  opacity: 0;
 }
 
 .atom > * {
@@ -179,7 +194,6 @@ p {
 [id='electron-3'] {
   transform: rotate(-120deg);
 }
-
 
 // ----------------------------------------
 // Animation sequence.
@@ -253,17 +267,17 @@ h1 {
 
 @keyframes meteor {
   0% {
-    margin-block-start: ($meteor-size * -1);
-    margin-right: ($meteor-size * -1); //
+    margin-block: ($meteor-size * -2) 0;
+    margin-inline: ($meteor-size * 2) 0;
+  }
+  10%,
+  50% {
     opacity: 1;
   }
-  12%,
   100% {
+    margin-block: ($meteor-size * 2) 0;
+    margin-inline: ($meteor-size * -2) 0;
     opacity: 0;
-  }
-  15% {
-    margin-block-start: $meteor-size;
-    margin-left: ($meteor-size * -2); //
   }
 }
 

@@ -122,7 +122,6 @@ class AppIntro extends LitElement {
     `;
   }
 
-  // TODO: Refine meteor placement.
   renderStars() {
     const bounds = 1000;
     const points = [];
