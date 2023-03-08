@@ -100,7 +100,7 @@ class AppIntro extends LitElement {
     }
   }
 
-  // TODO: Replace single nucleus with protons and neutons (with animations).
+  // TODO: Replace nucleus with 6 particles (with animations).
   renderAtom() {
     const electrons = [];
     for (let i = 0; i < 3; i++) {
@@ -122,7 +122,7 @@ class AppIntro extends LitElement {
     `;
   }
 
-  // TODO: Add meteors and animations.
+  // TODO: Refine meteor placement.
   renderStars() {
     const bounds = 1000;
     const points = [];
