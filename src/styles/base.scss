@@ -51,3 +51,7 @@ ten-intro[playing] + ten-app {
 noscript {
   place-self: center;
 }
+
+:not(:defined) {
+  display: none;
+}
