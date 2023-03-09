@@ -52,7 +52,6 @@ class Scenes extends LitElement {
 
   updateUrl() {
     history.pushState(null, '', this.scene.toString());
-    window.requestAnimationFrame(() => window.scrollTo(0, 0)); // TODO
   }
 
   render() {
