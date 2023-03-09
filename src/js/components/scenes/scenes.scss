@@ -7,7 +7,10 @@
 }
 
 :host {
-  --app-grid: 'scenes' 1fr / 1fr;
+  --grid: 'scenes' 1fr / 1fr;
+  --max-inline-size: #{const.$max-width};
+  --overflow: scroll;
+
   --blurb-background: #{rgba(black, .5)};
   --blurb-padding-block: 1rem #{const.$button-size + 1rem};
   --blurb-padding-inline: 1rem;
@@ -17,7 +20,6 @@
   --info-inset-block: 0 auto;
   --info-padding-inline: 1rem;
   --info-position: fixed;
-  --max-inline-size: #{const.$max-width}; // 'global' for multiple elements
   --scene-grid: 'info' 3rem 'image' 'buffer' 'blurb' 1fr / auto;
   --zoom-inset-block: auto 1rem;
   --zoom-next-inset-inline: auto 1rem;
@@ -25,7 +27,8 @@
   --zoom-prev-inset-inline: 1rem auto;
 
   @media (min-width: #{const.$breakpoint-1}) {
-    --app-grid: '. scenes .' 1fr / 1fr #{const.$max-width} 1fr;
+    --grid: '. scenes .' 1fr / 1fr #{const.$max-width} 1fr;
+
     --blurb-padding-block: 1rem;
     --buffer-display: none;
     --info-block-size: 4rem;
@@ -36,7 +39,10 @@
   }
 
   @media (min-width: #{const.$breakpoint-2}) {
-    --app-grid: 'prev scenes next' 1fr / 1fr #{const.$max-width * 2} 1fr;
+    --grid: 'prev scenes next' 1fr / 1fr #{const.$max-width * 2} 1fr;
+    --max-inline-size: unset;
+    --overflow: hidden;
+
     --blurb-padding-block: 0;
     --blurb-padding-inline: 0;
     --blurb-place-self: center;
@@ -45,7 +51,6 @@
     --info-inset-block: unset;
     --info-padding-inline: 0;
     --info-position: static;
-    --max-inline-size: unset;
     --scene-gap: 3rem;
     --scene-grid: 'image info' 2rem 'image blurb' 1fr 'image .' 2rem / 1fr 1fr;
     --scenes-place-self: center;
@@ -66,8 +71,8 @@
 :host {
   block-size: 100dvh;
   display: grid;
-  grid: var(--app-grid);
-  overflow: scroll;
+  grid: var(--grid);
+  overflow: var(--overflow);
 }
 
 // ----------------------------------------
@@ -84,8 +89,6 @@ ul {
   max-inline-size: var(--max-inline-size);
   padding: 0;
   place-self: var(--scenes-place-self, start center);
-  position: relative;
-  z-index: 1;
 }
 
 // ----------------------------------------

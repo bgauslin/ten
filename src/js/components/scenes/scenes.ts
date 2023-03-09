@@ -32,6 +32,7 @@ class Scenes extends LitElement {
     try {
       const response = await fetch(ENDPOINT);
       this.scenes = await response.json();
+      // this.sendInfo(); // TODO
     } catch (error) {
       console.warn(error);
       return;
@@ -41,19 +42,32 @@ class Scenes extends LitElement {
   nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateUrl();
+      this.updateApp();
     }
   }
 
   prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
-      this.updateUrl();
+      this.updateApp();
     }
   }
 
-  updateUrl() {
+  updateApp() {
     history.pushState(null, '', this.scene.toString());
+    this.sendInfo();
+  }
+
+  sendInfo() {
+    const {distance, power} = this.scenes[this.scene - 1];
+    this.dispatchEvent(new CustomEvent('info', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        distance: distance[0],
+        power,
+      }
+    }));
   }
 
   render() {

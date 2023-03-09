@@ -17,7 +17,9 @@ interface Intro {
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
-  @property({attribute: 'play', type: Boolean, reflect: true}) playIntro = false;
+  @property({type: Boolean, reflect: true, attribute: 'play'}) playIntro = false;
+  @property({type: Boolean, reflect: true}) skipped = false;
+
   @state() animationListener: EventListenerObject;
   @state() intro: Intro;
   @state() storage = 'intro';
@@ -54,19 +56,21 @@ class AppIntro extends LitElement {
   play() {
     const storage = JSON.parse(localStorage.getItem(this.storage));
     if (storage) {
-      this.playIntro = !storage.skip;
+      const {skip} = storage;
+      this.playIntro = !skip;
+      this.skipped = skip;
     }
   }
 
   stop(event: AnimationEvent) {
     const target = <HTMLElement>event.target;
-    if (target.tagName.toLowerCase() === 'h1') {
+    if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
       this.playIntro = false;
     }
   }
 
   skip() {
-    this.playIntro = false;
+    this.skipped = true;
     localStorage.setItem(this.storage, JSON.stringify({skip: true}));
   }
 
@@ -90,7 +94,7 @@ class AppIntro extends LitElement {
 
         <button
           type="button"
-          ?disabled="${!this.play}"
+          ?disabled="${this.skipped}"
           @click="${this.skip}">
           Skip
           <svg viewbox="0 0 24 24">

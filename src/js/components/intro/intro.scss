@@ -13,9 +13,21 @@ $skip-icon-size: 1.5rem;
   block-size: 100dvh; // [1]
   display: grid;
   grid: 'items' 1fr / 1fr;
+  opacity: 0;
   overflow: hidden; // [1]
+  pointer-events: none;
   place-content: center;
   place-items: center;
+  transition: opacity 1s;
+}
+
+:host-context([play]) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+:host-context([skipped]) {
+  opacity: 0;
 }
 
 :host > * {
@@ -36,10 +48,9 @@ button {
   padding-block: .5em;
   padding-inline: 1em .75em;
   position: fixed;
-  z-index: 2;
 
   &[disabled] {
-    animation: .2s fadeOut;
+    animation: 1s fadeOut;
   }
 }
 
