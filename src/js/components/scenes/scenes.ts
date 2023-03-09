@@ -4,6 +4,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './scenes.scss';
 
+const APP_TITLE = 'Powers Of Ten';
 const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
 
 interface Scene {
@@ -56,16 +57,10 @@ class Scenes extends LitElement {
       return;
     }
 
-    // Update the address bar.
+    // Update the address bar and document title.
     history.pushState(null, '', this.scene.toString());
-
-    // Send info up to the app for rendering in the DOM.
     const {power} = this.scenes[this.scene - 1];
-    this.dispatchEvent(new CustomEvent('updateScene', {
-      bubbles: true,
-      composed: true,
-      detail: {power}
-    }));
+    document.title = `10^${power} · ${APP_TITLE}`;
   }
 
   render() {
