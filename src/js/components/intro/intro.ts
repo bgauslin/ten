@@ -59,12 +59,17 @@ class AppIntro extends LitElement {
       const {skip} = storage;
       this.playIntro = !skip;
       this.skipped = skip;
+
+      if (!this.playIntro) {
+        this.dispatchEvent(new CustomEvent('done', {bubbles: true, composed: true}));
+      }
     }
   }
 
   stop(event: AnimationEvent) {
     const target = <HTMLElement>event.target;
     if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
+      this.dispatchEvent(new CustomEvent('done', {bubbles: true, composed: true}));
       this.playIntro = false;
     }
   }
