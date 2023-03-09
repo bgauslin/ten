@@ -18,15 +18,20 @@ class AppIntro extends LitElement {
   @property({type: Boolean, reflect: true}) play = false;
   @state() animationListener: EventListenerObject;
   @state() intro: Intro;
-  @state() skip: boolean = false;
+  @state() storage = 'intro';
 
   static styles = css`${shadowStyles}`;
 
+  constructor() {
+    super();
+    this.animationListener = this.stopIntro.bind(this);
+  }
+
   connectedCallback() {
     super.connectedCallback();
-    this.animationListener = this.checkAnimation.bind(this);
     this.renderRoot.addEventListener('animationend', this.animationListener);
-    this.getStorage();
+    this.fetchData();
+    this.playIntro();
   }
 
   disconnectedCallback() {
@@ -34,45 +39,38 @@ class AppIntro extends LitElement {
     this.renderRoot.removeEventListener('animationend', this.animationListener);
   }
 
-  checkAnimation(e: AnimationEvent) {
-    const target = <HTMLElement>e.target;
-    const tag = target.tagName.toLowerCase();
-    if (tag === 'h1' || tag === 'button' && this.skip) {
-      this.play = false;
-    }
-  }
-
-  getStorage() {
-    const skip = JSON.parse(localStorage.getItem('skip'));
-    if (skip) {
-      this.play = false;
-    } else {
-      this.fetchData();
-    }
-  }
-
   async fetchData(): Promise<Intro> {
-    if (this.play) {
-      return;
-    }
-
     try {
       const response = await fetch('https://gauslin.com/api/ten/intro.json');
       this.intro = await response.json();
-      this.play = true;
     } catch (error) {
       console.warn(error);
       return;
     }
   }
 
+  playIntro() {
+    const storage = JSON.parse(localStorage.getItem(this.storage));
+    if (storage) {
+      this.play = storage.play;
+    }
+  }
+
   skipIntro() {
-    this.skip = true;
-    localStorage.setItem('skip', JSON.stringify(this.skip));
+    this.play = false;
+    localStorage.setItem(this.storage, JSON.stringify({play: this.play}));
+  }
+
+  stopIntro(e: AnimationEvent) {
+    const target = <HTMLElement>e.target;
+    const tag = target.tagName.toLowerCase();
+    if (tag === 'h1') {
+      this.play = false;
+    }
   }
 
   render() {
-    if (this.play) {
+    if (this.intro && this.play) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>
@@ -91,7 +89,7 @@ class AppIntro extends LitElement {
 
         <button
           type="button"
-          ?disabled="${this.skip}"
+          ?disabled="${!this.play}"
           @click="${this.skipIntro}">
           Skip
           <svg viewbox="0 0 24 24">
