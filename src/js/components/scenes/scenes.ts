@@ -1,8 +1,8 @@
 import {LitElement, css, html} from 'lit';
-import {customElement, state} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
-import shadowStyles from './app.scss';
+import shadowStyles from './scenes.scss';
 
 interface Scene {
   blurb: string,
@@ -12,17 +12,17 @@ interface Scene {
 }
 
 /**
- * Web component for Powers Of Ten app.
+ * Web component for all Powers Of Ten scenes.
  */
-@customElement('ten-app')
-class App extends LitElement {
+@customElement('ten-scenes')
+class Scenes extends LitElement {
+  @property({attribute: 'scene', type: Number, reflect: true}) scene = 0;
   @state() hasSlug: Boolean = false;
   @state() intro?: HTMLElement;
   @state() introObserver: MutationObserver;
   @state() popstateListener: EventListenerObject;
   @state() playing: boolean = false;
   @state() ready: boolean = false;
-  @state() scene = 0;
   @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;

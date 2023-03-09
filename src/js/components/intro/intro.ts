@@ -15,10 +15,9 @@ interface Intro {
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
-  @property({attribute: 'playing', type: Boolean, reflect: true}) playing = true;
+  @property({type: Boolean, reflect: true}) play = false;
   @state() animationListener: EventListenerObject;
   @state() intro: Intro;
-  @state() ready: boolean = false;
   @state() skip: boolean = false;
 
   static styles = css`${shadowStyles}`;
@@ -30,16 +29,6 @@ class AppIntro extends LitElement {
     this.getStorage();
   }
 
-  getStorage() {
-    const skip = JSON.parse(localStorage.getItem('skip'));
-    if (skip) {
-      this.skip = true;
-      this.playing = false;
-    } else {
-      this.fetchData();
-    }
-  }
-
   disconnectedCallback() {
     super.disconnectedCallback();
     this.renderRoot.removeEventListener('animationend', this.animationListener);
@@ -47,20 +36,30 @@ class AppIntro extends LitElement {
 
   checkAnimation(e: AnimationEvent) {
     const target = <HTMLElement>e.target;
-    if (target.tagName === 'H1' || target.tagName === 'BUTTON' && this.skip) {
-      this.playing = false;
+    const tag = target.tagName.toLowerCase();
+    if (tag === 'h1' || tag === 'button' && this.skip) {
+      this.play = false;
+    }
+  }
+
+  getStorage() {
+    const skip = JSON.parse(localStorage.getItem('skip'));
+    if (skip) {
+      this.play = false;
+    } else {
+      this.fetchData();
     }
   }
 
   async fetchData(): Promise<Intro> {
-    if (this.ready) {
+    if (this.play) {
       return;
     }
 
     try {
       const response = await fetch('https://gauslin.com/api/ten/intro.json');
       this.intro = await response.json();
-      this.ready = true;
+      this.play = true;
     } catch (error) {
       console.warn(error);
       return;
@@ -73,7 +72,7 @@ class AppIntro extends LitElement {
   }
 
   render() {
-    if (this.ready && this.playing) {
+    if (this.play) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>

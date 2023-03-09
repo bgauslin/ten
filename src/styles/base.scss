@@ -38,12 +38,12 @@ ten-intro {
   z-index: 3;
 }
 
-ten-intro[playing] {
+ten-intro[play] {
   opacity: 1;
   pointer-events: auto;
 }
 
-ten-intro[playing] + ten-app {
+ten-intro[play] + ten-scenes {
   block-size: 100dvh;
   overflow: hidden;
 }

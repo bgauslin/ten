@@ -13,7 +13,7 @@
   ],
   "files": [
     "src/js/index.ts",
-    "src/js/components/app/app.ts",
-    "src/js/components/intro/intro.ts"
+    "src/js/components/intro/intro.ts",
+    "src/js/components/scenes/scenes.ts"
   ]
 }
