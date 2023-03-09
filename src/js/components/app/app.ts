@@ -8,12 +8,10 @@ import shadowStyles from './app.scss';
  */
 @customElement('ten-app')
 class App extends LitElement {
-  @state() appTitle: string = 'Powers Of Ten';
   @state() introListener: EventListenerObject;
   @state() play: boolean = true;
   @state() popstateListener: EventListenerObject;
   @state() scene: Number;
-  @state() scenesListener: EventListenerObject;
   @state() wait: Boolean = true;
 
   static styles = css`${shadowStyles}`;
@@ -22,21 +20,18 @@ class App extends LitElement {
     super();
     this.introListener = this.stopWaiting.bind(this);
     this.popstateListener = this.updateScene.bind(this);
-    this.scenesListener = this.updateTitle.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.updateScene();
     this.addEventListener('done', this.introListener);
-    this.addEventListener('updateScene', this.scenesListener);
     window.addEventListener('popstate', this.popstateListener);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('done', this.introListener);
-    this.removeEventListener('updateScene', this.scenesListener);
     window.removeEventListener('popstate', this.popstateListener);
   }
 
@@ -48,15 +43,6 @@ class App extends LitElement {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
     this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
-
-    if (this.wait) {
-      history.replaceState(null, '', '/');
-    }
-  }
-
-  updateTitle(event: CustomEvent) {
-    const {power} = event.detail;
-    document.title = `10^${power} · ${this.appTitle}`;
   }
 
   render() { 

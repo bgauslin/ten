@@ -53,14 +53,18 @@ class Scenes extends LitElement {
   }
 
   updated() {
-    if (!this.scenes || this.wait) {
+    if (!this.scenes) {
       return;
     }
 
-    // Update the address bar and document title.
-    history.pushState(null, '', this.scene.toString());
-    const {power} = this.scenes[this.scene - 1];
-    document.title = `10^${power} · ${APP_TITLE}`;
+    if (this.wait) {
+      history.replaceState(null, '', '/');
+      document.title = APP_TITLE;
+    } else {
+      history.pushState(null, '', this.scene.toString());
+      const {power} = this.scenes[this.scene - 1];
+      document.title = `10^${power} · ${APP_TITLE}`;
+    }
   }
 
   render() {
