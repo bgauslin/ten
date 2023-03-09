@@ -4,6 +4,8 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './scenes.scss';
 
+const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
+
 interface Scene {
   blurb: string,
   distance: string[],
@@ -28,7 +30,7 @@ class Scenes extends LitElement {
 
   async fetchData(): Promise<Scene[]> {
     try {
-      const response = await fetch('https://gauslin.com/api/ten/scenes.json');
+      const response = await fetch(ENDPOINT);
       this.scenes = await response.json();
     } catch (error) {
       console.warn(error);
@@ -64,6 +66,7 @@ class Scenes extends LitElement {
     }
   }
 
+  // TODO: Update <img> attributes with real image.
   renderScenes() {    
     return html`
       <ul>

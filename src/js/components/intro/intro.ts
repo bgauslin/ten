@@ -1,9 +1,10 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
+
+const ENDPOINT = 'https://gauslin.com/api/ten/intro.json';
 
 interface Intro {
   copy: string[],
@@ -42,7 +43,7 @@ class AppIntro extends LitElement {
 
   async fetchData(): Promise<Intro> {
     try {
-      const response = await fetch('https://gauslin.com/api/ten/intro.json');
+      const response = await fetch(ENDPOINT);
       this.intro = await response.json();
     } catch (error) {
       console.warn(error);
