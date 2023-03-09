@@ -22,6 +22,7 @@ body {
   font-size: clamp(.75rem, .75rem + .5vw, 1rem);
   font-variation-settings: 'wght' 500;
   margin: 0;
+  place-items: center;
   min-block-size: 100dvh; // [1]
   touch-action: manipulation;
 }
@@ -30,26 +31,8 @@ body > * {
   grid-area: app;
 }
 
-ten-intro {
-  opacity: 0;
-  pointer-events: none;
-  position: relative;
-  transition: opacity 1s;
-  z-index: 3;
-}
-
-ten-intro[play] {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-ten-intro[play] + ten-scenes {
-  block-size: 100dvh;
-  overflow: hidden;
-}
-
 noscript {
-  place-self: center;
+  
 }
 
 :not(:defined) {

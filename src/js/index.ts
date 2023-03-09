@@ -1,4 +1,5 @@
 // Web components.
+import './components/app/app';
 import './components/intro/intro';
 import './components/scenes/scenes';
 
