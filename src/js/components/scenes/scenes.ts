@@ -104,7 +104,7 @@ class Scenes extends LitElement {
                 10<sup>${power}</sup>
               </p>
             </div>
-            <hr>
+            <hr role="presentation">
             <div class="blurb">
               ${unsafeHTML(blurb)}
             </div>
