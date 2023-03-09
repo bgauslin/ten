@@ -19,6 +19,7 @@ interface Scene {
 @customElement('ten-scenes')
 class Scenes extends LitElement {
   @property({attribute: 'scene', type: Number, reflect: true}) scene = 1;
+  @property({type: Boolean, reflect: true}) wait = false;
   @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;
@@ -41,26 +42,26 @@ class Scenes extends LitElement {
   nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateUrl();
-      this.sceneUpdated();
     }
   }
 
   prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
-      this.updateUrl();
-      this.sceneUpdated();
     }
   }
 
-  updateUrl() {
-    history.pushState(null, '', this.scene.toString());
-  }
+  updated() {
+    if (!this.scenes || this.wait) {
+      return;
+    }
 
-  sceneUpdated() {
+    // Update the address bar.
+    history.pushState(null, '', this.scene.toString());
+
+    // Send info up to the app for rendering in the DOM.
     const {power} = this.scenes[this.scene - 1];
-    this.dispatchEvent(new CustomEvent('sceneUpdated', {
+    this.dispatchEvent(new CustomEvent('updateScene', {
       bubbles: true,
       composed: true,
       detail: {power}
