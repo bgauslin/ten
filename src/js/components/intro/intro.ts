@@ -1,6 +1,7 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
 
@@ -15,7 +16,7 @@ interface Intro {
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
-  @property({type: Boolean, reflect: true}) play = false;
+  @property({attribute: 'play', type: Boolean, reflect: true}) playIntro = false;
   @state() animationListener: EventListenerObject;
   @state() intro: Intro;
   @state() storage = 'intro';
@@ -24,14 +25,14 @@ class AppIntro extends LitElement {
 
   constructor() {
     super();
-    this.animationListener = this.stopIntro.bind(this);
+    this.animationListener = this.stop.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.renderRoot.addEventListener('animationend', this.animationListener);
     this.fetchData();
-    this.playIntro();
+    this.play();
   }
 
   disconnectedCallback() {
@@ -49,28 +50,27 @@ class AppIntro extends LitElement {
     }
   }
 
-  playIntro() {
+  play() {
     const storage = JSON.parse(localStorage.getItem(this.storage));
     if (storage) {
-      this.play = storage.play;
+      this.playIntro = !storage.skip;
     }
   }
 
-  skipIntro() {
-    this.play = false;
-    localStorage.setItem(this.storage, JSON.stringify({play: this.play}));
+  stop(event: AnimationEvent) {
+    const target = <HTMLElement>event.target;
+    if (target.tagName.toLowerCase() === 'h1') {
+      this.playIntro = false;
+    }
   }
 
-  stopIntro(e: AnimationEvent) {
-    const target = <HTMLElement>e.target;
-    const tag = target.tagName.toLowerCase();
-    if (tag === 'h1') {
-      this.play = false;
-    }
+  skip() {
+    this.playIntro = false;
+    localStorage.setItem(this.storage, JSON.stringify({skip: true}));
   }
 
   render() {
-    if (this.intro && this.play) {
+    if (this.intro && this.playIntro) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>
@@ -90,7 +90,7 @@ class AppIntro extends LitElement {
         <button
           type="button"
           ?disabled="${!this.play}"
-          @click="${this.skipIntro}">
+          @click="${this.skip}">
           Skip
           <svg viewbox="0 0 24 24">
             <path d="M 6,6 L 12,12 L 6,18 Z" />
