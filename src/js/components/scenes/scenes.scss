@@ -199,7 +199,7 @@ hr {
   }
   
   [aria-hidden='false'] & {
-    animation: 1s .75s forwards fadeIn;
+    animation: fadeIn 1s .75s forwards;
   }
 
   [rewind] & {
