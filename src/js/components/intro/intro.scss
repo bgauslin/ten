@@ -1,10 +1,10 @@
 @use 'sass:math';
 @use '../../../styles/buttons';
 
-$atom-particle-size: 12px;
-$atom-nucleus-size: 48px;
 $atom-size: 200px; // Must match SVG viewbox.
+$electron-size: 12px;
 $meteor-size: 250px;
+$nucleus-size: 40px;
 
 // [1] Prevent scrolling for scaled SVGs.
 :host {
@@ -43,7 +43,7 @@ button {
   position: fixed;
 
   &[disabled] {
-    animation: 1s fadeOut;
+    animation: fadeOut 1s;
   }
 }
 
@@ -94,7 +94,7 @@ p {
 }
 
 .meteor {
-  animation: .5s meteor;
+  animation: meteor .5s;
   background-image: linear-gradient(to right, white, rgba(white, 0));
   block-size: 1px;
   inline-size: $meteor-size;
@@ -149,15 +149,15 @@ p {
 }
 
 .nucleus {
-  animation: 5s linear infinite nucleus;
-  block-size: $atom-nucleus-size;
-  border-radius: math.div($atom-nucleus-size, 2);
-  inline-size: $atom-nucleus-size;
+  animation: nucleus 5s linear infinite;
+  block-size: $nucleus-size;
+  border-radius: math.div($nucleus-size, 2);
+  inline-size: $nucleus-size;
   place-self: center;
 }
 
 .nucleus > svg {
-  animation: .08s jitter infinite alternate;
+  animation: jitter .08s infinite alternate;
 }
 
 :is(.proton, .neutron) {
@@ -184,11 +184,11 @@ p {
 
 // [1] Must match SVG path.
 .particle {
-  animation: 1s infinite linear electron;
+  animation: electron 1s linear infinite;
   background: white;
-  block-size: $atom-particle-size;
-  border-radius: math.div($atom-particle-size, 2);
-  inline-size: $atom-particle-size;
+  block-size: $electron-size;
+  border-radius: math.div($electron-size, 2);
+  inline-size: $electron-size;
   offset-path: path('M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z'); // [1]
 }
 
@@ -209,39 +209,40 @@ p {
 // ----------------------------------------
 // Animation sequence.
 
-// "light years"
-:host > p:nth-of-type(1) {
-  animation: 5s 0s 1 fade;
-}
-
+// Scene 1: Stars.
 .stars {
-  animation: 7.5s 0s 1 linear fade;
+  animation: fade 10s 0s 1 linear;
 }
 
 .starfield {
-  animation: 7.5s 0s 1 linear starfield;
+  animation: starfield 10s 0s 1 linear;
 }
 
+:host > p:nth-of-type(1) {
+  animation: fade 5s 2s 1 ;
+}
+
+// Scene 2: Atom.
 .atom {
-  animation: 10s 5s 1 linear atom;
+  animation: atom 10s 6s 1 linear;
 }
 
-// "atom"
 :host > p:nth-of-type(2) {
-  animation: 5s 7.5s 1 fade;
+  animation: fade 5s 9s 1;
 }
 
-// "forty-two scenes"
+// Scene 3: Overview text.
 :host > p:nth-of-type(3) {
-  animation: 6s 15s 1 fade;
+  animation: fade 7s 16s 1;
 }
 
+// Final scene: Title card.
 h1 {
-  animation: 9s 21s 1 fade;
+  animation: fade 9s 23s 1;
 }
 
 .tagline {
-  animation: 5s 22.5s 1 fade;
+  animation: fade 5s 25s 1;
 }
 
 // ----------------------------------------
@@ -295,10 +296,11 @@ h1 {
 @keyframes atom {
   0% {
     opacity: 0;
-    transform: rotate(0) scale(.1);
+    transform: rotate(0) scale(.01);
   }
-  75% {
-    opacity: .9;
+  25%,
+  80% {
+    opacity: .5;
   }
   100% {
     opacity: 0;
@@ -319,9 +321,6 @@ h1 {
 }
 
 @keyframes electron {
-  0% {
-    offset-distance: 0%;
-  }
   100% {
     offset-distance: 100%;
   }
