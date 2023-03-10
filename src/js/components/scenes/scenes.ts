@@ -19,7 +19,8 @@ interface Scene {
  */
 @customElement('ten-scenes')
 class Scenes extends LitElement {
-  @property({attribute: 'scene', type: Number, reflect: true}) scene = 1;
+  @property({type: Boolean, reflect: true}) rewind = false;
+  @property({type: Number, reflect: true}) scene = 1;
   @property({type: Boolean, reflect: true}) wait = false;
   @state() popstateListener: EventListenerObject;
   @state() scenes: Scene[];
@@ -84,18 +85,20 @@ class Scenes extends LitElement {
     this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
   }
 
-  // TODO(#3): Auto zoom out to first scene.
-  rewind() {
-    const speed = 500;
+  backToStart() {
+    this.rewind = true;
+    this.scene -= 1;
+
     const countdown = () => {
       if (this.scene > 1) {
         this.scene -= 1;
       } else {
         clearInterval(interval);
+        this.rewind = false;
         history.pushState(null, '', '/1');
       }
     }
-    const interval = setInterval(countdown, speed);
+    const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
 
   updated(changed: PropertyValues<this>) {
@@ -141,6 +144,7 @@ class Scenes extends LitElement {
             <hr role="presentation">
             <div class="blurb">
               ${unsafeHTML(blurb)}
+              ${this.renderRewind(index)}
             </div>
           </li>
         `;
@@ -155,7 +159,7 @@ class Scenes extends LitElement {
         class="zoom"
         id="prev"
         title="Zoom out to previous scene"
-        ?disabled="${this.scene === 1}"
+        ?disabled="${this.scene === 1 || this.rewind}"
         @click="${this.prevScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <path d="M7,12 h10"/>
@@ -170,12 +174,25 @@ class Scenes extends LitElement {
         class="zoom"
         id="next"
         title="Zoom in to next scene"
-        ?disabled="${this.scene === this.scenes.length}"
+        ?disabled="${this.scene === this.scenes.length || this.rewind}"
         @click="${this.nextScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <path d="M6,12 h12 M12,6 v12"/>
         </svg>
       </button>
     `;
+  }
+
+  renderRewind(index: number) {
+    if (index === this.scenes.length - 1) {
+      return html`
+        <button
+          class="rewind"
+          title="Rewind to the start"
+          @click="${this.backToStart}">
+          Rewind
+        </button>
+      `;
+    }
   }
 }

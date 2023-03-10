@@ -60,7 +60,7 @@
 }
 
 :host([rewind]) {
-  --scene-transition: .5s linear;
+  --scene-transition: .25s linear; // Must match JS interval.
 }
 
 // Animations.
@@ -201,6 +201,11 @@ hr {
   [aria-hidden='false'] & {
     animation: 1s .75s forwards fadeIn;
   }
+
+  [rewind] & {
+    animation: unset;
+    display: none;
+  }
 }
 
 .blurb > p {
@@ -218,7 +223,8 @@ hr {
   display: grid;
   inline-size: const.$button-size;
   inset-block: auto 1rem;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   place-content: center;
   place-self: center;
   position: var(--zoom-position);
@@ -247,4 +253,8 @@ svg {
   pointer-events: none;
   stroke: currentColor;
   stroke-width: 2px;
+}
+
+.rewind {
+  margin-block: 2rem 0;
 }
