@@ -26,7 +26,7 @@ $skip-icon-size: 1.5rem;
   pointer-events: auto;
 }
 
-:host-context([skipped]) {
+:host-context([skip]) {
   opacity: 0;
 }
 

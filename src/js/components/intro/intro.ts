@@ -17,25 +17,22 @@ interface Intro {
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
-  @property({type: Boolean, reflect: true, attribute: 'play'}) playIntro = false;
-  @property({type: Boolean, reflect: true}) skipped = false;
-
+  @property({type: Boolean, reflect: true}) play = false;
+  @property({type: Boolean, reflect: true}) skip = false;
   @state() animationListener: EventListenerObject;
   @state() intro: Intro;
-  @state() storage = 'intro';
 
   static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
-    this.animationListener = this.stop.bind(this);
+    this.animationListener = this.done.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.renderRoot.addEventListener('animationend', this.animationListener);
     this.fetchData();
-    this.play();
   }
 
   disconnectedCallback() {
@@ -53,34 +50,22 @@ class AppIntro extends LitElement {
     }
   }
 
-  play() {
-    const storage = JSON.parse(localStorage.getItem(this.storage));
-    if (storage) {
-      const {skip} = storage;
-      this.playIntro = !skip;
-      this.skipped = skip;
-
-      if (!this.playIntro) {
-        this.dispatchEvent(new CustomEvent('done', {bubbles: true, composed: true}));
-      }
-    }
-  }
-
-  stop(event: AnimationEvent) {
+  done(event: AnimationEvent) {
     const target = <HTMLElement>event.target;
-    if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
-      this.dispatchEvent(new CustomEvent('done', {bubbles: true, composed: true}));
-      this.playIntro = false;
-    }
-  }
 
-  skip() {
-    this.skipped = true;
-    localStorage.setItem(this.storage, JSON.stringify({skip: true}));
+    if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
+      this.play = false;
+      this.skip = false;
+
+      this.dispatchEvent(new CustomEvent('done', {
+        bubbles: true,
+        composed: true,
+      }));
+    }
   }
 
   render() {
-    if (this.intro && this.playIntro) {
+    if (this.intro && this.play) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>
@@ -99,8 +84,8 @@ class AppIntro extends LitElement {
 
         <button
           type="button"
-          ?disabled="${this.skipped}"
-          @click="${this.skip}">
+          ?disabled="${this.skip}"
+          @click="${() => this.skip = true}">
           Skip
           <svg viewbox="0 0 24 24">
             <path d="M 6,6 L 12,12 L 6,18 Z" />

@@ -1,4 +1,4 @@
-import {LitElement, css, html} from 'lit';
+import {LitElement, PropertyValues, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
@@ -43,27 +43,26 @@ class Scenes extends LitElement {
   nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
+      this.updateScene();
     }
   }
 
   prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
+      this.updateScene();
     }
   }
 
-  updated() {
-    if (!this.scenes) {
-      return;
-    }
+  updateScene() {
+    history.pushState(null, '', this.scene.toString());
+    const {power} = this.scenes[this.scene - 1];
+    document.title = `10^${power} · ${APP_TITLE}`;
+  }
 
-    if (this.wait) {
-      history.replaceState(null, '', '/');
-      document.title = APP_TITLE;
-    } else {
-      history.pushState(null, '', this.scene.toString());
-      const {power} = this.scenes[this.scene - 1];
-      document.title = `10^${power} · ${APP_TITLE}`;
+  updated(changed: PropertyValues<this>) {
+    if (changed.get('wait') && this.wait === false) {
+      this.updateScene();
     }
   }
 
