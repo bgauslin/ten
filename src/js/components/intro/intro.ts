@@ -96,7 +96,7 @@ class AppIntro extends LitElement {
     }
   }
 
-  // TODO: Replace nucleus with 6 particles (with animations).
+  // TODO(#1): Replace nucleus with 6 particles (with animations).
   renderAtom() {
     const electrons = [];
     for (let i = 0; i < 3; i++) {
@@ -119,18 +119,18 @@ class AppIntro extends LitElement {
   }
 
   renderStars() {
-    const bounds = 1000;
     const points = [];
     const qty = 1000;
+    const size = 1000;
   
     for (let i = 0; i < qty; i++) {
-      const cx = Math.floor(Math.random() * bounds);
-      const cy = Math.floor(Math.random() * bounds);
+      const cx = Math.floor(Math.random() * size);
+      const cy = Math.floor(Math.random() * size);
       const r = (Math.floor(Math.random() * 2) + 1) / 2;
       points.push([cx, cy, r]);
     }
   
-    let svg = `<svg class="starfield" viewbox="0 0 ${bounds} ${bounds}">`;
+    let svg = `<svg class="starfield" viewbox="0 0 ${size} ${size}">`;
     for (const point of points) {
       const [cx, cy, r] = point;
       svg += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;

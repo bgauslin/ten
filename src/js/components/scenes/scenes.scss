@@ -21,6 +21,7 @@
   --info-padding-inline: 1rem;
   --info-position: fixed;
   --scene-grid: 'info' 3rem 'image' 'buffer' 'blurb' 1fr / auto;
+  --scene-transition: 1s ease-in-out;
   --zoom-inset-block: auto 1rem;
   --zoom-next-inset-inline: auto 1rem;
   --zoom-position: fixed;
@@ -56,6 +57,10 @@
     --scenes-place-self: center;
     --zoom-position: static;
   }
+}
+
+:host([rewind]) {
+  --scene-transition: .5s linear;
 }
 
 // Animations.
@@ -113,7 +118,7 @@ img {
   inset-block: var(--info-block-size);
   max-inline-size: const.$max-width;
   position: var(--image-position);
-  transition: opacity 1s, transform 1s;
+  transition: opacity var(--scene-transition), transform var(--scene-transition); 
   z-index: -1;
 
   [aria-hidden='true'] & {
@@ -138,7 +143,7 @@ img {
   max-inline-size: var(--max-inline-size);
   padding-inline: var(--info-padding-inline);
   position: var(--info-position); 
-  transition: opacity 1s;
+  transition: opacity var(--scene-transition);
   z-index: 1;
 
   [aria-hidden='true'] & {

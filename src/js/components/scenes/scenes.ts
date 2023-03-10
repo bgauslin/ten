@@ -84,6 +84,20 @@ class Scenes extends LitElement {
     this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
   }
 
+  // TODO(#3): Auto zoom out to first scene.
+  rewind() {
+    const speed = 500;
+    const countdown = () => {
+      if (this.scene > 1) {
+        this.scene -= 1;
+      } else {
+        clearInterval(interval);
+        history.pushState(null, '', '/1');
+      }
+    }
+    const interval = setInterval(countdown, speed);
+  }
+
   updated(changed: PropertyValues<this>) {
     if (changed.get('wait') && this.wait === false) {
       this.updateScene();
@@ -100,7 +114,7 @@ class Scenes extends LitElement {
     }
   }
 
-  // TODO: Update <img> attributes with real image.
+  // TODO(#4): Update <img> attributes with real image.
   renderScenes() {    
     return html`
       <ul>
