@@ -11,7 +11,7 @@
   --max-inline-size: #{const.$max-width};
   --overflow: scroll;
 
-  --blurb-background: #{rgba(black, .5)};
+  --blurb-background: #{rgba(black, .7)};
   --blurb-padding-block: 1rem #{const.$button-size + 1rem};
   --blurb-padding-inline: 1rem;
   --buffer-display: block;
@@ -114,6 +114,7 @@ img {
   max-inline-size: const.$max-width;
   position: var(--image-position);
   transition: opacity 1s, transform 1s;
+  z-index: -1;
 
   [aria-hidden='true'] & {
     opacity: 0;
@@ -216,7 +217,7 @@ hr {
   place-content: center;
   place-self: center;
   position: var(--zoom-position);
-  z-index: 2;
+  z-index: 1;
 }
 
 // Prev/next buttons have fixed position on small screens, then use grid
