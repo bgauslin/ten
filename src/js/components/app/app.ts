@@ -11,21 +11,20 @@ class App extends LitElement {
   @state() introListener: EventListenerObject;
   @state() play: boolean = true;
   @state() popstateListener: EventListenerObject;
-  @state() scene: Number;
 
   static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
     this.introListener = this.introDone.bind(this);
-    this.popstateListener = this.updateScene.bind(this);
+    this.popstateListener = this.playIntro.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('done', this.introListener);
     window.addEventListener('popstate', this.popstateListener);
-    this.updateScene();
+    this.playIntro();
   }
 
   disconnectedCallback() {
@@ -38,26 +37,21 @@ class App extends LitElement {
     this.play = false;
   }
 
-  updateScene() {
+  playIntro() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
 
-    if (isNaN(scene)) {
+    if (isNaN(scene) || scene > 42) {
       this.play = true;
-      history.replaceState(null, '', '/');
     } else {
       this.play = scene === 0;
     }
-
-    this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
   }
 
   render() { 
     return html`
       <ten-intro ?play="${this.play}"></ten-intro>
-      <ten-scenes
-        scene="${this.scene}"
-        ?wait="${this.play}"></ten-scenes>
+      <ten-scenes ?wait="${this.play}"></ten-scenes>
     `;
   }
 }

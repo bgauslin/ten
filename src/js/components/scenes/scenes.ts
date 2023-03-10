@@ -21,13 +21,26 @@ interface Scene {
 class Scenes extends LitElement {
   @property({attribute: 'scene', type: Number, reflect: true}) scene = 1;
   @property({type: Boolean, reflect: true}) wait = false;
+  @state() popstateListener: EventListenerObject;
   @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;
 
+  constructor() {
+    super();
+    this.popstateListener = this.updateFromUrl.bind(this);
+  }
+
   connectedCallback() {
     super.connectedCallback();
-    this.fetchData(); 
+    window.addEventListener('popstate', this.popstateListener);
+    this.fetchData();
+    this.updateFromUrl();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('popstate', this.popstateListener);
   }
 
   async fetchData(): Promise<Scene[]> {
@@ -58,6 +71,17 @@ class Scenes extends LitElement {
     history.pushState(null, '', this.scene.toString());
     const {power} = this.scenes[this.scene - 1];
     document.title = `10^${power} · ${APP_TITLE}`;
+  }
+
+  updateFromUrl() {
+    const segments = window.location.pathname.split('/');
+    const scene = Number(segments[1]);
+
+    if (scene > 42 || scene === 0 || isNaN(scene)) {
+      history.replaceState(null, '', '/');
+    }
+
+    this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
   }
 
   updated(changed: PropertyValues<this>) {
