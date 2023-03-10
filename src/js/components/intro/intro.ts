@@ -1,6 +1,7 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
 
@@ -116,22 +117,23 @@ class AppIntro extends LitElement {
       points.push([cx, cy, r]);
     }
   
-    let svg = `<svg class="starfield" viewbox="0 0 ${size} ${size}">`;
+    let stars = '';
     for (const point of points) {
       const [cx, cy, r] = point;
-      svg += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;
+      stars += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;
     };
-    svg += '</svg>';
 
-    return unsafeHTML(svg);
+    return html`
+      <svg class="starfield" viewbox="0 0 ${size} ${size}">
+        ${unsafeSVG(stars)}
+      </svg>
+    `;
   }
 
   renderMeteors() {
     const meteors = [];
     for (let i = 0; i < 5; i++) {
-      meteors.push(html`
-        <div class="meteor" id="meteor-${i + 1}"></div>
-      `);
+      meteors.push(html`<div class="meteor" id="meteor-${i + 1}"></div>`);
     }
     return html`${meteors}`;
   }
@@ -139,9 +141,7 @@ class AppIntro extends LitElement {
   renderAtom() {
     return html`
       <div aria-hidden="true" class="atom">
-        <div class="nucleus">
-          ${this.renderNucleus()}
-        </div>  
+        ${this.renderNucleus()} 
         ${this.renderElectrons()}
       </div>
     `;
@@ -150,21 +150,26 @@ class AppIntro extends LitElement {
   renderNucleus() {
     const protons = [[33, 60], [67, 60], [50, 31]];
     const neutrons = [[33, 40], [67, 40], [50, 70]];
+    const middle = [[50, 50]];
   
+    let particles = '';
     const draw = (classname: string, coords: number[][]) => {
       for (const coord of coords) {
         const [cx, cy] = coord;
-        svg += `<circle class="${classname}" cx="${cx}" cy="${cy}" r="17"></circle>`;
+        particles += `<circle class="${classname}" cx="${cx}" cy="${cy}" r="17"></circle>`;
       }
     }
-    
-    let svg = '<svg viewbox="0 0 100 100">';
     draw('proton', protons);
     draw('neutron', neutrons);
-    draw('proton', [[50, 50]]);
-    svg += '</svg>';
+    draw('proton', middle);
 
-    return unsafeHTML(svg);
+    return html`
+      <div class="nucleus">
+        <svg viewbox="0 0 100 100">
+          ${unsafeSVG(particles)}
+        </svg>
+      </div>
+    `;
   }
 
   renderElectrons() {
