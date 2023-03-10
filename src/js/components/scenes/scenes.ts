@@ -69,8 +69,8 @@ class Scenes extends LitElement {
 
   updateScene() {
     history.pushState(null, '', this.scene.toString());
-    const {power} = this.scenes[this.scene - 1];
-    document.title = `10^${power} · ${APP_TITLE}`;
+    const {distance, power} = this.scenes[this.scene - 1];
+    document.title = `${power} · ${distance[0]} · ${APP_TITLE}`;
   }
 
   updateFromUrl() {
