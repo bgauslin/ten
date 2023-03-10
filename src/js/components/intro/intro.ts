@@ -96,7 +96,6 @@ class AppIntro extends LitElement {
     }
   }
 
-  // TODO(#1): Replace nucleus with 6 particles (with animations).
   renderAtom() {
     const electrons = [];
     for (let i = 0; i < 3; i++) {
@@ -112,11 +111,38 @@ class AppIntro extends LitElement {
 
     return html`
       <div aria-hidden="true" class="atom">
-        <div class="nucleus"></div>  
+        <div class="nucleus">
+          ${unsafeHTML(this.renderNucleus())}
+        </div>  
         ${electrons}
       </div>
     `;
   }
+
+  renderNucleus() {
+    const protons = [
+      [33, 60], [67, 60], [50, 31]
+    ];
+    const neutrons = [
+      [33, 40], [67, 40], [50, 70]
+    ];
+  
+    const draw = (classname: string, coords: number[][]) => {
+      for (const coord of coords) {
+        const [cx, cy] = coord;
+        svg += `<circle class="${classname}" cx="${cx}" cy="${cy}" r="17"></circle>`;
+      }
+    }
+    
+    let svg = '<svg viewbox="0 0 100 100">';
+    draw('proton', protons);
+    draw('neutron', neutrons);
+    draw('proton', [[50, 50]]);
+    svg += '</svg>';
+
+    return svg;
+  }
+
 
   renderStars() {
     const points = [];

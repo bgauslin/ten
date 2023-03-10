@@ -2,7 +2,7 @@
 @use '../../../styles/buttons';
 
 $atom-particle-size: 12px;
-$atom-nucleus-size: 24px;
+$atom-nucleus-size: 48px;
 $atom-size: 200px; // Must match SVG viewbox.
 $meteor-size: 250px;
 $skip-icon-size: 1.5rem;
@@ -160,16 +160,29 @@ p {
   grid-area: elements;
 }
 
-:is(.nucleus, .particle) {
-  background: white;
-}
-
 .nucleus {
-  animation: .5s infinite alternate nucleus;
+  animation: 5s linear infinite nucleus;
   block-size: $atom-nucleus-size;
   border-radius: math.div($atom-nucleus-size, 2);
   inline-size: $atom-nucleus-size;
   place-self: center;
+}
+
+.nucleus > svg {
+  animation: .08s jitter infinite alternate;
+}
+
+:is(.proton, .neutron) {
+  stroke: black;
+  stroke-width: 2.5px;
+}
+
+.proton {
+  fill: white;
+}
+
+.neutron {
+  fill: #bbb;
 }
 
 .electron {
@@ -184,6 +197,7 @@ p {
 // [1] Must match SVG path.
 .particle {
   animation: 1s infinite linear electron;
+  background: white;
   block-size: $atom-particle-size;
   border-radius: math.div($atom-particle-size, 2);
   inline-size: $atom-particle-size;
@@ -304,20 +318,23 @@ h1 {
   }
 }
 
+@keyframes nucleus {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes jitter {
+  100% {
+    transform: scale(1.05);
+  }
+}
+
 @keyframes electron {
   0% {
     offset-distance: 0%;
   }
   100% {
     offset-distance: 100%;
-  }
-}
-
-@keyframes nucleus {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
   }
 }
