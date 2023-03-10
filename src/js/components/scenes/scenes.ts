@@ -85,7 +85,7 @@ class Scenes extends LitElement {
     this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
   }
 
-  backToStart() {
+  rewindScenes() {
     this.rewind = true;
     this.scene -= 1;
 
@@ -189,7 +189,11 @@ class Scenes extends LitElement {
         <button
           class="rewind"
           title="Rewind to the start"
-          @click="${this.backToStart}">
+          @click="${this.rewindScenes}">
+          <svg viewbox="0 0 24 24">
+            <path d="M 12,6 L 6,12 L 12,18 Z" />
+            <path d="M 20,6 L 14,12 L 20,18 Z" />
+          </svg>
           Rewind
         </button>
       `;

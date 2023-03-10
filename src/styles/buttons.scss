@@ -1,6 +1,7 @@
 @use './const';
 
 button {
+  align-items: center;
   appearance: none;
   backdrop-filter: blur(8px);
   background: rgba(white, .25);
@@ -8,8 +9,10 @@ button {
   border-radius: .5em;
   color: white;
   cursor: pointer;
+  display: flex;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: clamp(.75rem, .75rem + .5vw, 1rem);
+  gap: 0 .25em;
   outline: 0;
   padding-block: .5em;
   padding-inline: 1em;
@@ -33,4 +36,11 @@ button {
   @media (any-hover: hover) {
     transition: background-color .2s, color .2s, transform .2s;
   }
+}
+
+button > svg {
+  block-size: const.$icon-size;
+  fill: currentColor;
+  inline-size: const.$icon-size;
+  pointer-events: none;
 }

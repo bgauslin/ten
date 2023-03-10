@@ -231,6 +231,15 @@ hr {
   z-index: 1;
 }
 
+// Prev/next icons.
+.zoom > svg {
+  block-size: 100%;
+  fill: none;
+  inline-size: 100%;
+  stroke: currentColor;
+  stroke-width: 2px;
+}
+
 // Prev/next buttons have fixed position on small screens, then use grid
 // placement when the viewport gets wider.
 [id='prev'] {
@@ -245,16 +254,9 @@ hr {
   inset-inline: var(--zoom-next-inset-inline);
 }
 
-// Prev/next icons.
-svg {
-  block-size: auto;
-  fill: none;
-  inline-size: 100%;
-  pointer-events: none;
-  stroke: currentColor;
-  stroke-width: 2px;
-}
-
+// Rewind button and icon.
 .rewind {
-  margin-block: 2rem 0;
+  margin-block: 3rem;
+  margin-inline: auto;
+  padding-inline: .75em 1em;
 }
