@@ -195,7 +195,7 @@ p {
 .orbit {
   fill: none;
   stroke: white;
-  stroke-width: 1px;
+  stroke-width: .5px;
 }
 
 [id='electron-2'] {
@@ -233,11 +233,11 @@ p {
 
 // "forty-two scenes"
 :host > p:nth-of-type(3) {
-  animation: 5s 15s 1 fade;
+  animation: 6s 15s 1 fade;
 }
 
 h1 {
-  animation: 10s 20s 1 fade;
+  animation: 9s 21s 1 fade;
 }
 
 .tagline {
@@ -297,8 +297,8 @@ h1 {
     opacity: 0;
     transform: rotate(0) scale(.1);
   }
-  50% {
-    opacity: .5;
+  75% {
+    opacity: .9;
   }
   100% {
     opacity: 0;
