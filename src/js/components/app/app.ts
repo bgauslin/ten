@@ -1,18 +1,14 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
-import shadowStyles from './app.scss';
-
 /**
  * Web component for Powers of Ten app.
  */
-@customElement('ten-app')
+@customElement('powers-of-ten')
 class App extends LitElement {
   @state() introListener: EventListenerObject;
-  @state() play: boolean = true;
+  @state() play: boolean = false;
   @state() popstateListener: EventListenerObject;
-
-  static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
@@ -33,6 +29,10 @@ class App extends LitElement {
     window.removeEventListener('popstate', this.popstateListener);
   }
 
+  createRenderRoot() {
+    return this;
+  }
+
   introDone() {
     this.play = false;
   }
@@ -41,10 +41,8 @@ class App extends LitElement {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
 
-    if (isNaN(scene) || scene > 42) {
+    if (scene > 42 || scene === 0 || isNaN(scene)) {
       this.play = true;
-    } else {
-      this.play = scene === 0;
     }
   }
 

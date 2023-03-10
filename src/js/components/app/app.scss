@@ -1,10 +1,10 @@
-:host {
+powers-of-ten {
   display: grid;
   grid: 'elements' 1fr / 1fr;
   place-self: stretch;
 }
 
-:host > * {
+powers-of-ten > * {
   grid-area: elements;
   position: relative;
 }
