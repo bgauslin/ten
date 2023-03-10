@@ -4,7 +4,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './scenes.scss';
 
-const APP_TITLE = 'Powers Of Ten';
+const APP_TITLE = 'Powers of Ten';
 const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
 
 interface Scene {
@@ -15,7 +15,7 @@ interface Scene {
 }
 
 /**
- * Web component for all Powers Of Ten scenes.
+ * Web component for all Powers of Ten scenes.
  */
 @customElement('ten-scenes')
 class Scenes extends LitElement {

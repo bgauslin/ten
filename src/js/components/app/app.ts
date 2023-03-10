@@ -4,7 +4,7 @@ import {customElement, state} from 'lit/decorators.js';
 import shadowStyles from './app.scss';
 
 /**
- * Web component for Powers Of Ten app.
+ * Web component for Powers of Ten app.
  */
 @customElement('ten-app')
 class App extends LitElement {

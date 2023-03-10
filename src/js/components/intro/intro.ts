@@ -13,7 +13,7 @@ interface Intro {
 }
 
 /**
- * Web component for Powers Of Ten intro animation.
+ * Web component for Powers of Ten intro animation.
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
