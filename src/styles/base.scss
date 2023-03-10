@@ -22,17 +22,13 @@ body {
   font-size: clamp(.75rem, .75rem + .5vw, 1rem);
   font-variation-settings: 'wght' 500;
   margin: 0;
-  place-items: center;
   min-block-size: 100dvh; // [1]
+  place-items: center;
   touch-action: manipulation;
 }
 
 body > * {
   grid-area: app;
-}
-
-noscript {
-  
 }
 
 :not(:defined) {
