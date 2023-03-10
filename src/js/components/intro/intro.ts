@@ -73,14 +73,13 @@ class AppIntro extends LitElement {
           <p class="tagline">${tagline}</p>
         </header>
 
-        ${copy.map(blurb => html`<p>${blurb}</p>`)}
-        
-        <div aria-hidden="true" class="stars">
-          ${unsafeHTML(this.renderStars())}
-          ${this.renderMeteors()}
-        </div>
+        ${this.renderStars()}
+        <p>${copy[0]}</p>
 
         ${this.renderAtom()}
+        <p>${copy[1]}</p>
+
+        <p>${copy[2]}</p>
 
         <button
           type="button"
@@ -96,55 +95,16 @@ class AppIntro extends LitElement {
     }
   }
 
-  renderAtom() {
-    const electrons = [];
-    for (let i = 0; i < 3; i++) {
-      electrons.push(html`
-        <div class="electron" id="electron-${i + 1}">
-          <div class="particle"></div>
-          <svg viewBox="0 0 200 200">
-            <path class="orbit" d="M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z"/>
-          </svg>
-        </div>
-      `);
-    }
-
+  renderStars() {
     return html`
-      <div aria-hidden="true" class="atom">
-        <div class="nucleus">
-          ${unsafeHTML(this.renderNucleus())}
-        </div>  
-        ${electrons}
+      <div aria-hidden="true" class="stars">
+        ${this.renderStarfield()}
+        ${this.renderMeteors()}
       </div>
     `;
   }
 
-  renderNucleus() {
-    const protons = [
-      [33, 60], [67, 60], [50, 31]
-    ];
-    const neutrons = [
-      [33, 40], [67, 40], [50, 70]
-    ];
-  
-    const draw = (classname: string, coords: number[][]) => {
-      for (const coord of coords) {
-        const [cx, cy] = coord;
-        svg += `<circle class="${classname}" cx="${cx}" cy="${cy}" r="17"></circle>`;
-      }
-    }
-    
-    let svg = '<svg viewbox="0 0 100 100">';
-    draw('proton', protons);
-    draw('neutron', neutrons);
-    draw('proton', [[50, 50]]);
-    svg += '</svg>';
-
-    return svg;
-  }
-
-
-  renderStars() {
+  renderStarfield() {
     const points = [];
     const qty = 1000;
     const size = 1000;
@@ -163,7 +123,7 @@ class AppIntro extends LitElement {
     };
     svg += '</svg>';
 
-    return svg;
+    return unsafeHTML(svg);
   }
 
   renderMeteors() {
@@ -174,5 +134,51 @@ class AppIntro extends LitElement {
       `);
     }
     return html`${meteors}`;
+  }
+
+  renderAtom() {
+    return html`
+      <div aria-hidden="true" class="atom">
+        <div class="nucleus">
+          ${this.renderNucleus()}
+        </div>  
+        ${this.renderElectrons()}
+      </div>
+    `;
+  }
+
+  renderNucleus() {
+    const protons = [[33, 60], [67, 60], [50, 31]];
+    const neutrons = [[33, 40], [67, 40], [50, 70]];
+  
+    const draw = (classname: string, coords: number[][]) => {
+      for (const coord of coords) {
+        const [cx, cy] = coord;
+        svg += `<circle class="${classname}" cx="${cx}" cy="${cy}" r="17"></circle>`;
+      }
+    }
+    
+    let svg = '<svg viewbox="0 0 100 100">';
+    draw('proton', protons);
+    draw('neutron', neutrons);
+    draw('proton', [[50, 50]]);
+    svg += '</svg>';
+
+    return unsafeHTML(svg);
+  }
+
+  renderElectrons() {
+    const electrons = [];
+    for (let i = 0; i < 3; i++) {
+      electrons.push(html`
+        <div class="electron" id="electron-${i + 1}">
+          <div class="particle"></div>
+          <svg viewBox="0 0 200 200">
+            <path class="orbit" d="M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z"/>
+          </svg>
+        </div>
+      `);
+    }
+    return electrons;
   }
 }
