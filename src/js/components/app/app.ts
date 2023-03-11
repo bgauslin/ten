@@ -1,8 +1,9 @@
-import {LitElement, css, html} from 'lit';
+import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
 /**
- * Web component for Powers of Ten app.
+ * Web component for Powers of Ten app which renders intro and scenes
+ * components and their attributes based on the current URL.
  */
 @customElement('powers-of-ten')
 class App extends LitElement {
@@ -40,10 +41,7 @@ class App extends LitElement {
   playIntro() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
-
-    if (scene > 42 || scene === 0 || isNaN(scene)) {
-      this.play = true;
-    }
+    this.play = scene > 42 || scene === 0 || isNaN(scene);
   }
 
   render() { 
