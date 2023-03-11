@@ -4,7 +4,6 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './scenes.scss';
 
-const APP_TITLE = 'Powers of Ten';
 const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
 
 interface Scene {
@@ -22,6 +21,7 @@ class Scenes extends LitElement {
   @property({type: Boolean, reflect: true}) rewind = false;
   @property({type: Number, reflect: true}) scene = 1;
   @property({type: Boolean, reflect: true}) wait = false;
+  @state() appTitle: string;
   @state() popstateListener: EventListenerObject;
   @state() scenes: Scene[];
 
@@ -29,14 +29,14 @@ class Scenes extends LitElement {
 
   constructor() {
     super();
-    this.popstateListener = this.updateFromUrl.bind(this);
+    this.appTitle = document.title;
+    this.popstateListener = this.updateSceneFromUrl.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('popstate', this.popstateListener);
     this.fetchData();
-    this.updateFromUrl();
   }
 
   disconnectedCallback() {
@@ -44,10 +44,19 @@ class Scenes extends LitElement {
     window.removeEventListener('popstate', this.popstateListener);
   }
 
+  protected updated(changed: PropertyValues<this>) {
+    if (changed.get('wait') && this.wait === false) {
+      this.updateWindow();
+    }
+  }
+
   async fetchData(): Promise<Scene[]> {
     try {
       const response = await fetch(ENDPOINT);
       this.scenes = await response.json();
+      if (!this.wait) {
+        this.updateSceneFromUrl();
+      }
     } catch (error) {
       console.warn(error);
       return;
@@ -57,24 +66,23 @@ class Scenes extends LitElement {
   nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateScene();
+      this.updateWindow();
     }
   }
 
   prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
-      this.updateScene();
+      this.updateWindow();
     }
   }
 
-  updateScene() {
+  updateWindow() {
     history.pushState(null, '', this.scene.toString());
-    const {distance, power} = this.scenes[this.scene - 1];
-    document.title = `${power} · ${distance[0]} · ${APP_TITLE}`;
+    this.updateDocument();
   }
 
-  updateFromUrl() {
+   updateSceneFromUrl() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
 
@@ -83,6 +91,12 @@ class Scenes extends LitElement {
     }
 
     this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
+    this.updateDocument();
+  }
+
+  updateDocument() {
+    const {distance, power} = this.scenes[this.scene - 1];
+    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
 
   rewindScenes() {
@@ -99,12 +113,6 @@ class Scenes extends LitElement {
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
-  }
-
-  updated(changed: PropertyValues<this>) {
-    if (changed.get('wait') && this.wait === false) {
-      this.updateScene();
-    }
   }
 
   render() {
