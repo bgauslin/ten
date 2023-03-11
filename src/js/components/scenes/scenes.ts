@@ -149,7 +149,7 @@ class Scenes extends LitElement {
                 10<sup>${power}</sup>
               </p>
             </div>
-            <hr role="presentation">
+            <hr aria-hidden="true">
             <div class="blurb">
               ${unsafeHTML(blurb)}
               ${this.renderRewind(index)}
