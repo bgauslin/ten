@@ -121,13 +121,11 @@ img {
   transition: opacity var(--scene-transition), transform var(--scene-transition); 
   z-index: -1;
 
-  // TODO: Replace with animation and delay oopacity change.
   [aria-hidden='true'] & {
     opacity: 0;
     transform: scale(.1);
   }
 
-  // TODO: Replace with animation and delay oopacity change.
   [aria-hidden='true'][data-viewed] & {
     transform: scale(10);
   }

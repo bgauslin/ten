@@ -135,20 +135,27 @@ class Scenes extends LitElement {
     }
   }
 
-  // TODO(#4): Update <img> attributes with real image.
   renderScenes() {    
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
         const {blurb, image, distance, power} = scene;
         const currentScene = this.scene - 1;
+
+        const small = `${IMAGE_PATH}${image}@small.webp`;
+        const medium = `${IMAGE_PATH}${image}@medium.webp`;
+        const large = `${IMAGE_PATH}${image}@large.webp`;;
+
         return html`
           <li
             aria-hidden="${index !== currentScene}"  
             ?data-viewed="${index <= currentScene}">
             <img
               alt=""
-              src="${IMAGE_PATH}${image}@small.webp">
+              src="${IMAGE_PATH}${image}@medium.webp"
+              srcset="${small} 600w, ${medium} 900w, ${large} 1200w"
+              sizes="(min-width: 49rem) 600px, 100vw"
+              loading="${index > (currentScene + 1) ? 'lazy' : 'eager'}">
             <div class="info">
               <p class="distance">
                 ${distance.map(value => html`<span>${value}</span>`)}
