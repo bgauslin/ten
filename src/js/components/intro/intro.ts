@@ -41,7 +41,7 @@ class AppIntro extends LitElement {
     this.renderRoot.removeEventListener('animationend', this.animationListener);
   }
 
-  async fetchData(): Promise<Intro> {
+  private async fetchData(): Promise<Intro> {
     try {
       const response = await fetch(ENDPOINT);
       this.intro = await response.json();
@@ -51,7 +51,7 @@ class AppIntro extends LitElement {
     }
   }
 
-  done(event: AnimationEvent) {
+  private done(event: AnimationEvent) {
     const target = <HTMLElement>event.target;
 
     if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
@@ -65,7 +65,7 @@ class AppIntro extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     if (this.intro && this.play) {
       const {copy, tagline, title} = this.intro;
       return html`
@@ -87,7 +87,7 @@ class AppIntro extends LitElement {
           ?disabled="${this.skip}"
           @click="${() => this.skip = true}">
           Skip
-          <svg viewbox="0 0 24 24">
+          <svg viewbox="0 0 24 24" aria-hidden="true">
             <path d="M 6,6 L 12,12 L 6,18 Z" />
             <path d="M 14,6 L 20,12 L 14,18 Z" />
           </svg>
@@ -96,7 +96,7 @@ class AppIntro extends LitElement {
     }
   }
 
-  renderStars() {
+  private renderStars() {
     return html`
       <div aria-hidden="true" class="stars">
         ${this.renderStarfield()}
@@ -105,7 +105,7 @@ class AppIntro extends LitElement {
     `;
   }
 
-  renderStarfield() {
+  private renderStarfield() {
     const points = [];
     const qty = 1000;
     const size = 1000;
@@ -130,7 +130,7 @@ class AppIntro extends LitElement {
     `;
   }
 
-  renderMeteors() {
+  private renderMeteors() {
     const meteors = [];
     for (let i = 0; i < 5; i++) {
       meteors.push(html`<div class="meteor" id="meteor-${i + 1}"></div>`);
@@ -138,7 +138,7 @@ class AppIntro extends LitElement {
     return html`${meteors}`;
   }
 
-  renderAtom() {
+  private renderAtom() {
     return html`
       <div aria-hidden="true" class="atom">
         ${this.renderNucleus()} 
@@ -147,7 +147,7 @@ class AppIntro extends LitElement {
     `;
   }
 
-  renderNucleus() {
+  private renderNucleus() {
     const protons = [[33, 60], [67, 60], [50, 31]];
     const neutrons = [[33, 40], [67, 40], [50, 70]];
     const middle = [[50, 50]];
@@ -172,7 +172,7 @@ class AppIntro extends LitElement {
     `;
   }
 
-  renderElectrons() {
+  private renderElectrons() {
     const electrons = [];
     for (let i = 0; i < 3; i++) {
       electrons.push(html`
