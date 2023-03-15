@@ -51,7 +51,7 @@ class Scenes extends LitElement {
     }
   }
 
-  async fetchData(): Promise<Scene[]> {
+  private async fetchData(): Promise<Scene[]> {
     try {
       const response = await fetch(ENDPOINT);
       this.scenes = await response.json();
@@ -64,26 +64,26 @@ class Scenes extends LitElement {
     }
   }
 
-  nextScene() {
+  private nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
       this.updateWindow();
     }
   }
 
-  prevScene() {
+  private prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
       this.updateWindow();
     }
   }
 
-  updateWindow() {
+  private updateWindow() {
     history.pushState(null, '', this.scene.toString());
     this.updateDocument();
   }
 
-   updateSceneFromUrl() {
+  private updateSceneFromUrl() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
 
@@ -95,12 +95,12 @@ class Scenes extends LitElement {
     this.updateDocument();
   }
 
-  updateDocument() {
+  private updateDocument() {
     const {distance, power} = this.scenes[this.scene - 1];
     document.title = `${power} · ${distance[0]} · ${APP_TITLE}`;
   }
 
-  replayIntro() {
+  private replayIntro() {
     history.pushState(null, '', '/');
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
@@ -108,7 +108,7 @@ class Scenes extends LitElement {
     }));
   }
 
-  rewindScenes() {
+  private rewindScenes() {
     this.rewind = true;
     this.scene -= 1;
 
@@ -119,12 +119,13 @@ class Scenes extends LitElement {
         clearInterval(interval);
         this.rewind = false;
         history.pushState(null, '', '/1');
+        this.updateDocument();
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
 
-  render() {
+  protected render() {
     if (this.scenes) {
       return html`
         ${this.renderScenes()}
@@ -135,7 +136,7 @@ class Scenes extends LitElement {
     }
   }
 
-  renderScenes() {    
+  private renderScenes() {    
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
@@ -176,7 +177,7 @@ class Scenes extends LitElement {
     `;
   }
 
-  renderPrev() {
+  private renderPrev() {
     return html`
       <button
         class="nav"
@@ -191,7 +192,7 @@ class Scenes extends LitElement {
     `;
   }
 
-  renderNext() {
+  private renderNext() {
     return html`
       <button
         class="nav"
@@ -206,7 +207,7 @@ class Scenes extends LitElement {
     `;
   }
 
-  renderReplay() {
+  private renderReplay() {
     return html`
       <button
         class="nav"
