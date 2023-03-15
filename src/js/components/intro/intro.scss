@@ -86,11 +86,8 @@ p {
 .starfield {
   block-size: 1000px;
   clip-path: circle(50%);
-  inline-size: 1000px;
-}
-
-.starfield circle {
   fill: #999;
+  inline-size: 1000px;
 }
 
 .meteor {

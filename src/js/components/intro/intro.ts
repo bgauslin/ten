@@ -106,26 +106,24 @@ class AppIntro extends LitElement {
   }
 
   private renderStarfield() {
-    const points = [];
     const qty = 1000;
     const size = 1000;
-  
+
+    let path = '';
     for (let i = 0; i < qty; i++) {
       const cx = Math.floor(Math.random() * size);
       const cy = Math.floor(Math.random() * size);
       const r = (Math.floor(Math.random() * 2) + 1) / 2;
-      points.push([cx, cy, r]);
+
+      path += `M ${cx - r},${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${r * -2},0`;
+      if (i < qty - 1) {
+        path += ' ';
+      }
     }
-  
-    let stars = '';
-    for (const point of points) {
-      const [cx, cy, r] = point;
-      stars += `<circle cx="${cx}" cy="${cy}" r="${r}"></circle>`;
-    };
 
     return html`
       <svg class="starfield" viewbox="0 0 ${size} ${size}">
-        ${unsafeSVG(stars)}
+        <path d="${path}"/>
       </svg>
     `;
   }
