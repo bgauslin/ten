@@ -35,21 +35,21 @@ class App extends LitElement {
     window.removeEventListener('popstate', this.popstateListener);
   }
 
-  createRenderRoot() {
+  protected createRenderRoot() {
     return this;
   }
 
-  introDone() {
+  private introDone() {
     this.play = false;
   }
 
-  playIntro() {
+  private playIntro() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
     this.play = scene > 42 || scene === 0 || isNaN(scene);
   }
 
-  render() { 
+  protected render() {
     return html`
       <ten-intro ?play="${this.play}"></ten-intro>
       <ten-scenes ?wait="${this.play}"></ten-scenes>
