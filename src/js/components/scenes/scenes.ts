@@ -230,7 +230,7 @@ class Scenes extends LitElement {
           title="Rewind to the start"
           ?disabled="${this.scene !== this.scenes.length}"
           @click="${this.rewindScenes}">
-          <svg viewbox="0 0 24 24">
+          <svg viewbox="0 0 24 24" aria-hidden="true">
             <path d="M 12,6 L 6,12 L 12,18 Z" />
             <path d="M 20,6 L 14,12 L 20,18 Z" />
           </svg>
