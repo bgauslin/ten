@@ -17,9 +17,10 @@ interface Intro {
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
+  private animationListener: EventListenerObject;
+
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
-  @state() animationListener: EventListenerObject;
   @state() intro: Intro;
 
   static styles = css`${shadowStyles}`;

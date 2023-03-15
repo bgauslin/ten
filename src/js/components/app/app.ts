@@ -7,19 +7,23 @@ import {customElement, state} from 'lit/decorators.js';
  */
 @customElement('powers-of-ten')
 class App extends LitElement {
-  @state() introListener: EventListenerObject;
+  private introListener: EventListenerObject;
+  private popstateListener: EventListenerObject;
+  private replayListener: EventListenerObject;
+
   @state() play: boolean = false;
-  @state() popstateListener: EventListenerObject;
 
   constructor() {
     super();
     this.introListener = this.introDone.bind(this);
+    this.replayListener = this.playIntro.bind(this);
     this.popstateListener = this.playIntro.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('done', this.introListener);
+    this.addEventListener('replay', this.replayListener);
     window.addEventListener('popstate', this.popstateListener);
     this.playIntro();
   }
@@ -27,6 +31,7 @@ class App extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('done', this.introListener);
+    this.removeEventListener('replay', this.replayListener);
     window.removeEventListener('popstate', this.popstateListener);
   }
 

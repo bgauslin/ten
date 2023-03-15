@@ -100,6 +100,15 @@ class Scenes extends LitElement {
     document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
 
+  replayIntro() {
+    console.log('replayIntro');
+    history.pushState(null, '', '/');
+    this.dispatchEvent(new CustomEvent('replay', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
   rewindScenes() {
     this.rewind = true;
     this.scene -= 1;
@@ -121,6 +130,7 @@ class Scenes extends LitElement {
       return html`
         ${this.renderScenes()}
         ${this.renderPrev()}
+        ${this.renderReplay()}
         ${this.renderNext()}
       `;
     }
@@ -163,7 +173,7 @@ class Scenes extends LitElement {
   renderPrev() {
     return html`
       <button
-        class="zoom"
+        class="nav"
         id="prev"
         title="Zoom out to previous scene"
         ?disabled="${this.scene === 1 || this.rewind}"
@@ -178,13 +188,28 @@ class Scenes extends LitElement {
   renderNext() {
     return html`
       <button
-        class="zoom"
+        class="nav"
         id="next"
         title="Zoom in to next scene"
         ?disabled="${this.scene === this.scenes.length || this.rewind}"
         @click="${this.nextScene}">
         <svg viewbox="0 0 24 24" aria-hidden="true">
           <path d="M6,12 h12 M12,6 v12"/>
+        </svg>
+      </button>
+    `;
+  }
+
+  renderReplay() {
+    return html`
+      <button
+        class="nav"
+        id="replay"
+        title="Replay the intro"
+        ?disabled="${this.scene !== 1 || this.rewind}"
+        @click="${this.replayIntro}">
+        <svg viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
         </svg>
       </button>
     `;
