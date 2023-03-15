@@ -4,9 +4,6 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 import shadowStyles from './scenes.scss';
 
-const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
-const IMAGE_PATH = 'https://assets.gauslin.com/images/ten/';
-
 interface Scene {
   blurb: string,
   distance: string[],
@@ -14,23 +11,26 @@ interface Scene {
   power: string,
 }
 
+const APP_TITLE = document.title;
+const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
+const IMAGE_PATH = 'https://assets.gauslin.com/images/ten/';
+
 /**
  * Web component for all Powers of Ten scenes.
  */
 @customElement('ten-scenes')
 class Scenes extends LitElement {
+  private popstateListener: EventListenerObject;
+
   @property({type: Boolean, reflect: true}) rewind = false;
   @property({type: Number, reflect: true}) scene = 1;
   @property({type: Boolean, reflect: true}) wait = false;
-  @state() appTitle: string;
-  @state() popstateListener: EventListenerObject;
   @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
-    this.appTitle = document.title;
     this.popstateListener = this.updateSceneFromUrl.bind(this);
   }
 
@@ -46,7 +46,7 @@ class Scenes extends LitElement {
   }
 
   protected updated(changed: PropertyValues<this>) {
-    if (changed.get('wait') && this.wait === false) {
+    if (changed.get('wait') && !this.wait) {
       this.updateWindow();
     }
   }
@@ -97,11 +97,10 @@ class Scenes extends LitElement {
 
   updateDocument() {
     const {distance, power} = this.scenes[this.scene - 1];
-    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
+    document.title = `${power} · ${distance[0]} · ${APP_TITLE}`;
   }
 
   replayIntro() {
-    console.log('replayIntro');
     history.pushState(null, '', '/');
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
