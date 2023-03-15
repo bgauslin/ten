@@ -5,6 +5,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import shadowStyles from './scenes.scss';
 
 const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
+const IMAGE_PATH = 'https://assets.gauslin.com/images/ten/';
 
 interface Scene {
   blurb: string,
@@ -130,7 +131,7 @@ class Scenes extends LitElement {
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
-        const {blurb, distance, power} = scene;
+        const {blurb, image, distance, power} = scene;
         const currentScene = this.scene - 1;
         return html`
           <li
@@ -138,9 +139,7 @@ class Scenes extends LitElement {
             ?data-viewed="${index <= currentScene}">
             <img
               alt=""
-              src="https://picsum.photos/600"
-              srcset="https://picsum.photos/1200 1200w, https://picsum.photos/600 600w"
-              sizes="(min-width: 37.5rem) 600px, 100vw">
+              src="${IMAGE_PATH}${image}@small.webp">
             <div class="info">
               <p class="distance">
                 ${distance.map(value => html`<span>${value}</span>`)}
