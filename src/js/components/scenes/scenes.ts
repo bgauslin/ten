@@ -79,7 +79,7 @@ class Scenes extends LitElement {
   }
 
   private updateWindow() {
-    history.pushState(null, '', this.scene.toString());
+    history.replaceState(null, '', this.scene.toString());
     this.updateDocument();
   }
 
@@ -101,7 +101,7 @@ class Scenes extends LitElement {
   }
 
   private replayIntro() {
-    history.pushState(null, '', '/');
+    history.replaceState(null, '', '/');
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
       composed: true,
@@ -118,7 +118,7 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-        history.pushState(null, '', '/1');
+        history.replaceState(null, '', '/1');
         this.updateDocument();
       }
     }
