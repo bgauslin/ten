@@ -78,6 +78,11 @@
   display: grid;
   grid: var(--grid);
   overflow: var(--overflow);
+  scrollbar-width: none;
+}
+
+:host::-webkit-scrollbar {
+  display: none;
 }
 
 // ----------------------------------------
