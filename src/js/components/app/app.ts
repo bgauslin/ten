@@ -1,6 +1,9 @@
 import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
+// TODO: Get scene total dynamically instead of hard-coding 42.
+const TOTAL_SCENES = 42;
+
 /**
  * Web component for Powers of Ten app which renders intro and scenes
  * components and their attributes based on the current URL.
@@ -42,11 +45,11 @@ class App extends LitElement {
   private introDone() {
     this.play = false;
   }
-
+ 
   private playIntro() {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
-    this.play = scene > 42 || scene === 0 || isNaN(scene);
+    this.play = scene > TOTAL_SCENES || scene === 0 || isNaN(scene);
   }
 
   protected render() {

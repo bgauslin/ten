@@ -87,11 +87,11 @@ class Scenes extends LitElement {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
 
-    if (scene > 42 || scene === 0 || isNaN(scene)) {
+    if (scene > this.scenes.length || scene === 0 || isNaN(scene)) {
       history.replaceState(null, '', '/');
     }
 
-    this.scene = (scene >= 1 && scene <= 42) ? scene : 1;
+    this.scene = (scene >= 1 && scene <= this.scenes.length) ? scene : 1;
     this.updateDocument();
   }
 
@@ -153,7 +153,7 @@ class Scenes extends LitElement {
             ?data-viewed="${index <= currentScene}">
             <img
               alt=""
-              src="${IMAGE_PATH}${image}@medium.webp"
+              src="${medium}"
               srcset="${small} 600w, ${medium} 900w, ${large} 1200w"
               sizes="(min-width: 49rem) 600px, 100vw"
               loading="${index > (currentScene + 1) ? 'lazy' : 'eager'}">
