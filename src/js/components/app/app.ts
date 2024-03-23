@@ -15,6 +15,7 @@ class App extends LitElement {
   private replayListener: EventListenerObject;
 
   @state() play: boolean = false;
+  @state() target: HTMLElement;
 
   constructor() {
     super();
@@ -27,6 +28,8 @@ class App extends LitElement {
     super.connectedCallback();
     this.addEventListener('done', this.introListener);
     this.addEventListener('replay', this.replayListener);
+    this.addEventListener('touchstart', this.handleTouchStart);
+    this.addEventListener('touchend', this.handleTouchEnd);
     window.addEventListener('popstate', this.popstateListener);
     this.playIntro();
   }
@@ -35,6 +38,8 @@ class App extends LitElement {
     super.disconnectedCallback();
     this.removeEventListener('done', this.introListener);
     this.removeEventListener('replay', this.replayListener);
+    this.removeEventListener('touchstart', this.handleTouchStart);
+    this.removeEventListener('touchend', this.handleTouchEnd);
     window.removeEventListener('popstate', this.popstateListener);
   }
 
@@ -50,6 +55,20 @@ class App extends LitElement {
     const segments = window.location.pathname.split('/');
     const scene = Number(segments[1]);
     this.play = scene > TOTAL_SCENES || scene === 0 || isNaN(scene);
+  }
+
+
+  private handleTouchStart(event: TouchEvent) {
+    const composed = event.composedPath();
+    this.target = <HTMLElement>composed[0];
+
+    if (this.target.tagName === 'BUTTON') {
+      this.target.classList.add('touch');
+    }
+  }
+
+  private handleTouchEnd() {
+    this.target.classList.remove('touch');
   }
 
   protected render() {

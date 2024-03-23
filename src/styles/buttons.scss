@@ -4,7 +4,7 @@ button {
   align-items: center;
   appearance: none;
   backdrop-filter: blur(8px);
-  background: rgba(white, .25);
+  background-color: rgba(white, .25);
   border: 0;
   border-radius: .5em;
   color: white;
@@ -16,25 +16,35 @@ button {
   outline: 0;
   padding-block: .5em;
   padding-inline: 1em;
-  transition: opacity .2s, transform .2s;
+  transition: background-color var(--transition), color var(--transition), opacity var(--transition), transform var(--transition);
 
   &[disabled] {
     opacity: 0;
     pointer-events: none;
   }
 
-  &:hover,
-  &:focus {
-    background: white;
+  &:focus-visible {
+    background-color: white;
     color: black;
   }
 
-  &:active {
+  &.touch {
+    background-color: white;
+    color: black;
     transform: scale(.8);
   }
 
   @media (any-hover: hover) {
-    transition: background-color .2s, color .2s, transform .2s;
+    
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+
+    &:active {
+      transform: scale(.8);
+    }
   }
 }
 

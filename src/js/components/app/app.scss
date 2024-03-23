@@ -1,4 +1,6 @@
 powers-of-ten {
+  --transition: .25s;
+
   display: grid;
   grid: 'elements' 1fr / 1fr;
   place-self: stretch;
