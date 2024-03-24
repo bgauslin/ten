@@ -1,5 +1,3 @@
-@use './const';
-
 @font-face {
   font-display: swap;
   font-family: 'Avenir Variable';
@@ -9,26 +7,25 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-// [1] Always fill the viewport's available height.
 body {
   background: black;
   box-sizing: border-box;
   color: white;
   display: grid;
-  grid: 'app' 1fr / 1fr;
+  grid: 1fr / 1fr;
   font-family: 'Avenir Variable', sans-serif;
   font-size: clamp(.75rem, .75rem + .5vw, 1rem);
   font-variation-settings: 'wght' 500;
   margin: 0;
-  min-block-size: 100dvh; // [1]
+  min-block-size: 100dvh;
   place-items: center;
-  touch-action: manipulation;
 }
 
 body > * {
-  grid-area: app;
+  grid-area: 1 / 1 / -1 / -1;
 }
 
 :not(:defined) {
