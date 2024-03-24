@@ -11,7 +11,7 @@ $nucleus-size: 40px;
   background: black;
   block-size: 100dvh; // [1]
   display: grid;
-  grid: 'items' 1fr / 1fr;
+  grid: 1fr / 1fr;
   opacity: 0;
   overflow: hidden; // [1]
   pointer-events: none;
@@ -30,7 +30,7 @@ $nucleus-size: 40px;
 }
 
 :host > * {
-  grid-area: items;
+  grid-area: 1 / 1 / -1 / -1;
 }
 
 // ----------------------------------------
@@ -136,19 +136,19 @@ p {
 .atom {
   block-size: $atom-size;
   display: grid;
-  grid: 'elements' 1fr / 1fr;
+  grid: 1fr / 1fr;
   inline-size: $atom-size;
   opacity: 0;
 }
 
 .atom > * {
-  grid-area: elements;
+  grid-area: 1 / 1 / -1 / -1;
 }
 
 .nucleus {
   animation: nucleus 5s linear infinite;
-  block-size: $nucleus-size;
-  border-radius: math.div($nucleus-size, 2);
+  aspect-ratio: 1;
+  border-radius: $nucleus-size;
   inline-size: $nucleus-size;
   place-self: center;
 }
@@ -172,19 +172,19 @@ p {
 
 .electron {
   display: grid;
-  grid: 'electron' 1fr / 1fr;
+  grid: 1fr / 1fr;
 }
 
 .electron > * {
-  grid-area: electron;
+  grid-area: 1 / 1 / -1 / -1;
 }
 
 // [1] Must match SVG path.
 .particle {
   animation: electron 1s linear infinite;
+  aspect-ratio: 1;
   background: white;
-  block-size: $electron-size;
-  border-radius: math.div($electron-size, 2);
+  border-radius: $electron-size;
   inline-size: $electron-size;
   offset-path: path('M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z'); // [1]
 }

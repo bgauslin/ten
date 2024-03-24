@@ -2,12 +2,12 @@ powers-of-ten {
   --transition: .25s;
 
   display: grid;
-  grid: 'elements' 1fr / 1fr;
+  grid: 1fr / 1fr;
   place-self: stretch;
 }
 
 powers-of-ten > * {
-  grid-area: elements;
+  grid-area: 1 / 1 / -1 / -1;
   position: relative;
 }
 
