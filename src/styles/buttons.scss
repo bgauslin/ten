@@ -1,5 +1,3 @@
-@use './const';
-
 button {
   align-items: center;
   appearance: none;
@@ -44,8 +42,8 @@ button {
 }
 
 button > svg {
-  block-size: const.$icon-size;
+  block-size: var(--icon-size);
   fill: currentColor;
-  inline-size: const.$icon-size;
+  inline-size: var(--icon-size);
   pointer-events: none;
 }

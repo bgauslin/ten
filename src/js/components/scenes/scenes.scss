@@ -11,8 +11,8 @@
   --max-inline-size: #{const.$max-width};
   --overflow: scroll;
 
-  --blurb-background: #{rgba(black, .7)};
-  --blurb-padding-block: 1rem #{const.$button-size + 1rem};
+  --blurb-background: rgba(0, 0, 0, .7);
+  --blurb-padding-block: 1rem calc(var(--button-size) + 1rem);
   --blurb-padding-inline: 1rem;
   --buffer-display: block;
   --image-position: fixed;
@@ -34,7 +34,7 @@
     --buffer-display: none;
     --info-block-size: 4rem;
     --scene-grid: 'info' 4rem 'image' #{const.$max-width} 'blurb' 1fr / 1fr auto;
-    --zoom-inset-block: calc(50dvh - #{math.div(const.$button-size, 2)}) auto;
+    --zoom-inset-block: calc(50dvh - (var(--button-size) / 2)) auto;
     --zoom-next-inset-inline: auto 2rem;
     --zoom-prev-inset-inline: 2rem auto;
   }
@@ -222,11 +222,11 @@ hr {
 // Nav buttons (prev, next, replay).
 
 .nav {
-  block-size: const.$button-size;
-  border-radius: math.div(const.$button-size, 2);
+  block-size: var(--button-size);
+  border-radius: var(--button-size);
   color: #ccc;
   display: grid;
-  inline-size: const.$button-size;
+  inline-size: var(--button-size);
   inset-block: auto 1rem;
   padding-block: 0;
   padding-inline: 0;
