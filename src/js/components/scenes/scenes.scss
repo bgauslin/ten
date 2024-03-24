@@ -1,25 +1,17 @@
 @use 'sass:math';
 @use '../../../styles/buttons';
 
-// Static dimensions.
-$button-size: 2.75rem;
-$max-width: 37.5rem; // = 600px
-
-// Computed breakpoints based on content.
-$breakpoint-1: $max-width + ($button-size * 2) + 6rem;
-$breakpoint-2: ($max-width * 2) + ($button-size * 2);
-
 * {
   box-sizing: border-box;
 }
 
 :host {
   --grid: 'scenes' 1fr / 1fr;
-  --max-inline-size: #{$max-width};
+  --max-inline-size: 37.5rem;
   --overflow: scroll;
 
   --blurb-background: rgba(0, 0, 0, .7);
-  --blurb-padding-block: 1rem #{$button-size + 1rem};
+  --blurb-padding-block: 1rem 3.75rem;
   --blurb-padding-inline: 1rem;
   --buffer-display: block;
   --image-position: fixed;
@@ -34,20 +26,20 @@ $breakpoint-2: ($max-width * 2) + ($button-size * 2);
   --zoom-position: fixed;
   --zoom-prev-inset-inline: 1rem auto;
 
-  @media (min-width: $breakpoint-1) {
-    --grid: '. scenes .' 1fr / 1fr #{$max-width} 1fr;
+  @media (min-width: 48rem) {
+    --grid: '. scenes .' 1fr / 1fr var(--max-inline-size) 1fr;
 
     --blurb-padding-block: 1rem;
     --buffer-display: none;
     --info-block-size: 4rem;
-    --scene-grid: 'info' 4rem 'image' #{$max-width} 'blurb' 1fr / 1fr auto;
-    --zoom-inset-block: calc(50dvh - #{math.div($button-size, 2)}) auto;
+    --scene-grid: 'info' 4rem 'image' var(--max-inline-size) 'blurb' 1fr / 1fr auto;
+    --zoom-inset-block: calc(50dvh - 1.5rem) auto;
     --zoom-next-inset-inline: auto 2rem;
     --zoom-prev-inset-inline: 2rem auto;
   }
 
-  @media (min-width: #{$breakpoint-2}) {
-    --grid: 'prev scenes next' 1fr / 1fr #{$max-width * 2} 1fr;
+  @media (min-width: 82rem) {
+    --grid: 'prev scenes next' 1fr / 1fr 75rem 1fr;
     --max-inline-size: unset;
     --overflow: hidden;
 
@@ -128,7 +120,7 @@ img {
   grid-area: image;
   inline-size: 100%;
   inset-block: var(--info-block-size);
-  max-inline-size: $max-width;
+  max-inline-size: var(--max-inline-size);
   position: var(--image-position);
   transition: opacity var(--scene-transition), transform var(--scene-transition); 
   z-index: -1;
@@ -229,11 +221,11 @@ hr {
 // Nav buttons (prev, next, replay).
 
 .nav {
-  block-size: $button-size;
-  border-radius: math.div($button-size, 2);
+  aspect-ratio: 1;
+  border-radius :var(--button-size);
   color: #ccc;
   display: grid;
-  inline-size: $button-size;
+  inline-size: var(--button-size);
   inset-block: auto 1rem;
   padding-block: 0;
   padding-inline: 0;
