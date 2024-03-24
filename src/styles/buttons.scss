@@ -3,9 +3,9 @@
 button {
   align-items: center;
   appearance: none;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  background-color: rgba(white, .25);
+  -webkit-backdrop-filter: var(--backdrop-filter);
+  backdrop-filter: var(--backdrop-filter);
+  background-color: var(--fill-2a);
   border: 0;
   border-radius: .5em;
   color: white;
@@ -19,31 +19,29 @@ button {
   padding-inline: 1em;
   transition: background-color var(--transition), color var(--transition), opacity var(--transition), transform var(--transition);
 
-  &[disabled] {
-    opacity: 0;
-    pointer-events: none;
+  &:focus-visible {
+    background-color: var(--text-color);
+    color: var(--fill-0);
   }
 
-  &:focus-visible {
-    background-color: white;
-    color: black;
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: var(--text-color);
+      color: var(--fill-0);
+    }
+    
+    &:active {
+      transform: scale(.8);
+    }
   }
 
   &.touch {
     transform: scale(.8);
   }
 
-  @media (any-hover: hover) {
-    
-
-    &:hover {
-      background-color: white;
-      color: black;
-    }
-
-    &:active {
-      transform: scale(.8);
-    }
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

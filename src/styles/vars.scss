@@ -1,0 +1,45 @@
+:root {
+  /* Grays via Apple HIG. */
+  /* @see https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color */
+  --gray1: rgb(142, 142, 147);
+  --gray2: rgb(174, 174, 178);
+  --gray3: rgb(199, 199, 204);
+  --gray4: rgb(209, 209, 214);
+  --gray5: rgb(229, 229, 234);
+  --gray6: rgb(242, 242, 247);
+
+  /* Theming. */
+  --backdrop-filter: blur(6px);
+  --fill-0: var(--gray6);
+  --fill-0a: rgba(242, 242, 247, .7);
+  --fill-1: white;
+  --fill-1a: rgba(255, 255, 255, .7);
+  --fill-2: var(--gray5);
+  --fill-2a: rgba(229, 229, 234, .7);
+  --fill-3: var(--gray4);
+  --fill-3a: rgba(209, 209, 214, .7);
+  --text-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode grays. */
+    --gray1: rgb(142, 142, 147);
+    --gray2: rgb(99, 99, 102);
+    --gray3: rgb(72, 72, 74);
+    --gray4: rgb(58, 58, 60);
+    --gray5: rgb(44, 44, 46);
+    --gray6: rgb(28, 28, 30);
+
+    /* Dark mode theming. */
+    --fill-0: black;
+    --fill-0a: rgba(0, 0, 0, .5);
+    --fill-1: var(--gray6);
+    --fill-1a: rgba(28, 28, 30, .5);
+    --fill-2: var(--gray5);
+    --fill-2a: rgba(44, 44, 46, .5);
+    --fill-3: var(--gray4);
+    --fill-3a: rgba(58, 58, 60, .5);
+    --text-color: Gainsboro;
+  }
+}
