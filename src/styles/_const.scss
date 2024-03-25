@@ -1,7 +1,0 @@
-// Static dimensions.
-$button-size: 2.75rem;
-$max-width: 37.5rem; // = 600px
-
-// Computed breakpoints based on content.
-$breakpoint-1: $max-width + ($button-size * 2) + 6rem;
-$breakpoint-2: ($max-width * 2) + ($button-size * 2);
