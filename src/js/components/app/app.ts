@@ -28,8 +28,8 @@ class App extends LitElement {
     super.connectedCallback();
     this.addEventListener('done', this.introListener);
     this.addEventListener('replay', this.replayListener);
-    this.addEventListener('touchstart', this.handleTouchStart);
-    this.addEventListener('touchend', this.handleTouchEnd);
+    this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
+    this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
     window.addEventListener('popstate', this.popstateListener);
     this.playIntro();
   }
