@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es6",
     "allowJs": true,
+    "experimentalDecorators": true,
+    "module": "es6",
     "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "target": "es6"
   },
   "include": [
     "global.d.ts"
