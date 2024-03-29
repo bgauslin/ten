@@ -222,7 +222,7 @@ class Scenes extends LitElement {
     `;
   }
 
-  renderRewind(index: number) {
+  private renderRewind(index: number) {
     if (index === this.scenes.length - 1) {
       return html`
         <button
