@@ -24,10 +24,31 @@ body {
   place-items: center;
 }
 
-body > * {
-  grid-area: 1 / 1 / -1 / -1;
-}
-
 :not(:defined) {
   display: none;
+}
+
+a {
+  color: var(--link-color);
+  outline: none;
+  text-decoration: none;
+
+  &:visited {
+    color: var(--link-visited-color);
+  }
+  
+  &:focus-visible,
+  &:active {
+    color: var(--link-focus-color);
+  }
+  
+  @media (any-hover: hover) {
+    & {
+      transition: color var(--transition);
+    }
+  
+    &:hover {
+      color: var(--link-focus-color);
+    }
+  }
 }
