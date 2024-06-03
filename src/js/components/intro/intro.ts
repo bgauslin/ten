@@ -4,8 +4,6 @@ import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
 
-const ENDPOINT = 'https://gauslin.com/api/ten/intro.json';
-
 interface Intro {
   copy: string[],
   tagline: string,
@@ -18,6 +16,7 @@ interface Intro {
 @customElement('ten-intro')
 class AppIntro extends LitElement {
   private animationListener: EventListenerObject;
+  private endpoint = 'https://gauslin.com/api/ten/intro.json';
 
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
@@ -43,7 +42,7 @@ class AppIntro extends LitElement {
 
   private async fetchData(): Promise<Intro> {
     try {
-      const response = await fetch(ENDPOINT);
+      const response = await fetch(this.endpoint);
       this.intro = await response.json();
     } catch (error) {
       console.warn(error);

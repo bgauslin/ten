@@ -11,15 +11,14 @@ interface Scene {
   power: string,
 }
 
-const APP_TITLE = document.title;
-const ENDPOINT = 'https://gauslin.com/api/ten/scenes.json';
-const IMAGE_PATH = 'https://assets.gauslin.com/images/ten/';
-
 /**
  * Web component for all Powers of Ten scenes.
  */
 @customElement('ten-scenes')
 class Scenes extends LitElement {
+  private appTitle = document.title;
+  private endpoint = 'https://gauslin.com/api/ten/scenes.json';
+  private imagePath = 'https://assets.gauslin.com/images/ten/';
   private popstateListener: EventListenerObject;
 
   @property({type: Boolean, reflect: true}) rewind = false;
@@ -53,7 +52,7 @@ class Scenes extends LitElement {
 
   private async fetchData(): Promise<Scene[]> {
     try {
-      const response = await fetch(ENDPOINT);
+      const response = await fetch(this.endpoint);
       this.scenes = await response.json();
       if (!this.wait) {
         this.updateSceneFromUrl();
@@ -97,7 +96,7 @@ class Scenes extends LitElement {
 
   private updateDocument() {
     const {distance, power} = this.scenes[this.scene - 1];
-    document.title = `${power} · ${distance[0]} · ${APP_TITLE}`;
+    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
 
   private replayIntro() {
@@ -143,9 +142,9 @@ class Scenes extends LitElement {
         const {blurb, image, distance, power} = scene;
         const currentScene = this.scene - 1;
 
-        const small = `${IMAGE_PATH}${image}@small.webp`;
-        const medium = `${IMAGE_PATH}${image}@medium.webp`;
-        const large = `${IMAGE_PATH}${image}@large.webp`;;
+        const small = `${this.imagePath}${image}@small.webp`;
+        const medium = `${this.imagePath}${image}@medium.webp`;
+        const large = `${this.imagePath}${image}@large.webp`;;
 
         return html`
           <li
