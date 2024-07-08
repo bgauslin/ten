@@ -105,6 +105,7 @@ class AppIntro extends LitElement {
   }
 
   private renderStarfield() {
+    const radii = [.75, 1, 1.25];
     const qty = 1000;
     const size = 1000;
 
@@ -112,7 +113,9 @@ class AppIntro extends LitElement {
     for (let i = 0; i < qty; i++) {
       const cx = Math.floor(Math.random() * size);
       const cy = Math.floor(Math.random() * size);
-      const r = (Math.floor(Math.random() * 2) + 1) / 2;
+
+      const j = Math.floor(Math.random() * radii.length);
+      const r = radii[j];
 
       path += `M ${cx - r},${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${r * -2},0`;
       if (i < qty - 1) {
