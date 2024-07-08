@@ -105,29 +105,30 @@ class AppIntro extends LitElement {
   }
 
   private renderStarfield() {
-    const radii = [.75, 1, 1.25];
-    const qty = 1000;
+    const radii = [[.5, 1000], [1, 500], [1.5, 100]];
     const size = 1000;
+    let paths = '';
 
-    let path = '';
-    for (let i = 0; i < qty; i++) {
-      const cx = Math.floor(Math.random() * size);
-      const cy = Math.floor(Math.random() * size);
+    for (let i = 0; i < radii.length; i++) {
+      let path = '';
+      const [r, qty] = radii[i];
+      
+      for (let j = 0; j < qty; j++) {
+        const cx = Math.floor(Math.random() * size);
+        const cy = Math.floor(Math.random() * size);
 
-      const j = Math.floor(Math.random() * radii.length);
-      const r = radii[j];
-
-      path += `M ${cx - r},${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${r * -2},0`;
-      if (i < qty - 1) {
-        path += ' ';
+        path += `M ${cx - r},${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${r * -2},0`;
+        if (i < qty - 1) {
+          path += ' ';
+        }
       }
+      paths += `
+        <svg class="starfield" viewbox="0 0 ${size} ${size}">
+          <path d="${path}"/>
+        </svg>`;
     }
 
-    return html`
-      <svg class="starfield" viewbox="0 0 ${size} ${size}">
-        <path d="${path}"/>
-      </svg>
-    `;
+    return html`${unsafeSVG(paths)}`;
   }
 
   private renderMeteors() {
