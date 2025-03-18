@@ -18,7 +18,7 @@ interface Scene {
 class Scenes extends LitElement {
   private appTitle = document.title;
   private endpoint = 'https://gauslin.com/api/ten/scenes.json';
-  private imagePath = 'https://assets.gauslin.com/images/ten/';
+  private imagePath = 'https://gauslin.com/images/ten/';
   private popstateListener: EventListenerObject;
 
   @property({type: Boolean, reflect: true}) rewind = false;
