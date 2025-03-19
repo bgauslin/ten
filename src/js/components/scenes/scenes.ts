@@ -78,16 +78,17 @@ class Scenes extends LitElement {
   }
 
   private updateWindow() {
-    history.replaceState(null, '', this.scene.toString());
+    const url = new URL(window.location.href);
+    url.hash = `${this.scene}`;
+    history.replaceState(null, '', url);
     this.updateDocument();
   }
 
   private updateSceneFromUrl() {
-    const segments = window.location.pathname.split('/');
-    const scene = Number(segments[1]);
+    const scene = parseInt(window.location.hash.replace('#', ''));
 
     if (scene > this.scenes.length || scene === 0 || isNaN(scene)) {
-      history.replaceState(null, '', '/');
+      history.replaceState(null, '', window.location.pathname);
     }
 
     this.scene = (scene >= 1 && scene <= this.scenes.length) ? scene : 1;
@@ -100,7 +101,8 @@ class Scenes extends LitElement {
   }
 
   private replayIntro() {
-    history.replaceState(null, '', '/');
+    history.replaceState(null, '', window.location.pathname);
+
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
       composed: true,
@@ -117,7 +119,11 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-        history.replaceState(null, '', '/1');
+
+        const url = new URL(window.location.href);
+        url.hash = '1';
+        history.replaceState(null, '', url);
+
         this.updateDocument();
       }
     }
