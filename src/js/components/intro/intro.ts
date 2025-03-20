@@ -16,11 +16,18 @@ interface Intro {
 @customElement('ten-intro')
 class AppIntro extends LitElement {
   private animationListener: EventListenerObject;
-  private endpoint = 'https://gauslin.com/api/ten/intro.json';
 
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
-  @state() intro: Intro;
+  @state() intro: Intro = {
+    title: 'Powers of Ten',
+    tagline: 'About the Relative Size of Things in the Universe',
+    copy: [
+      'What would you see if your vision could encompass an expanse of one billion light years?',
+      'Or if you could peer inside the microscopic realm of the atom?',
+      'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
+    ],
+  };
 
   static styles = css`${shadowStyles}`;
 
@@ -32,22 +39,11 @@ class AppIntro extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.renderRoot.addEventListener('animationend', this.animationListener);
-    this.fetchData();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.renderRoot.removeEventListener('animationend', this.animationListener);
-  }
-
-  private async fetchData(): Promise<Intro> {
-    try {
-      const response = await fetch(this.endpoint);
-      this.intro = await response.json();
-    } catch (error) {
-      console.warn(error);
-      return;
-    }
   }
 
   private done(event: AnimationEvent) {
@@ -65,7 +61,7 @@ class AppIntro extends LitElement {
   }
 
   protected render() {
-    if (this.intro && this.play) {
+    if (this.play) {
       const {copy, tagline, title} = this.intro;
       return html`
         <header>
