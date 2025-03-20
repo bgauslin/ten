@@ -17,7 +17,7 @@ interface Scene {
 @customElement('ten-scenes')
 class Scenes extends LitElement {
   private appTitle = document.title;
-  private endpoint = 'https://gauslin.com/api/ten-scenes.json';
+  private endpoint = 'https://gauslin.com/api/ten.json';
   private imagePath = 'https://gauslin.com/images/ten/';
   private popstateListener: EventListenerObject;
 
