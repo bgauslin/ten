@@ -37,10 +37,10 @@ $nucleus-size: 40px;
 // 'Skip' button.
 
 button {
-  inset-block: auto 5vw;
-  inset-inline: auto;
+  inset-block: auto -40vh;
   padding-inline: 1em .75em;
-  position: fixed;
+  position: relative;
+  z-index: 1;
 
   &[disabled] {
     animation: fadeOut 1s;
