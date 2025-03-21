@@ -46,7 +46,8 @@ class Scenes extends LitElement {
 
   protected updated(changed: PropertyValues<this>) {
     if (changed.get('wait') && !this.wait) {
-      this.updateWindow();
+      this.updateAddressBar(`${this.scene}`);
+      this.updateDocumentTitle();
     }
   }
 
@@ -56,6 +57,7 @@ class Scenes extends LitElement {
       this.scenes = await response.json();
       if (!this.wait) {
         this.updateSceneFromUrl();
+        this.updateDocumentTitle();
       }
     } catch (error) {
       console.warn(error);
@@ -66,43 +68,48 @@ class Scenes extends LitElement {
   private nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateWindow();
+      this.updateAddressBar(`${this.scene}`);
+      this.updateDocumentTitle();
     }
   }
 
   private prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
-      this.updateWindow();
+      this.updateAddressBar(`${this.scene}`);
+      this.updateDocumentTitle();
     }
-  }
-
-  private updateWindow() {
-    const url = new URL(window.location.href);
-    url.hash = `${this.scene}`;
-    history.replaceState(null, '', url);
-    this.updateDocument();
   }
 
   private updateSceneFromUrl() {
-    const scene = parseInt(window.location.hash.replace('#', ''));
+    const segments = window.location.pathname.split('/');
+    const scene = segments[segments.length-1];
+    const isNumber = /^\d+$/.test(scene);
+    const scene_ = parseInt(scene);
 
-    if (scene > this.scenes.length || scene === 0 || isNaN(scene)) {
-      history.replaceState(null, '', window.location.pathname);
+    if (!isNumber || scene_ < 1 || scene_ > this.scenes.length) {
+      segments.pop();
+      history.replaceState(null, '', segments.join('/'));
+    } else {
+      this.scene = scene_;
     }
-
-    this.scene = (scene >= 1 && scene <= this.scenes.length) ? scene : 1;
-    this.updateDocument();
   }
 
-  private updateDocument() {
+  private updateAddressBar(segment: string) {
+    const segments = window.location.pathname.split('/');
+    segments.pop();
+    segments.push(segment);
+    history.replaceState(null, '', segments.join('/'));
+  }
+
+  private updateDocumentTitle() {
     const {distance, power} = this.scenes[this.scene - 1];
     document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
 
   private replayIntro() {
-    history.replaceState(null, '', window.location.pathname);
-
+    this.updateAddressBar(''); // Force trailing slash.
+    this.updateDocumentTitle();
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
       composed: true,
@@ -119,12 +126,8 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-
-        const url = new URL(window.location.href);
-        url.hash = '1';
-        history.replaceState(null, '', url);
-
-        this.updateDocument();
+        this.updateAddressBar('1');
+        this.updateDocumentTitle();
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.

@@ -51,7 +51,7 @@ class App extends LitElement {
  
   private playIntro() {
     const segments = window.location.pathname.split('/');
-    const scene = Number(segments[1]);
+    const scene = parseInt(segments[segments.length - 1]);
     this.play = scene > this.scenes || scene === 0 || isNaN(scene);
   }
 
