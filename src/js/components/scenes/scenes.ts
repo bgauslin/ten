@@ -30,7 +30,8 @@ class Scenes extends LitElement {
 
   constructor() {
     super();
-    this.popstateListener = this.updateSceneFromUrl.bind(this);
+    // this.popstateListener = this.updateSceneFromUrl.bind(this);
+    this.popstateListener = this.updateBrowser.bind(this);
   }
 
   connectedCallback() {
@@ -46,8 +47,7 @@ class Scenes extends LitElement {
 
   protected updated(changed: PropertyValues<this>) {
     if (changed.get('wait') && !this.wait) {
-      this.updateAddressBar(`${this.scene}`);
-      this.updateDocumentTitle();
+      this.updateBrowser(`${this.scene}`);
     }
   }
 
@@ -56,8 +56,7 @@ class Scenes extends LitElement {
       const response = await fetch(this.endpoint);
       this.scenes = await response.json();
       if (!this.wait) {
-        this.updateSceneFromUrl();
-        this.updateDocumentTitle();
+        this.updateBrowser();
       }
     } catch (error) {
       console.warn(error);
@@ -65,55 +64,24 @@ class Scenes extends LitElement {
     }
   }
 
+  // TODO: Is abstraction wrppwer needed, or can we call update method
+  // from listener binding?
+  // private updateSceneFromUrl() {
+  //   this.updateBrowser();
+  // }
+
   private nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
-      this.updateAddressBar(`${this.scene}`);
-      this.updateDocumentTitle();
+      this.updateBrowser(`${this.scene}`);
     }
   }
 
   private prevScene() {
     if (this.scene > 1) {
       this.scene -= 1;
-      this.updateAddressBar(`${this.scene}`);
-      this.updateDocumentTitle();
+      this.updateBrowser(`${this.scene}`);
     }
-  }
-
-  private updateSceneFromUrl() {
-    const segments = window.location.pathname.split('/');
-    const scene = segments[segments.length-1];
-    const isNumber = /^\d+$/.test(scene);
-    const scene_ = parseInt(scene);
-
-    if (!isNumber || scene_ < 1 || scene_ > this.scenes.length) {
-      segments.pop();
-      history.replaceState(null, '', segments.join('/'));
-    } else {
-      this.scene = scene_;
-    }
-  }
-
-  private updateAddressBar(segment: string) {
-    const segments = window.location.pathname.split('/');
-    segments.pop();
-    segments.push(segment);
-    history.replaceState(null, '', segments.join('/'));
-  }
-
-  private updateDocumentTitle() {
-    const {distance, power} = this.scenes[this.scene - 1];
-    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
-  }
-
-  private replayIntro() {
-    this.updateAddressBar(''); // Force trailing slash.
-    this.updateDocumentTitle();
-    this.dispatchEvent(new CustomEvent('replay', {
-      bubbles: true,
-      composed: true,
-    }));
   }
 
   private rewindScenes() {
@@ -126,11 +94,44 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-        this.updateAddressBar('1');
-        this.updateDocumentTitle();
+        this.updateBrowser('1');
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
+  }
+
+	private replayIntro() {
+    this.dispatchEvent(new CustomEvent('replay', {
+      bubbles: true,
+      composed: true,
+    }));
+		this.updateBrowser('');
+  }
+	
+	private updateBrowser(scene: string = null) {
+    const segments = window.location.pathname.split('/');
+
+		// Determine scene from URL segment if no scene is provided.
+		if (!scene) {
+			const last = segments[segments.length - 1];
+      const isNumeric = /^\d+$/.test(last);
+			const scene_ = parseInt(last, 10);
+			
+	    if (!isNumeric) {
+				scene = '';
+	    } else if (scene_ < 1 || scene_ > this.scenes.length) {
+	      scene = '1';
+	    } else {
+	      this.scene = scene_;
+	    }
+		}
+		
+		segments.pop();
+	  segments.push(`${scene}`);
+		history.replaceState(null, '', segments.join('/'));
+		
+    const {distance, power} = this.scenes[this.scene - 1];
+    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
 
   protected render() {
