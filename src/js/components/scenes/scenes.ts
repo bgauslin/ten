@@ -30,7 +30,6 @@ class Scenes extends LitElement {
 
   constructor() {
     super();
-    // this.popstateListener = this.updateSceneFromUrl.bind(this);
     this.popstateListener = this.updateBrowser.bind(this);
   }
 
@@ -64,12 +63,6 @@ class Scenes extends LitElement {
     }
   }
 
-  // TODO: Is abstraction wrppwer needed, or can we call update method
-  // from listener binding?
-  // private updateSceneFromUrl() {
-  //   this.updateBrowser();
-  // }
-
   private nextScene() {
     if (this.scene < this.scenes.length) {
       this.scene += 1;
@@ -100,36 +93,37 @@ class Scenes extends LitElement {
     const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
 
-	private replayIntro() {
+  private replayIntro() {
+    this.updateBrowser('');
+
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
       composed: true,
-    }));
-		this.updateBrowser('');
+    }));		
   }
 	
 	private updateBrowser(scene: string = null) {
     const segments = window.location.pathname.split('/');
 
-		// Determine scene from URL segment if no scene is provided.
-		if (!scene) {
-			const last = segments[segments.length - 1];
+    if (!scene) {
+      const last = segments[segments.length - 1];
       const isNumeric = /^\d+$/.test(last);
-			const scene_ = parseInt(last, 10);
-			
-	    if (!isNumeric) {
-				scene = '';
-	    } else if (scene_ < 1 || scene_ > this.scenes.length) {
-	      scene = '1';
-	    } else {
-	      this.scene = scene_;
-	    }
-		}
-		
-		segments.pop();
-	  segments.push(`${scene}`);
-		history.replaceState(null, '', segments.join('/'));
-		
+      const scene_ = parseInt(last, 10);
+
+      if (!isNumeric || scene === '') {
+        scene = '';
+      } else if (scene_ < 1 || scene_ > this.scenes.length) {
+        scene = '1';
+      } else {
+        scene = `${scene_}`;
+        this.scene = scene_;
+      }
+    }
+
+    segments.pop();
+    segments.push(`${scene}`);
+    history.replaceState(null, '', segments.join('/'));
+
     const {distance, power} = this.scenes[this.scene - 1];
     document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
   }
