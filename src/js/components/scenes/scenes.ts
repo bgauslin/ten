@@ -92,17 +92,16 @@ class Scenes extends LitElement {
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
-
+  
   private replayIntro() {
     this.updateBrowser('');
-
     this.dispatchEvent(new CustomEvent('replay', {
       bubbles: true,
       composed: true,
-    }));		
+    }));
   }
 	
-	private updateBrowser(scene: string = null) {
+  private updateBrowser(scene: string = null) {
     const segments = window.location.pathname.split('/');
 
     if (!scene) {
