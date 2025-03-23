@@ -11,7 +11,8 @@ $nucleus-size: 40px;
   background: black;
   block-size: 100dvh; // [1]
   display: grid;
-  grid: 1fr / 1fr;
+  gap: 1rem;
+  grid: 1fr var(--button-size) 0 / 1fr;
   opacity: 0;
   overflow: hidden; // [1]
   pointer-events: none;
@@ -29,7 +30,7 @@ $nucleus-size: 40px;
   opacity: 0;
 }
 
-:host > * {
+:host > *:not(button) {
   grid-area: 1 / 1 / -1 / -1;
 }
 
@@ -37,9 +38,11 @@ $nucleus-size: 40px;
 // 'Skip' button.
 
 button {
-  inset-block: auto -40vh;
-  padding-inline: 1em .75em;
-  position: relative;
+  block-size: var(--button-size);
+  border-radius: 5rem; // Override for capsule styling.
+  grid-area: 2 / 1 / 2 / 1;
+  margin-block: 1rem;
+  padding-inline: 1.25em 1em; // Override for icon optical adjustment.
   z-index: 1;
 
   &[disabled] {
@@ -93,6 +96,7 @@ p {
   inline-size: 1000px;
   place-self: center;
   transform-origin: center;
+  will-change: transform; // Jitter fix for Chrome.
 }
 
 .meteor {
