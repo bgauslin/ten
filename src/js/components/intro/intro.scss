@@ -81,8 +81,8 @@ p {
 
 .stars {
   display: grid;
-  opacity: 0;
   grid: 'stars' 1fr / 1fr;
+  opacity: 0;
 }
 
 .starfield {
@@ -218,14 +218,17 @@ p {
 
 .starfield:nth-child(1) {
   animation: starfield 16s 0s 1 linear;
+  // fill: red;
 }
 
 .starfield:nth-child(2) {
   animation: starfield 13s 0s 1 linear;
+  // fill: blue;
 }
 
 .starfield:nth-child(3) {
   animation: starfield 10s 0s 1 linear;
+  // fill: yellow;
 }
 
 :host > p:nth-of-type(1) {
