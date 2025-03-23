@@ -313,7 +313,7 @@ h1 {
 @keyframes atom {
   0% {
     opacity: 0;
-    transform: rotate(0) scale(.01);
+    transform: rotate(0) scale(.01) translateY(2rem);
   }
   25%,
   80% {
@@ -321,7 +321,7 @@ h1 {
   }
   100% {
     opacity: 0;
-    transform: rotate(360deg) scale(4);
+    transform: rotate(360deg) scale(4) translateY(2rem);
   }
 }
 
