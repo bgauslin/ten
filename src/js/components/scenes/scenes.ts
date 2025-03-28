@@ -19,6 +19,7 @@ class Scenes extends LitElement {
   private appTitle = document.title;
   private endpoint = 'https://gauslin.com/api/ten.json';
   private imagePath = 'https://gauslin.com/images/ten/';
+  private keyListener: EventListenerObject;
   private popstateListener: EventListenerObject;
 
   @property({type: Boolean, reflect: true}) rewind = false;
@@ -31,16 +32,19 @@ class Scenes extends LitElement {
   constructor() {
     super();
     this.popstateListener = this.updateBrowser.bind(this);
+    this.keyListener = this.handleKey.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
+    document.addEventListener('keydown', this.keyListener);
     window.addEventListener('popstate', this.popstateListener);
     this.fetchData();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    document.removeEventListener('keydown', this.keyListener);
     window.removeEventListener('popstate', this.popstateListener);
   }
 
@@ -125,6 +129,20 @@ class Scenes extends LitElement {
 
     const {distance, power} = this.scenes[this.scene - 1];
     document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
+  }
+
+  handleKey(event: KeyboardEvent) {
+    if (event.code === 'ArrowUp') {
+      this.nextScene();
+    }
+
+    if (event.code === 'ArrowDown') {
+      this.prevScene();
+    }
+
+    if (event.code === 'KeyR') {
+      this.rewindScenes();
+    }
   }
 
   protected render() {
