@@ -17,8 +17,6 @@ interface Scene {
 @customElement('ten-scenes')
 class Scenes extends LitElement {
   private appTitle = document.title;
-  private endpoint = 'https://gauslin.com/api/ten.json';
-  private imagePath = 'https://gauslin.com/images/ten/';
   private keyListener: EventListenerObject;
   private popstateListener: EventListenerObject;
 
@@ -56,7 +54,7 @@ class Scenes extends LitElement {
 
   private async fetchData(): Promise<Scene[]> {
     try {
-      const response = await fetch(this.endpoint);
+      const response = await fetch('ten.json');
       this.scenes = await response.json();
       if (!this.wait) {
         this.updateBrowser();
@@ -163,9 +161,9 @@ class Scenes extends LitElement {
         const {blurb, image, distance, power} = scene;
         const currentScene = this.scene - 1;
 
-        const small = `${this.imagePath}${image}@small.webp`;
-        const medium = `${this.imagePath}${image}@medium.webp`;
-        const large = `${this.imagePath}${image}@large.webp`;;
+        const small = `img/${image}@small.webp`;
+        const medium = `img/${image}@medium.webp`;
+        const large = `img/${image}@large.webp`;;
 
         return html`
           <li
