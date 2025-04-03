@@ -101,7 +101,7 @@ class AppIntro extends LitElement {
   }
 
   private renderStarfield() {
-    const radii = [[.6, 800], [.7, 250], [1, 250]];
+    const radii = [[.5, 500], [.75, 300], [1, 200]];
     const size = 1000;
     let paths = '';
 
