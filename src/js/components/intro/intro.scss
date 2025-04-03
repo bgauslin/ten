@@ -8,7 +8,7 @@ $nucleus-size: 40px;
 
 // [1] Prevent scrolling for scaled SVGs.
 :host {
-  background: black;
+  background-color: black;
   block-size: 100dvh; // [1]
   display: grid;
   gap: 1rem;
@@ -40,7 +40,7 @@ $nucleus-size: 40px;
 button {
   block-size: var(--button-size);
   border-radius: 5rem; // Override for capsule styling.
-  grid-area: 2 / 1 / 2 / 1;
+  grid-area: 2 / 1;
   margin-block: 1rem;
   padding-inline: 1.25em 1em; // Override for icon optical adjustment.
   z-index: 1;

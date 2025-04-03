@@ -114,7 +114,7 @@ li {
 // Scene media.
 img {
   aspect-ratio: 1;
-  background: white;
+  background-color: white;
   block-size: auto;
   display: grid;
   grid-area: image;
@@ -190,7 +190,7 @@ hr {
 }
 
 .blurb {
-  background: var(--blurb-background);
+  background-color: var(--blurb-background);
   grid-area: blurb;
   opacity: 0;
   padding-block: var(--blurb-padding-block);
