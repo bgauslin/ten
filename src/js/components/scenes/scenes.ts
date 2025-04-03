@@ -130,16 +130,20 @@ class Scenes extends LitElement {
   }
 
   handleKey(event: KeyboardEvent) {
-    if (event.code === 'ArrowUp') {
-      this.nextScene();
-    }
-
-    if (event.code === 'ArrowDown') {
-      this.prevScene();
-    }
-
-    if (event.code === 'KeyR') {
-      this.rewindScenes();
+    switch (event.code) {
+      case 'ArrowUp':
+      case 'ArrowRight':
+        this.nextScene();
+        break;
+      case 'ArrowDown':
+      case 'ArrowLeft':
+        this.prevScene();
+        break;
+      case 'KeyR':
+        this.rewindScenes();
+        break;
+      default:
+        break;
     }
   }
 
