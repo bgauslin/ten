@@ -170,13 +170,16 @@ class AppIntro extends LitElement {
   }
 
   private renderElectrons() {
+    // Value for 'path' must match 'offset-path' value in Sass module.
+    const path = 'M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z';
+
     const electrons = [];
     for (let i = 0; i < 3; i++) {
       electrons.push(html`
         <div class="electron" id="electron-${i + 1}">
           <div class="particle"></div>
           <svg viewBox="0 0 200 200">
-            <path class="orbit" d="M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z"/>
+            <path class="orbit" d="${path}"/>
           </svg>
         </div>
       `);

@@ -15,9 +15,9 @@ $nucleus-size: 40px;
   grid: 1fr var(--button-size) 0 / 1fr;
   opacity: 0;
   overflow: hidden; // [1]
-  pointer-events: none;
   place-content: center;
   place-items: center;
+  pointer-events: none;
   transition: opacity 1s;
 }
 
@@ -188,7 +188,7 @@ p {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-// [1] Must match SVG path.
+// [1] Must match SVG path in TS mooule.
 .particle {
   animation: electron 1s linear infinite;
   aspect-ratio: 1;
@@ -222,17 +222,14 @@ p {
 
 .starfield:nth-child(1) {
   animation: starfield 16s 0s 1 linear;
-  // fill: red;
 }
 
 .starfield:nth-child(2) {
   animation: starfield 13s 0s 1 linear;
-  // fill: blue;
 }
 
 .starfield:nth-child(3) {
   animation: starfield 10s 0s 1 linear;
-  // fill: yellow;
 }
 
 :host > p:nth-of-type(1) {
