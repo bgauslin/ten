@@ -13,6 +13,7 @@ class App extends LitElement {
   private scenes = 42;
 
   @state() play: boolean = false;
+  @state() ready: boolean = false;
   @state() target: HTMLElement;
 
   constructor() {
@@ -49,7 +50,9 @@ class App extends LitElement {
     this.play = false;
   }
  
-  private playIntro() {
+  private async playIntro() {
+    await this.updateComplete;
+
     const segments = window.location.pathname.split('/');
     const scene = parseInt(segments[segments.length - 1]);
     this.play = scene > this.scenes || scene === 0 || isNaN(scene);
