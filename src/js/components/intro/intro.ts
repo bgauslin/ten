@@ -11,7 +11,8 @@ interface Intro {
 }
 
 /**
- * Web component for Powers of Ten intro animation.
+ * Web component for Powers of Ten intro animation that programmatically
+ * renders SVG elements for a field of stars, an atom, and text copy.
  */
 @customElement('ten-intro')
 class AppIntro extends LitElement {
