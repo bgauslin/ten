@@ -4,12 +4,6 @@ import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
 
-interface Intro {
-  copy: string[],
-  tagline: string,
-  title: string,
-}
-
 /**
  * Web component for Powers of Ten intro animation that programmatically
  * renders SVG elements for a field of stars, an atom, and text copy.
@@ -20,14 +14,11 @@ class AppIntro extends LitElement {
 
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
-  @state() intro: Intro = {
-    title: 'Powers of Ten',
-    tagline: 'About the Relative Size of Things in the Universe',
-    copy: [
-      'What would you see if your vision could encompass an expanse of one billion light years?',
-      'Or if you could peer inside the microscopic realm of the atom?',
-      'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
-    ],
+  @state() appTitle: string = document.title;
+  @state() intro: any = {
+    years: 'What would you see if your vision could encompass an expanse of one billion light years?',
+    atom: 'Or if you could peer inside the microscopic realm of the atom?',
+    scenes: 'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
   };
 
   static styles = css`${shadowStyles}`;
@@ -62,21 +53,23 @@ class AppIntro extends LitElement {
   }
 
   protected render() {
+    const meta = <HTMLMetaElement>document.head.querySelector('[name="description"]');
+    const {years, atom, scenes} = this.intro;
+
     if (this.play) {
-      const {copy, tagline, title} = this.intro;
       return html`
         <header>
-          <h1>${title}</h1>
-          <p class="tagline">${tagline}</p>
+          <h1>${this.appTitle}</h1>
+          <p class="tagline">${meta.content}</p>
         </header>
 
         ${this.renderStars()}
-        <p>${copy[0]}</p>
+        <p>${years}</p>
 
         ${this.renderAtom()}
-        <p>${copy[1]}</p>
+        <p>${atom}</p>
 
-        <p>${copy[2]}</p>
+        <p>${scenes}</p>
 
         <button
           type="button"
