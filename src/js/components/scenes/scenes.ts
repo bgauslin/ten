@@ -56,7 +56,8 @@ class Scenes extends LitElement {
   private async fetchData(): Promise<Scene[]> {
     try {
       const response = await fetch('ten.json');
-      this.scenes = await response.json();
+      const {scenes} = await response.json();
+      this.scenes = scenes;
       if (!this.wait) {
         this.updateBrowser();
       }
