@@ -15,11 +15,11 @@ class AppIntro extends LitElement {
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
   @state() appTitle: string = document.title;
-  @state() intro: any = {
-    years: 'What would you see if your vision could encompass an expanse of one billion light years?',
-    atom: 'Or if you could peer inside the microscopic realm of the atom?',
-    scenes: 'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
-  };
+  @state() intro: any = [
+    'What would you see if your vision could encompass an expanse of one billion light years?',
+    'Or if you could peer inside the microscopic realm of the atom?',
+    'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
+  ];
 
   static styles = css`${shadowStyles}`;
 
@@ -54,7 +54,7 @@ class AppIntro extends LitElement {
 
   protected render() {
     const meta = <HTMLMetaElement>document.head.querySelector('[name="description"]');
-    const {years, atom, scenes} = this.intro;
+    const [stars, atom, overview] = this.intro;
 
     if (this.play) {
       return html`
@@ -64,12 +64,12 @@ class AppIntro extends LitElement {
         </header>
 
         ${this.renderStars()}
-        <p>${years}</p>
+        <p data-blurb="stars">${stars}</p>
 
         ${this.renderAtom()}
-        <p>${atom}</p>
+        <p data-blurb="atom">${atom}</p>
 
-        <p>${scenes}</p>
+        <p data-blurb="overview">${overview}</p>
 
         <button
           type="button"

@@ -1,360 +1,355 @@
 {
-"intro": {
-  "years": "What would you see if your vision could encompass an expanse of one billion light years?",
-  "atom": "Or if you could peer inside the microscopic realm of the atom?",
-  "scenes": "In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small."
-},
-"scenes": [
-  {
-    "power": "25",
-    "distance": [
-      "~ 1 billion light-years"
-    ],
-    "blurb": "<p>Most of space looks as empty as this, the glow of distant galaxies like clotted dust. This emptiness is normal; our own bright home-world is the exception.</p><p>A tenfold larger view would show no new structure, no new void; the universe is roughly uniform at such dimensions. Novelty on so grand a scale is to be sought over time rather than from place to place. All swift change is in the past.</p><p>This view will dim slowly, for a few billion years at least, as the faint clusters drift still farther apart.</p>",
-    "image": "scene-01_25"
-  },
-  {
-    "power": "24",
-    "distance": [
-      "~ 100 million light-years"
-    ],
-    "blurb": "<p>We look toward our distant home in the Milky Way. But we see mostly one large intervening cluster of galaxies, called the Virgo Cluster.</p><p>Galaxies as a rule associate into orbiting clusters and groups. There is reason to believe that our Milky Way is itself an outlier of the big Virgo Cluster, responsive to its steady gravitational pull: part of a supercluster.</p><p>Out there beyond the Milky Way is a good-sized volume nearly devoid of noticeable galaxies.</p>",
-    "image": "scene-02_24"
-  },
-  {
-    "power": "23",
-    "distance": [
-      "~ 10 million light-years",
-      "~ 3 megaparsecs"
-    ],
-    "blurb": "<p>These are the galaxies of our own cosmic region, each single bright spot made by the summed light of stars by the billion. Their mutual gravity binds stars into galaxies, every one a complex swarm of moving stars.</p>",
-    "image": "scene-03_23"
-  },
-  {
-    "power": "22",
-    "distance": [
-      "~ 1 million light-years"
-    ],
-    "blurb": "<p>This flat circular disk is our own Galaxy, the Milky Way, with its spiral structure. It travels in space with two satellite galaxies, the irregular little Clouds of Magellan.</p><p>Not many galaxies are larger than ours; nor are many seen that are smaller than the Clouds.</p>",
-    "image": "scene-04_22"
-  },
-  {
-    "power": "21",
-    "distance": [
-      "~ 100 thousand light-years"
-    ],
-    "blurb": "<p>We look face-on directly at the Milky Way spiral. A hundred billion stars mutually bound by gravity encircle the central region, some passing close in, some in wider orbits.</p><p>Our own sun swings with the rest in dignified passage clockwise about the distant galactic center, once every three hundred million years.</p><p>External galaxies akin to our own are scattered throughout space as far as we can see. They too rotate slowly as they drift.</p>",
-    "image": "scene-05_21"
-  },
-  {
-    "power": "20",
-    "distance": [
-      "~ 10 thousand light-years"
-    ],
-    "blurb": "<p>Clouds of stars and glowing gas, with patches of darkening dust, mark the slow-changing spiral patterns of the Galaxy disk.</p><p>Our distant sun cannot be seen here, but it is in the center of the image, near the border of one spiral arm.</p>",
-    "image": "scene-06_20"
-  },
-  {
-    "power": "19",
-    "distance": [
-      "~ 1 thousand light-years"
-    ],
-    "blurb": "<p>In this view we are within the disk of the Galaxy, right among a host of stars visible here as individuals.</p><p>Almost every star of the thousand mapped by the old watchers of the sky, those who first gathered stars into constellations, lies within this square, our own galactic neighborhood. There are many other stars as well, too faint for the eye to see.</p>",
-    "image": "scene-07_19"
-  },
-  {
-    "power": "18",
-    "distance": [
-      "~ 100 light-years"
-    ],
-    "blurb": "<p>A skyful of distinct stars: one among them, central, but too faint to pick out, is our sun.</p><p>The star Arcturus, prominent in the northern sky of Earth, shines brightly. Arcturus is intrinsically more luminous than our sun, and here we are nearer to it as well.</p>",
-    "image": "scene-08_18"
-  },
-  {
-    "power": "17",
-    "distance": [
-      "~ 10 light-years",
-      "~ 3 parsecs"
-    ],
-    "blurb": "<p>Most of the matter we know is formed into stars, spheres of gas nourished by central nuclear fires that often maintain the glow for a very long time.</p><p>At this point in the journey, with no star nearby, we see the realm of the stars chiefly as a distant background, no different from the night sky we view from Earth.</p><p>For several frames the star background remains unchanged: the visible stars are strewn so deep in space that these steps are small in comparison. Hence they cause no noticeable shifts.</p>",
-    "image": "scene-09_17"
-  },
-  {
-    "power": "16",
-    "distance": [
-      "~ 1 light-year",
-      "10 trillion kilometers"
-    ],
-    "blurb": "<p>Here one central star is brighter than the rest, only because it is so much nearer. That star is the sun.</p><p>The contrast between night and day, between the cold glitter of the starry sky and life-giving warmth, is the consequence simply of our planet’s location next to one modest star.</p><p>Once we have drawn away from the sun, we can recognize that it is one star among many stars, and all distant stars are in some way suns.</p>",
-    "image": "scene-10_16"
-  },
-  {
-    "power": "15",
-    "distance": [
-      "1 trillion kilometers"
-    ],
-    "blurb": "<p>Only the sun is to be seen, against a background of fainter stars beyond. Once that was all we knew of the frontier of the sun’s system.</p><p>We know now that a great cloud of icy comets orbits slowly here, though invisible in the weak sunlight. We see comets only as year after year a few fall into the brighter regions near Earth. There we catch sight of them, moving in the sky like temporary planets, the sun’s fires boiling out their long faint tails.</p>",
-    "image": "scene-11_15"
-  },
-  {
-    "power": "14",
-    "distance": [
-      "100 billion kilometers"
-    ],
-    "blurb": "<p>All the sun’s planets circulate within the small square.</p><p>From Earth the planets have always stood out, a few strange bright stars restlessly wandering in a skyful of unchanging patterns.</p><p>Seen here from outside, the planets take on their Copernican aspect: they move around the sun on these nested ellipses, mapped by colored lines.</p>",
-    "image": "scene-12_14"
-  },
-  {
-    "power": "13",
-    "distance": [
-      "10 billion kilometers"
-    ],
-    "blurb": "<p>The paths of the outer planets fill this picture.</p><p>That strongly tilted orbit belongs to little, awry Pluto. The four others are those of big Neptune, Uranus, Saturn, and Jupiter, with their many satellites. Between Jupiter’s path and the sun run the inner planets in their smaller orbits.</p><p>The planets circulate counterclockwise here, all in nearly the same plane, which we view at an angle.</p><p>The planetary system, apart from Pluto, is flat as a pancake.</p>",
-    "image": "scene-13_13"
-  },
-  {
-    "power": "12",
-    "distance": [
-      "1 billion kilometers"
-    ],
-    "blurb": "<p>Enclosed in the path of massive Jupiter, these are the orbits of the smaller earthlike inner planets: Mars, Earth, Venus, Mercury.</p><p>Another swarm of objects too small and faint to make out without telescopic aid is present as well: asteroids and meteors ply this darkness in the belt between the orbits of Mars and Jupiter.</p>",
-    "image": "scene-14_12"
-  },
-  {
-    "power": "11",
-    "distance": [
-      "100 million kilometers"
-    ],
-    "blurb": "<p>Now we see the inner solar system. The green arc is traversed by planet Earth during some six weeks each September and October.</p>",
-    "image": "scene-15_11"
-  },
-  {
-    "power": "10",
-    "distance": [
-      "10 million kilometers"
-    ],
-    "blurb": "<p>This path marks the Earth’s way for four days in October; within it the moon’s route is indicated relative to Earth.</p><p>The moon at all times lies somewhere on that small ellipse which moves along with the Earth in its orbit.</p>",
-    "image": "scene-16_10"
-  },
-  {
-    "power": "9",
-    "distance": [
-      "1 million kilometers"
-    ],
-    "blurb": "<p>The farthest place our own kind has yet visited is the companion moon, our nearest celestial neighbor.</p><p>Bright moonlight and the tides witness her proximity.</p>",
-    "image": "scene-17_9"
-  },
-  {
-    "power": "8",
-    "distance": [
-      "100 thousand kilometers"
-    ],
-    "blurb": "<p>The whole Earth appears, isolated, elegant, and fragile.</p><p>We recognize our globe in open space, a spacecraft in orbit, no Atlas and no turtles to support it.</p><p>Its smooth, swift motion around the sun carries it across such a square as this every hour.</p>",
-    "image": "scene-18_8"
-  },
-  {
-    "power": "7",
-    "distance": [
-      "10 thousand kilometers"
-    ],
-    "blurb": "<p>The Earth in detail: blue sky, white clouds, dark seas, brown lands, a globe turning always eastward.</p><p>The makers of maps had for three centuries prepared us for this sight, but it became real to eyes as well as to mind only around 1967.</p>",
-    "image": "scene-19_7"
-  },
-  {
-    "power": "6",
-    "distance": [
-      "1 thousand kilometers",
-      "1 million meters"
-    ],
-    "blurb": "<p>This region, viewed from a low orbit, holds the whole of Lake Michigan; the broad sheet of water, like the flat silted lands around it, was formed by continental glaciers in the most recent geological past, a few tens of thousands of years ago.</p><p>The day’s weather is marked by clouds arrayed in streets and clumps. Though we are looking at the homes of tens of millions of people, the work of human hands is hardly to be seen.</p>",
-    "image": "scene-20_6"
-  },
-  {
-    "power": "5",
-    "distance": [
-      "100 kilometers"
-    ],
-    "blurb": "<p>The metropolitan area of Chicago nestles at the south end of the lake.</p><p>On a day like this, someone walking along the street might have looked up to a blue sky; but the camera plane was flying so high it would have been hard to pick out.</p><p>The lattice visible among so many blurred streets is the mile-square grid of wide Chicago boulevards.</p>",
-    "image": "scene-21_5"
-  },
-  {
-    "power": "4",
-    "distance": [
-      "10 kilometers",
-      "~ 6 miles"
-    ],
-    "blurb": "<p>The heart of the city appears, place of home and work for a million people. The whole structure shown here—city districts, parks, harbor—is familiar to them.</p><p>The conflagration of 1871 burned the city of wooden houses which then lay within this square.</p><p>Most of the detail shown is newer, though the street and railroad layout survived the fire, as in the future they will outlive most of the individual buildings.</p>",
-    "image": "scene-22_4"
-  },
-  {
-    "power": "3",
-    "distance": [
-      "1 kilometer",
-      "1 thousand meters"
-    ],
-    "blurb": "<p>Now we look at a view that is not a maplike tracery of symbols, but a scene of familiar places within the city: Lake Shore Drive, Soldier Field, an airstrip, boat docks, museums.</p>",
-    "image": "scene-23_3"
-  },
-  {
-    "power": "2",
-    "distance": [
-      "100 meters"
-    ],
-    "blurb": "<p>The picnic in the park is not far from the roaring highway and the boats at their docks. The picnickers can enjoy a sense of privacy all the same, for no one else is near.</p><p>Were people evenly spread over all the world’s land area, these two could lay claim to six times the area of this whole square. To raise their own grain, they would need to cultivate only this grassy plot.</p>",
-    "image": "scene-24_2"
-  },
-  {
-    "power": "1",
-    "distance": [
-      "10 meters"
-    ],
-    "blurb": "<p>A man and a woman are at a picnic in the park.</p><p>This picnic is the center of every picture outward to the view among the galaxies.</p>",
-    "image": "scene-25_1"
-  },
-  {
-    "power": "0",
-    "distance": [
-      "1 meter",
-      "~ 1 yard"
-    ],
-    "blurb": "<p>This is the scale of human companionship, conversation, touch: a man is asleep on a warm October day.</p><p>Around him are necessities and pleasures for mind and body. Between this image and the next frame inward, the size of the image would for once match the size of what it represents.</p><p>“Of all things, man is the measure,” wrote Protagoras the Sophist.</p>",
-    "image": "scene-26_0"
-  },
-  {
-    "power": "-1",
-    "distance": [
-      "0.1 meter",
-      "10 centimeters"
-    ],
-    "blurb": "<p>The scale is now intimate: this is the look of the back of your own hand, a little enlarged.</p><p>That animate structure, guided by eye and mind, joined over time by many another in the human endeavor, has fashioned all the representations we have of the world, including this of the hand itself.</p>",
-    "image": "scene-27_-1"
-  },
-  {
-    "power": "-2",
-    "distance": [
-      "1 centimeter"
-    ],
-    "blurb": "<p>A searching look at the skin as if through a strong magnifier.</p><p>The creasing is both the sign and the means of the skin’s flexibility.</p>",
-    "image": "scene-28_-2"
-  },
-  {
-    "power": "-3",
-    "distance": [
-      "0.1 centimeter",
-      "1 millimeter"
-    ],
-    "blurb": "<p>Here we share the world of the microscopist, who has unlocked so much of nature.</p><p>For each image still closer in than this one, we come nine tenths of the remaining distance toward the inner end of our journey, just below the skin of the man, within a cell passing along a tiny blood vessel.</p>",
-    "image": "scene-29_-3"
-  },
-  {
-    "power": "-4",
-    "distance": [
-      "0.1 millimeter",
-      "100 microns"
-    ],
-    "blurb": "<p>Unexpected detail appears; we can scarcely orient ourselves.</p><p>Deeper still, we enter an intimate world within, as unfamiliar to us as the distant stars.</p>",
-    "image": "scene-30_-4"
-  },
-  {
-    "power": "-5",
-    "distance": [
-      "10 microns"
-    ],
-    "blurb": "<p>We pass through the living skin to enter a capillary vessel, where blood oozes by.</p><p>Most blood cells are the small, incomplete, short-lived disks that give red blood its color; this white cell, a lymphocyte, is a long-lived participant in the complex cellular and chemical strategy called the immune system, the body’s defense against infection.</p>",
-    "image": "scene-31_-5"
-  },
-  {
-    "power": "-6",
-    "distance": [
-      "1 micron",
-      "1 micrometer"
-    ],
-    "blurb": "<p>We are inside the ruffly lymphocyte, only to face another surface, a protective membrane within the cell that encloses its nucleus.</p><p>The minute pores allow materials from within to enter the larger volume of the cell. Every complete cell has such a nucleus, whose molecular products inform the entire life of the cell.</p><p>In one human body are a hundred times more cells than there are stars in the Galaxy.</p>",
-    "image": "scene-32_-6"
-  },
-  {
-    "power": "-7",
-    "distance": [
-      "0.1 micron",
-      "1 thousand angstroms"
-    ],
-    "blurb": "<p>Held safely inside the cell nucleus are enormously long molecules, the coiled coils of DNA, cunningly spooled and folded within this tiny space.</p><p>These vital instructions are carefully duplicated at every cell division. One such thread of DNA, a few centimeters long, is stored in each of the forty-six chromosomes within the nucleus of every human cell.</p>",
-    "image": "scene-33_-7"
-  },
-  {
-    "power": "-8",
-    "distance": [
-      "100 angstroms"
-    ],
-    "blurb": "<p>In this close-up the DNA is seen as a long twisted molecular ladder, the double helix. The individuality of the organism is held in the running sequence of the differing rungs.</p><p>That chemical message is spelled out at great length in a molecular alphabet of four letters. One alphabet serves all life, but the tale retold in every cell of the body differs from individual to individual.</p><p>The two rails of the ladder come apart during cell duplication, each to act as a template for one complete new copy of the ladder of rungs.</p>",
-    "image": "scene-34_-8"
-  },
-  {
-    "power": "-9",
-    "distance": [
-      "10 angstroms",
-      "1 nanometer"
-    ],
-    "blurb": "<p>These building blocks are molecular typography, the letters of the genetic message. It is their particular order that spells out the long text.</p><p>The forms are chemical patterns, the ordinary stable structures of bound atoms, themselves indifferent to life.</p><p>The central carbon atom is bonded to three visible hydrogen atoms (and to another atom that lies behind). A similar linkage might well be found abundantly among carbon and hydrogen atoms drifting in the cold thin clouds of interstellar space.</p>",
-    "image": "scene-35_-9"
-  },
-  {
-    "power": "-10",
-    "distance": [
-      "1 angstrom"
-    ],
-    "blurb": "<p>The quantum laws of atomic scale require a description of electron motion that is more subtle and less sequential than for the moving particles of ordinary experience.</p><p>Accordingly, the dot texture shown does not map individual electrons; instead, it suggests the cloud of electrical charge the electrons paint out during their symmetrical but untrackable quantum pattern of motion.</p><p>In that cloud the surface electrons are shared by the bonded atoms.</p>",
-    "image": "scene-36_-10"
-  },
-  {
-    "power": "-11",
-    "distance": [
-      "0.1 angstrom",
-      "10 picometers"
-    ],
-    "blurb": "<p>Now we are among the two innermost electrons of the carbon atom. They mark out in their dance a neat sphere of electric charge.</p><p>The four outer electrons of carbon can come and go, whether in flame, in diamond, or in DNA. But these inner electrons remain indifferent to ordinary experiences, which cannot disturb their seclusion; they respond only to the nucleus within.</p>",
-    "image": "scene-37_-11"
-  },
-  {
-    "power": "-12",
-    "distance": [
-      "1 picometer"
-    ],
-    "blurb": "<p>The compact core of the atom begins to appear.</p><p>The balance of atomic force is set by this nucleus, whose strong electrical attraction binds the electron dance. To bind six negatively charged electrons, exactly six positive protons must cluster within the nucleus: that number (the atomic number) defines the element carbon.</p><p>We know about a hundred distinct species of these tiny proton clusters, the elements: modular but diverse, they determine the material universe.</p>",
-    "image": "scene-38_-12"
-  },
-  {
-    "power": "-13",
-    "distance": [
-      "0.1 picometer",
-      "100 fermis"
-    ],
-    "blurb": "<p>We see clearly the minute and massive kernel of this particular carbon atom.</p><p>Its close-packed nuclear components are in vigorous quantum motion, but here the motion is profoundly restricted and fluidlike.</p><p>Bound by nonelectrical nuclear forces of terrible strength but of very limited reach, the six neutrons and six protons seem to touch. With twelve nuclear particles, this nucleus is dubbed carbon-12: the most common isotope of carbon, it is the modern standard of atomic weight.</p>",
-    "image": "scene-39_-13"
-  },
-  {
-    "power": "-14",
-    "distance": [
-      "10 fermis"
-    ],
-    "blurb": "<p>A transient view of the eternally dancing structure of stable carbon-12.</p><p>Those neutrons and protons that join to form it are universal nuclear modules. Protons are found free as natural hydrogen; neutrons can be set free by energetic nuclear reaction as in the fission of uranium.</p><p>Study of these particles as independent objects has revealed one more analogue to chemistry: they too react upon collisions at high enough energy to produce a host of new particles, mostly transient ones.</p>",
-    "image": "scene-40_-14"
-  },
-  {
-    "power": "-15",
-    "distance": [
-      "1 fermi"
-    ],
-    "blurb": "<p>Even the proton has its inner structure, symmetrical, shifting, again untrackable.</p><p>Here still stronger forces operate at still shorter ranges. These arise among fast-moving quarks in intense interaction.</p><p>The pattern of colored dots is no photo but an abstract symbol of the physics we just begin to comprehend.</p>",
-    "image": "scene-41_-15"
-  },
-  {
-    "power": "-16",
-    "distance": [
-      "0.1 fermi"
-    ],
-    "blurb": "<p>What will we see, and what will we come to understand, once we enter the next levels?</p>",
-    "image": "scene-42_-16"
-  }
-]
+  "scenes": [
+    {
+      "power": "25",
+      "distance": [
+        "~ 1 billion light-years"
+      ],
+      "blurb": "<p>Most of space looks as empty as this, the glow of distant galaxies like clotted dust. This emptiness is normal; our own bright home-world is the exception.</p><p>A tenfold larger view would show no new structure, no new void; the universe is roughly uniform at such dimensions. Novelty on so grand a scale is to be sought over time rather than from place to place. All swift change is in the past.</p><p>This view will dim slowly, for a few billion years at least, as the faint clusters drift still farther apart.</p>",
+      "image": "scene-01_25"
+    },
+    {
+      "power": "24",
+      "distance": [
+        "~ 100 million light-years"
+      ],
+      "blurb": "<p>We look toward our distant home in the Milky Way. But we see mostly one large intervening cluster of galaxies, called the Virgo Cluster.</p><p>Galaxies as a rule associate into orbiting clusters and groups. There is reason to believe that our Milky Way is itself an outlier of the big Virgo Cluster, responsive to its steady gravitational pull: part of a supercluster.</p><p>Out there beyond the Milky Way is a good-sized volume nearly devoid of noticeable galaxies.</p>",
+      "image": "scene-02_24"
+    },
+    {
+      "power": "23",
+      "distance": [
+        "~ 10 million light-years",
+        "~ 3 megaparsecs"
+      ],
+      "blurb": "<p>These are the galaxies of our own cosmic region, each single bright spot made by the summed light of stars by the billion. Their mutual gravity binds stars into galaxies, every one a complex swarm of moving stars.</p>",
+      "image": "scene-03_23"
+    },
+    {
+      "power": "22",
+      "distance": [
+        "~ 1 million light-years"
+      ],
+      "blurb": "<p>This flat circular disk is our own Galaxy, the Milky Way, with its spiral structure. It travels in space with two satellite galaxies, the irregular little Clouds of Magellan.</p><p>Not many galaxies are larger than ours; nor are many seen that are smaller than the Clouds.</p>",
+      "image": "scene-04_22"
+    },
+    {
+      "power": "21",
+      "distance": [
+        "~ 100 thousand light-years"
+      ],
+      "blurb": "<p>We look face-on directly at the Milky Way spiral. A hundred billion stars mutually bound by gravity encircle the central region, some passing close in, some in wider orbits.</p><p>Our own sun swings with the rest in dignified passage clockwise about the distant galactic center, once every three hundred million years.</p><p>External galaxies akin to our own are scattered throughout space as far as we can see. They too rotate slowly as they drift.</p>",
+      "image": "scene-05_21"
+    },
+    {
+      "power": "20",
+      "distance": [
+        "~ 10 thousand light-years"
+      ],
+      "blurb": "<p>Clouds of stars and glowing gas, with patches of darkening dust, mark the slow-changing spiral patterns of the Galaxy disk.</p><p>Our distant sun cannot be seen here, but it is in the center of the image, near the border of one spiral arm.</p>",
+      "image": "scene-06_20"
+    },
+    {
+      "power": "19",
+      "distance": [
+        "~ 1 thousand light-years"
+      ],
+      "blurb": "<p>In this view we are within the disk of the Galaxy, right among a host of stars visible here as individuals.</p><p>Almost every star of the thousand mapped by the old watchers of the sky, those who first gathered stars into constellations, lies within this square, our own galactic neighborhood. There are many other stars as well, too faint for the eye to see.</p>",
+      "image": "scene-07_19"
+    },
+    {
+      "power": "18",
+      "distance": [
+        "~ 100 light-years"
+      ],
+      "blurb": "<p>A skyful of distinct stars: one among them, central, but too faint to pick out, is our sun.</p><p>The star Arcturus, prominent in the northern sky of Earth, shines brightly. Arcturus is intrinsically more luminous than our sun, and here we are nearer to it as well.</p>",
+      "image": "scene-08_18"
+    },
+    {
+      "power": "17",
+      "distance": [
+        "~ 10 light-years",
+        "~ 3 parsecs"
+      ],
+      "blurb": "<p>Most of the matter we know is formed into stars, spheres of gas nourished by central nuclear fires that often maintain the glow for a very long time.</p><p>At this point in the journey, with no star nearby, we see the realm of the stars chiefly as a distant background, no different from the night sky we view from Earth.</p><p>For several frames the star background remains unchanged: the visible stars are strewn so deep in space that these steps are small in comparison. Hence they cause no noticeable shifts.</p>",
+      "image": "scene-09_17"
+    },
+    {
+      "power": "16",
+      "distance": [
+        "~ 1 light-year",
+        "10 trillion kilometers"
+      ],
+      "blurb": "<p>Here one central star is brighter than the rest, only because it is so much nearer. That star is the sun.</p><p>The contrast between night and day, between the cold glitter of the starry sky and life-giving warmth, is the consequence simply of our planet’s location next to one modest star.</p><p>Once we have drawn away from the sun, we can recognize that it is one star among many stars, and all distant stars are in some way suns.</p>",
+      "image": "scene-10_16"
+    },
+    {
+      "power": "15",
+      "distance": [
+        "1 trillion kilometers"
+      ],
+      "blurb": "<p>Only the sun is to be seen, against a background of fainter stars beyond. Once that was all we knew of the frontier of the sun’s system.</p><p>We know now that a great cloud of icy comets orbits slowly here, though invisible in the weak sunlight. We see comets only as year after year a few fall into the brighter regions near Earth. There we catch sight of them, moving in the sky like temporary planets, the sun’s fires boiling out their long faint tails.</p>",
+      "image": "scene-11_15"
+    },
+    {
+      "power": "14",
+      "distance": [
+        "100 billion kilometers"
+      ],
+      "blurb": "<p>All the sun’s planets circulate within the small square.</p><p>From Earth the planets have always stood out, a few strange bright stars restlessly wandering in a skyful of unchanging patterns.</p><p>Seen here from outside, the planets take on their Copernican aspect: they move around the sun on these nested ellipses, mapped by colored lines.</p>",
+      "image": "scene-12_14"
+    },
+    {
+      "power": "13",
+      "distance": [
+        "10 billion kilometers"
+      ],
+      "blurb": "<p>The paths of the outer planets fill this picture.</p><p>That strongly tilted orbit belongs to little, awry Pluto. The four others are those of big Neptune, Uranus, Saturn, and Jupiter, with their many satellites. Between Jupiter’s path and the sun run the inner planets in their smaller orbits.</p><p>The planets circulate counterclockwise here, all in nearly the same plane, which we view at an angle.</p><p>The planetary system, apart from Pluto, is flat as a pancake.</p>",
+      "image": "scene-13_13"
+    },
+    {
+      "power": "12",
+      "distance": [
+        "1 billion kilometers"
+      ],
+      "blurb": "<p>Enclosed in the path of massive Jupiter, these are the orbits of the smaller earthlike inner planets: Mars, Earth, Venus, Mercury.</p><p>Another swarm of objects too small and faint to make out without telescopic aid is present as well: asteroids and meteors ply this darkness in the belt between the orbits of Mars and Jupiter.</p>",
+      "image": "scene-14_12"
+    },
+    {
+      "power": "11",
+      "distance": [
+        "100 million kilometers"
+      ],
+      "blurb": "<p>Now we see the inner solar system. The green arc is traversed by planet Earth during some six weeks each September and October.</p>",
+      "image": "scene-15_11"
+    },
+    {
+      "power": "10",
+      "distance": [
+        "10 million kilometers"
+      ],
+      "blurb": "<p>This path marks the Earth’s way for four days in October; within it the moon’s route is indicated relative to Earth.</p><p>The moon at all times lies somewhere on that small ellipse which moves along with the Earth in its orbit.</p>",
+      "image": "scene-16_10"
+    },
+    {
+      "power": "9",
+      "distance": [
+        "1 million kilometers"
+      ],
+      "blurb": "<p>The farthest place our own kind has yet visited is the companion moon, our nearest celestial neighbor.</p><p>Bright moonlight and the tides witness her proximity.</p>",
+      "image": "scene-17_9"
+    },
+    {
+      "power": "8",
+      "distance": [
+        "100 thousand kilometers"
+      ],
+      "blurb": "<p>The whole Earth appears, isolated, elegant, and fragile.</p><p>We recognize our globe in open space, a spacecraft in orbit, no Atlas and no turtles to support it.</p><p>Its smooth, swift motion around the sun carries it across such a square as this every hour.</p>",
+      "image": "scene-18_8"
+    },
+    {
+      "power": "7",
+      "distance": [
+        "10 thousand kilometers"
+      ],
+      "blurb": "<p>The Earth in detail: blue sky, white clouds, dark seas, brown lands, a globe turning always eastward.</p><p>The makers of maps had for three centuries prepared us for this sight, but it became real to eyes as well as to mind only around 1967.</p>",
+      "image": "scene-19_7"
+    },
+    {
+      "power": "6",
+      "distance": [
+        "1 thousand kilometers",
+        "1 million meters"
+      ],
+      "blurb": "<p>This region, viewed from a low orbit, holds the whole of Lake Michigan; the broad sheet of water, like the flat silted lands around it, was formed by continental glaciers in the most recent geological past, a few tens of thousands of years ago.</p><p>The day’s weather is marked by clouds arrayed in streets and clumps. Though we are looking at the homes of tens of millions of people, the work of human hands is hardly to be seen.</p>",
+      "image": "scene-20_6"
+    },
+    {
+      "power": "5",
+      "distance": [
+        "100 kilometers"
+      ],
+      "blurb": "<p>The metropolitan area of Chicago nestles at the south end of the lake.</p><p>On a day like this, someone walking along the street might have looked up to a blue sky; but the camera plane was flying so high it would have been hard to pick out.</p><p>The lattice visible among so many blurred streets is the mile-square grid of wide Chicago boulevards.</p>",
+      "image": "scene-21_5"
+    },
+    {
+      "power": "4",
+      "distance": [
+        "10 kilometers",
+        "~ 6 miles"
+      ],
+      "blurb": "<p>The heart of the city appears, place of home and work for a million people. The whole structure shown here—city districts, parks, harbor—is familiar to them.</p><p>The conflagration of 1871 burned the city of wooden houses which then lay within this square.</p><p>Most of the detail shown is newer, though the street and railroad layout survived the fire, as in the future they will outlive most of the individual buildings.</p>",
+      "image": "scene-22_4"
+    },
+    {
+      "power": "3",
+      "distance": [
+        "1 kilometer",
+        "1 thousand meters"
+      ],
+      "blurb": "<p>Now we look at a view that is not a maplike tracery of symbols, but a scene of familiar places within the city: Lake Shore Drive, Soldier Field, an airstrip, boat docks, museums.</p>",
+      "image": "scene-23_3"
+    },
+    {
+      "power": "2",
+      "distance": [
+        "100 meters"
+      ],
+      "blurb": "<p>The picnic in the park is not far from the roaring highway and the boats at their docks. The picnickers can enjoy a sense of privacy all the same, for no one else is near.</p><p>Were people evenly spread over all the world’s land area, these two could lay claim to six times the area of this whole square. To raise their own grain, they would need to cultivate only this grassy plot.</p>",
+      "image": "scene-24_2"
+    },
+    {
+      "power": "1",
+      "distance": [
+        "10 meters"
+      ],
+      "blurb": "<p>A man and a woman are at a picnic in the park.</p><p>This picnic is the center of every picture outward to the view among the galaxies.</p>",
+      "image": "scene-25_1"
+    },
+    {
+      "power": "0",
+      "distance": [
+        "1 meter",
+        "~ 1 yard"
+      ],
+      "blurb": "<p>This is the scale of human companionship, conversation, touch: a man is asleep on a warm October day.</p><p>Around him are necessities and pleasures for mind and body. Between this image and the next frame inward, the size of the image would for once match the size of what it represents.</p><p>“Of all things, man is the measure,” wrote Protagoras the Sophist.</p>",
+      "image": "scene-26_0"
+    },
+    {
+      "power": "-1",
+      "distance": [
+        "0.1 meter",
+        "10 centimeters"
+      ],
+      "blurb": "<p>The scale is now intimate: this is the look of the back of your own hand, a little enlarged.</p><p>That animate structure, guided by eye and mind, joined over time by many another in the human endeavor, has fashioned all the representations we have of the world, including this of the hand itself.</p>",
+      "image": "scene-27_-1"
+    },
+    {
+      "power": "-2",
+      "distance": [
+        "1 centimeter"
+      ],
+      "blurb": "<p>A searching look at the skin as if through a strong magnifier.</p><p>The creasing is both the sign and the means of the skin’s flexibility.</p>",
+      "image": "scene-28_-2"
+    },
+    {
+      "power": "-3",
+      "distance": [
+        "0.1 centimeter",
+        "1 millimeter"
+      ],
+      "blurb": "<p>Here we share the world of the microscopist, who has unlocked so much of nature.</p><p>For each image still closer in than this one, we come nine tenths of the remaining distance toward the inner end of our journey, just below the skin of the man, within a cell passing along a tiny blood vessel.</p>",
+      "image": "scene-29_-3"
+    },
+    {
+      "power": "-4",
+      "distance": [
+        "0.1 millimeter",
+        "100 microns"
+      ],
+      "blurb": "<p>Unexpected detail appears; we can scarcely orient ourselves.</p><p>Deeper still, we enter an intimate world within, as unfamiliar to us as the distant stars.</p>",
+      "image": "scene-30_-4"
+    },
+    {
+      "power": "-5",
+      "distance": [
+        "10 microns"
+      ],
+      "blurb": "<p>We pass through the living skin to enter a capillary vessel, where blood oozes by.</p><p>Most blood cells are the small, incomplete, short-lived disks that give red blood its color; this white cell, a lymphocyte, is a long-lived participant in the complex cellular and chemical strategy called the immune system, the body’s defense against infection.</p>",
+      "image": "scene-31_-5"
+    },
+    {
+      "power": "-6",
+      "distance": [
+        "1 micron",
+        "1 micrometer"
+      ],
+      "blurb": "<p>We are inside the ruffly lymphocyte, only to face another surface, a protective membrane within the cell that encloses its nucleus.</p><p>The minute pores allow materials from within to enter the larger volume of the cell. Every complete cell has such a nucleus, whose molecular products inform the entire life of the cell.</p><p>In one human body are a hundred times more cells than there are stars in the Galaxy.</p>",
+      "image": "scene-32_-6"
+    },
+    {
+      "power": "-7",
+      "distance": [
+        "0.1 micron",
+        "1 thousand angstroms"
+      ],
+      "blurb": "<p>Held safely inside the cell nucleus are enormously long molecules, the coiled coils of DNA, cunningly spooled and folded within this tiny space.</p><p>These vital instructions are carefully duplicated at every cell division. One such thread of DNA, a few centimeters long, is stored in each of the forty-six chromosomes within the nucleus of every human cell.</p>",
+      "image": "scene-33_-7"
+    },
+    {
+      "power": "-8",
+      "distance": [
+        "100 angstroms"
+      ],
+      "blurb": "<p>In this close-up the DNA is seen as a long twisted molecular ladder, the double helix. The individuality of the organism is held in the running sequence of the differing rungs.</p><p>That chemical message is spelled out at great length in a molecular alphabet of four letters. One alphabet serves all life, but the tale retold in every cell of the body differs from individual to individual.</p><p>The two rails of the ladder come apart during cell duplication, each to act as a template for one complete new copy of the ladder of rungs.</p>",
+      "image": "scene-34_-8"
+    },
+    {
+      "power": "-9",
+      "distance": [
+        "10 angstroms",
+        "1 nanometer"
+      ],
+      "blurb": "<p>These building blocks are molecular typography, the letters of the genetic message. It is their particular order that spells out the long text.</p><p>The forms are chemical patterns, the ordinary stable structures of bound atoms, themselves indifferent to life.</p><p>The central carbon atom is bonded to three visible hydrogen atoms (and to another atom that lies behind). A similar linkage might well be found abundantly among carbon and hydrogen atoms drifting in the cold thin clouds of interstellar space.</p>",
+      "image": "scene-35_-9"
+    },
+    {
+      "power": "-10",
+      "distance": [
+        "1 angstrom"
+      ],
+      "blurb": "<p>The quantum laws of atomic scale require a description of electron motion that is more subtle and less sequential than for the moving particles of ordinary experience.</p><p>Accordingly, the dot texture shown does not map individual electrons; instead, it suggests the cloud of electrical charge the electrons paint out during their symmetrical but untrackable quantum pattern of motion.</p><p>In that cloud the surface electrons are shared by the bonded atoms.</p>",
+      "image": "scene-36_-10"
+    },
+    {
+      "power": "-11",
+      "distance": [
+        "0.1 angstrom",
+        "10 picometers"
+      ],
+      "blurb": "<p>Now we are among the two innermost electrons of the carbon atom. They mark out in their dance a neat sphere of electric charge.</p><p>The four outer electrons of carbon can come and go, whether in flame, in diamond, or in DNA. But these inner electrons remain indifferent to ordinary experiences, which cannot disturb their seclusion; they respond only to the nucleus within.</p>",
+      "image": "scene-37_-11"
+    },
+    {
+      "power": "-12",
+      "distance": [
+        "1 picometer"
+      ],
+      "blurb": "<p>The compact core of the atom begins to appear.</p><p>The balance of atomic force is set by this nucleus, whose strong electrical attraction binds the electron dance. To bind six negatively charged electrons, exactly six positive protons must cluster within the nucleus: that number (the atomic number) defines the element carbon.</p><p>We know about a hundred distinct species of these tiny proton clusters, the elements: modular but diverse, they determine the material universe.</p>",
+      "image": "scene-38_-12"
+    },
+    {
+      "power": "-13",
+      "distance": [
+        "0.1 picometer",
+        "100 fermis"
+      ],
+      "blurb": "<p>We see clearly the minute and massive kernel of this particular carbon atom.</p><p>Its close-packed nuclear components are in vigorous quantum motion, but here the motion is profoundly restricted and fluidlike.</p><p>Bound by nonelectrical nuclear forces of terrible strength but of very limited reach, the six neutrons and six protons seem to touch. With twelve nuclear particles, this nucleus is dubbed carbon-12: the most common isotope of carbon, it is the modern standard of atomic weight.</p>",
+      "image": "scene-39_-13"
+    },
+    {
+      "power": "-14",
+      "distance": [
+        "10 fermis"
+      ],
+      "blurb": "<p>A transient view of the eternally dancing structure of stable carbon-12.</p><p>Those neutrons and protons that join to form it are universal nuclear modules. Protons are found free as natural hydrogen; neutrons can be set free by energetic nuclear reaction as in the fission of uranium.</p><p>Study of these particles as independent objects has revealed one more analogue to chemistry: they too react upon collisions at high enough energy to produce a host of new particles, mostly transient ones.</p>",
+      "image": "scene-40_-14"
+    },
+    {
+      "power": "-15",
+      "distance": [
+        "1 fermi"
+      ],
+      "blurb": "<p>Even the proton has its inner structure, symmetrical, shifting, again untrackable.</p><p>Here still stronger forces operate at still shorter ranges. These arise among fast-moving quarks in intense interaction.</p><p>The pattern of colored dots is no photo but an abstract symbol of the physics we just begin to comprehend.</p>",
+      "image": "scene-41_-15"
+    },
+    {
+      "power": "-16",
+      "distance": [
+        "0.1 fermi"
+      ],
+      "blurb": "<p>What will we see, and what will we come to understand, once we enter the next levels?</p>",
+      "image": "scene-42_-16"
+    }
+  ]
 }

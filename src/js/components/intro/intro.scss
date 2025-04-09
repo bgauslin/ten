@@ -232,7 +232,7 @@ p {
   animation: starfield 10s 0s 1 linear;
 }
 
-:host > p:nth-of-type(1) {
+[data-blurb='stars'] {
   animation: fade 5s 2s 1 ;
 }
 
@@ -241,12 +241,12 @@ p {
   animation: atom 10s 6s 1 linear;
 }
 
-:host > p:nth-of-type(2) {
+[data-blurb='atom'] {
   animation: fade 5s 9s 1;
 }
 
 // Scene 3: Overview text.
-:host > p:nth-of-type(3) {
+[data-blurb='overview'] {
   animation: fade 7s 16s 1;
 }
 
