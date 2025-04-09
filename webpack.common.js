@@ -46,6 +46,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
+              api: 'modern',
               sassOptions: {
                 outputStyle: 'compressed',
               },
@@ -63,7 +64,12 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              api: 'modern',
+            },
+          },
         ],
       },
     ],
