@@ -10,7 +10,6 @@ class App extends LitElement {
   private introListener: EventListenerObject;
   private popstateListener: EventListenerObject;
   private replayListener: EventListenerObject;
-  private scenes = 42;
 
   @state() play: boolean = false;
   @state() ready: boolean = false;
@@ -55,7 +54,7 @@ class App extends LitElement {
 
     const segments = window.location.pathname.split('/');
     const scene = parseInt(segments[segments.length - 1]);
-    this.play = scene > this.scenes || scene === 0 || isNaN(scene);
+    this.play = scene > 42 || scene === 0 || isNaN(scene);
   }
 
   private handleTouchStart(event: TouchEvent) {
