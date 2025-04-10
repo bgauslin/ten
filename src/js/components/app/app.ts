@@ -8,7 +8,9 @@ import {customElement, state} from 'lit/decorators.js';
 @customElement('powers-of-ten')
 class App extends LitElement {
   private introListener: EventListenerObject;
+  private popstateListener: EventListenerObject;
   private replayListener: EventListenerObject;
+  private scenes = 42;
 
   @state() play: boolean = false;
   @state() ready: boolean = false;
@@ -18,6 +20,7 @@ class App extends LitElement {
     super();
     this.introListener = this.introDone.bind(this);
     this.replayListener = this.playIntro.bind(this);
+    this.popstateListener = this.playIntro.bind(this);
   }
 
   connectedCallback() {
@@ -26,6 +29,7 @@ class App extends LitElement {
     this.addEventListener('replay', this.replayListener);
     this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
     this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
+    window.addEventListener('popstate', this.popstateListener);
     this.playIntro();
   }
 
@@ -35,6 +39,7 @@ class App extends LitElement {
     this.removeEventListener('replay', this.replayListener);
     this.removeEventListener('touchstart', this.handleTouchStart);
     this.removeEventListener('touchend', this.handleTouchEnd);
+    window.removeEventListener('popstate', this.popstateListener);
   }
 
   protected createRenderRoot() {
@@ -46,7 +51,11 @@ class App extends LitElement {
   }
  
   private async playIntro() {
-    this.play = true;
+    await this.updateComplete;
+
+    const segments = window.location.pathname.split('/');
+    const scene = parseInt(segments[segments.length - 1]);
+    this.play = scene > this.scenes || scene === 0 || isNaN(scene);
   }
 
   private handleTouchStart(event: TouchEvent) {
