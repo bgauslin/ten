@@ -1,6 +1,7 @@
 const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -21,6 +22,10 @@ module.exports = {
         {from: 'src/images', to: 'images'},
         {from: 'src/root'},
       ],
+    }),
+    new FontPreloadPlugin({
+      index: 'index.html',
+      loadType: 'preload',
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
