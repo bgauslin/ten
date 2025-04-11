@@ -11,8 +11,7 @@ class App extends LitElement {
   private popstateListener: EventListenerObject;
   private replayListener: EventListenerObject;
 
-  @state() play: boolean = false;
-  @state() ready: boolean = false;
+  @state() play: boolean = true;
   @state() target: HTMLElement;
 
   constructor() {
@@ -29,7 +28,6 @@ class App extends LitElement {
     this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
     this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
     window.addEventListener('popstate', this.popstateListener);
-    this.playIntro();
   }
 
   disconnectedCallback() {
