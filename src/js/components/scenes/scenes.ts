@@ -58,12 +58,20 @@ class Scenes extends LitElement {
       const response = await fetch('ten.json');
       const {scenes} = await response.json();
       this.scenes = scenes;
-      if (!this.wait) {
-        this.updateBrowser();
-      }
+      this.setScene();
     } catch (error) {
       console.warn(error);
       return;
+    }
+  }
+
+  private setScene() {
+    const segments = window.location.pathname.split('/');
+    const scene = parseInt(segments[segments.length - 1]);
+
+    // Set scene on initial page load if URL has a valid scene number.
+    if (scene > 0 && scene <= this.scenes.length) {
+      this.scene = scene;
     }
   }
 
