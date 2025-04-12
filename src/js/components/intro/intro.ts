@@ -15,7 +15,7 @@ class AppIntro extends LitElement {
   @property({type: Boolean, reflect: true}) play = false;
   @property({type: Boolean, reflect: true}) skip = false;
   @state() appTitle: string = document.title;
-  @state() intro: any = [
+  @state() intro: string[] = [
     'What would you see if your vision could encompass an expanse of one billion light years?',
     'Or if you could peer inside the microscopic realm of the atom?',
     'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
