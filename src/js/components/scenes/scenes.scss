@@ -45,7 +45,7 @@
 
     --blurb-padding-block: 0;
     --blurb-padding-inline: 0;
-    --blurb-place-self: center;
+    --blurb-place-self: center stretch;
     --image-position: static;
     --info-block-size: 2rem;
     --info-inset-block: unset;
@@ -195,7 +195,7 @@ hr {
   opacity: 0;
   padding-block: var(--blurb-padding-block);
   padding-inline: var(--blurb-padding-inline);
-  place-self: var(--blurb-place-self, start);
+  place-self: var(--blurb-place-self, start stretch);
 
   [aria-hidden='true'] & {
     block-size: 0;
