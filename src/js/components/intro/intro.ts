@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 
 import shadowStyles from './intro.scss';
@@ -11,21 +11,22 @@ import shadowStyles from './intro.scss';
 @customElement('ten-intro')
 class AppIntro extends LitElement {
   private animationListener: EventListenerObject;
-
-  @property({type: Boolean, reflect: true}) play = false;
-  @property({type: Boolean, reflect: true}) skip = false;
-  @state() appTitle: string = document.title;
-  @state() intro: string[] = [
+  private appTitle: string;
+  private intro: string[] = [
     'What would you see if your vision could encompass an expanse of one billion light years?',
     'Or if you could peer inside the microscopic realm of the atom?',
     'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
   ];
+
+  @property({type: Boolean, reflect: true}) play = false;
+  @property({type: Boolean, reflect: true}) skip = false;
 
   static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
     this.animationListener = this.done.bind(this);
+    this.appTitle = document.title;
   }
 
   connectedCallback() {

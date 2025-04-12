@@ -17,7 +17,7 @@ interface Scene {
  */
 @customElement('ten-scenes')
 class Scenes extends LitElement {
-  private appTitle = document.title;
+  private appTitle: string;
   private keyListener: EventListenerObject;
   private popstateListener: EventListenerObject;
 
@@ -30,6 +30,7 @@ class Scenes extends LitElement {
 
   constructor() {
     super();
+    this.appTitle = document.title;
     this.popstateListener = this.updateBrowser.bind(this);
     this.keyListener = this.handleKey.bind(this);
   }
