@@ -97,8 +97,8 @@ class AppIntro extends LitElement {
   private renderStarfield() {
     const radii = [[.5, 500], [.75, 300], [1, 200]];
     const size = 1000;
-    let paths = '';
 
+    const paths = [];
     for (let i = 0; i < radii.length; i++) {
       let path = '';
       const [r, qty] = radii[i];
@@ -112,13 +112,14 @@ class AppIntro extends LitElement {
           path += ' ';
         }
       }
-      paths += `
+      paths.push(html`
         <svg class="starfield" viewbox="0 0 ${size} ${size}">
           <path d="${path}"/>
-        </svg>`;
+        </svg>
+      `);
     }
 
-    return html`${unsafeSVG(paths)}`;
+    return html`${paths}`;
   }
 
   private renderMeteors() {
