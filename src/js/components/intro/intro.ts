@@ -77,9 +77,8 @@ class AppIntro extends LitElement {
           ?disabled="${this.skip}"
           @click="${() => this.skip = true}">
           Skip
-          <svg viewbox="0 0 24 24" aria-hidden="true">
-            <path d="M 6,6 L 12,12 L 6,18 Z" />
-            <path d="M 14,6 L 20,12 L 14,18 Z" />
+          <svg aria-hidden="true" viewbox="0 0 24 24">
+            <path d="M6,6 L16,12 L6,18 M18,6 L18,18 L20,18 L20,6 Z" />
           </svg>
         </button>
       `;
