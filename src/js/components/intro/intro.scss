@@ -8,17 +8,25 @@ $nucleus-size: 40px;
 
 // [1] Prevent scrolling for scaled SVGs.
 :host {
+  --grid: 1fr var(--button-size) 0 / 1fr;
+
   background-color: black;
   block-size: 100dvh; // [1]
   display: grid;
   gap: 1rem;
-  grid: 1fr var(--button-size) 0 / 1fr;
+  grid: var(--grid);
   opacity: 0;
   overflow: hidden; // [1]
   place-content: center;
   place-items: center;
   pointer-events: none;
   transition: opacity 1s;
+}
+
+@media (min-width: 48em) {
+  :host {
+    --grid: 3fr 1fr / 1fr;
+  }
 }
 
 :host([play]) {
@@ -41,7 +49,6 @@ button {
   block-size: var(--button-size);
   border-radius: 5rem; // Override for capsule styling.
   grid-area: 2 / 1;
-  margin-block: 1rem;
   padding-inline: 1.25em 1em; // Override for icon optical adjustment.
   z-index: 1;
 
