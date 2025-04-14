@@ -22,7 +22,6 @@ customElements.define('ten-intro', class extends HTMLElement {
 
   connectedCallback() {
     this.addEventListener('animationend', this.animationListener);
-    this.play();
   }
 
   disconnectedCallback() {
@@ -41,11 +40,10 @@ customElements.define('ten-intro', class extends HTMLElement {
     const target = <HTMLElement>event.target;
 
     if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
+      this.innerHTML = '';
       this.removeAttribute('play');
       this.removeAttribute('skip');
-      this.innerHTML = '';
-      this.button.remove();
-
+      
       this.dispatchEvent(new CustomEvent('done', {
         bubbles: true,
         composed: true,
