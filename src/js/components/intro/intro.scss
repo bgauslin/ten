@@ -7,7 +7,7 @@ $meteor-size: 250px;
 $nucleus-size: 40px;
 
 // [1] Prevent scrolling for scaled SVGs.
-:host {
+ten-intro {
   --grid: 1fr var(--button-size) 0 / 1fr;
 
   background-color: black;
@@ -21,69 +21,68 @@ $nucleus-size: 40px;
   place-items: center;
   pointer-events: none;
   transition: opacity 1s;
-}
 
-@media (min-width: 48em) {
-  :host {
-    --grid: 3fr 1fr / 1fr;
+  @media (min-width: 48em) {
+    & {
+      --grid: 3fr 1fr / 1fr;
+    }
   }
-}
 
-:host([play]) {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-:host([skip]) {
-  opacity: 0;
-}
-
-:host > *:not(button) {
-  grid-area: 1 / 1 / -1 / -1;
-}
-
-// ----------------------------------------
-// 'Skip' button.
-
-button {
-  block-size: var(--button-size);
-  border-radius: 5rem; // Override for capsule styling.
-  grid-area: 2 / 1;
-  padding-inline: 1.25em 1em; // Override for icon optical adjustment.
-  z-index: 1;
-
-  &[disabled] {
-    animation: fadeOut 1s;
+  &[play] {
+    opacity: 1;
+    pointer-events: auto;
   }
-}
 
-// ----------------------------------------
-// Text elements.
+  &[skip] {
+    opacity: 0;
+  }
 
-:is(h1, p) {
-  margin: 0;
-  opacity: 0;
-  text-align: center;
-}
+  & > *:not(button) {
+    grid-area: 1 / 1 / -1 / -1;
+  }
 
-header {
-  inline-size: 90vw;
-}
+  // ----------------------------------------
+  // 'Skip' button.
+  button {
+    block-size: var(--button-size);
+    border-radius: 5rem; // Override for capsule styling.
+    grid-area: 2 / 1;
+    padding-inline: 1.25em 1em; // Override for icon optical adjustment.
+    z-index: 1;
 
-h1 {
-  font-size: clamp(1.5rem, 1.5rem + 3vw, 5rem);
-  letter-spacing: .2em;
-  text-transform: uppercase;
-}
+    &[disabled] {
+      animation: fadeOut 1s;
+    }
+  }
 
-.tagline {
-  margin-inline: auto;
-}
+  // ----------------------------------------
+  // Text elements.
 
-p {
-  font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
-  line-height: 1.6;
-  max-inline-size: min(90vw, 44rem);
+  :is(h1, p) {
+    margin: 0;
+    opacity: 0;
+    text-align: center;
+  }
+
+  header {
+    inline-size: 90vw;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 1.5rem + 3vw, 5rem);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    margin-inline: auto;
+  }
+
+  p {
+    font-size: clamp(.875rem, .875rem + 1vw, 1.5rem);
+    line-height: 1.6;
+    max-inline-size: min(90vw, 44rem);
+  }
 }
 
 // ----------------------------------------
@@ -258,7 +257,7 @@ p {
 }
 
 // Final scene: Title card.
-h1 {
+ten-intro h1 {
   animation: fade 9s 23s 1;
 }
 
