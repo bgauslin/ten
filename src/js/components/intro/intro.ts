@@ -63,18 +63,14 @@ class AppIntro extends LitElement {
           <h1>${this.appTitle}</h1>
           <p class="tagline">${meta.content}</p>
         </header>
-
         ${this.renderStars()}
         <p data-blurb="stars">${stars}</p>
-
         ${this.renderAtom()}
         <p data-blurb="atom">${atom}</p>
-
         <p data-blurb="overview">${overview}</p>
-
         <button
+          ?disabled="${this.skip}"  
           type="button"
-          ?disabled="${this.skip}"
           @click="${() => this.skip = true}">
           Skip
           <svg aria-hidden="true" viewbox="0 0 24 24">
