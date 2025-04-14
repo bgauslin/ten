@@ -173,7 +173,7 @@ class AppIntro extends LitElement {
       electrons.push(html`
         <div class="electron" id="electron-${i + 1}">
           <div class="particle"></div>
-          <svg viewBox="0 0 200 200">
+          <svg viewbox="0 0 200 200">
             <path class="orbit" d="${path}"/>
           </svg>
         </div>

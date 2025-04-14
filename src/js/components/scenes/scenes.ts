@@ -218,7 +218,7 @@ class Scenes extends LitElement {
         title="Zoom out to previous scene"
         ?disabled="${this.scene === 1 || this.rewind}"
         @click="${this.prevScene}">
-        <svg viewbox="0 0 24 24" aria-hidden="true">
+        <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M7,12 h10"/>
         </svg>
       </button>
@@ -233,7 +233,7 @@ class Scenes extends LitElement {
         title="Zoom in to next scene"
         ?disabled="${this.scene === this.scenes.length || this.rewind}"
         @click="${this.nextScene}">
-        <svg viewbox="0 0 24 24" aria-hidden="true">
+        <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M6,12 h12 M12,6 v12"/>
         </svg>
       </button>
@@ -248,7 +248,7 @@ class Scenes extends LitElement {
         title="Replay the intro"
         ?disabled="${this.scene !== 1 || this.rewind}"
         @click="${this.replayIntro}">
-        <svg viewbox="0 0 24 24" aria-hidden="true">
+        <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
         </svg>
       </button>
@@ -263,7 +263,7 @@ class Scenes extends LitElement {
           title="Rewind to the start"
           ?disabled="${this.scene !== this.scenes.length}"
           @click="${this.rewindScenes}">
-          <svg viewbox="0 0 24 24" aria-hidden="true">
+          <svg aria-hidden="true" viewbox="0 0 24 24">
             <path d="M 12,6 L 6,12 L 12,18 Z" />
             <path d="M 20,6 L 14,12 L 20,18 Z" />
           </svg>
