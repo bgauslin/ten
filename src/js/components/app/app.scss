@@ -1,4 +1,4 @@
-powers-of-ten {
+ten-app {
   --transition: .25s;
 
   display: grid;
@@ -6,7 +6,7 @@ powers-of-ten {
   place-self: stretch;
 }
 
-powers-of-ten > * {
+ten-app > * {
   grid-area: 1 / 1 / -1 / -1;
   position: relative;
 }
