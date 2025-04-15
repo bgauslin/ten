@@ -23,7 +23,6 @@ class Scenes extends LitElement {
 
   @property({type: Number, reflect: true}) power: number;
   @property({type: Boolean, reflect: true}) rewind = false;
-  @property({type: Boolean, reflect: true}) wait = false;
 
   @state() max: number;
   @state() min: number;
@@ -51,12 +50,6 @@ class Scenes extends LitElement {
     window.removeEventListener('popstate', this.popstateListener);
   }
 
-  protected updated(changed: PropertyValues<this>) {
-    if (changed.get('wait') && !this.wait) {
-      this.updateBrowser(`${this.power}`);
-    }
-  }
-
   private async fetchData(): Promise<Scene[]> {
     try {
       const response = await fetch('scenes.json');
@@ -78,11 +71,20 @@ class Scenes extends LitElement {
     this.min = parseInt(last.power);
     this.power = this.max;
 
-    // Set scene on initial page load if URL has a valid scene number.
+    // Play the intro if the URL doesn't have a valid power. Otherwise, jump
+    // to the desired scene on initial page load.
     const segments = window.location.pathname.split('/');
     const power = parseInt(segments[segments.length - 1]);
+
     if (power >= this.min && power <= this.max) {
       this.power = power;
+      this.updateBrowser(`${this.power}`);
+      this.dispatchEvent(new CustomEvent('stop', {
+        bubbles: true,
+        composed: true,
+      }));
+    } else {
+      this.playIntro();
     }
   }
 
@@ -116,9 +118,9 @@ class Scenes extends LitElement {
     const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
   
-  private replayIntro() {
+  private playIntro() {
     this.updateBrowser('');
-    this.dispatchEvent(new CustomEvent('replay', {
+    this.dispatchEvent(new CustomEvent('play', {
       bubbles: true,
       composed: true,
     }));
@@ -146,9 +148,13 @@ class Scenes extends LitElement {
     segments.push(`${power}`);
     history.replaceState(null, '', segments.join('/'));
 
-    const scene = this.scenes.find(scene => parseInt(scene.power) === this.power);
-    const {distance} = scene;
-    document.title = `10^${this.power} · ${distance[0]} · ${this.appTitle}`;
+    if (power) {
+      const scene = this.scenes.find(scene => parseInt(scene.power) === this.power);
+      const {distance} = scene;
+      document.title = `10^${this.power} · ${distance[0]} · ${this.appTitle}`;
+    } else {
+      document.title = this.appTitle;
+    }
   }
 
   handleKey(event: KeyboardEvent) {
@@ -258,7 +264,7 @@ class Scenes extends LitElement {
         id="replay"
         title="Replay the intro"
         ?disabled="${this.power !== this.max || this.rewind}"
-        @click="${this.replayIntro}">
+        @click="${this.playIntro}">
         <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
         </svg>

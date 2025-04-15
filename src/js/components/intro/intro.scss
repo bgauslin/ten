@@ -15,11 +15,9 @@ ten-intro {
   display: grid;
   gap: 1rem;
   grid: var(--grid);
-  opacity: 0;
   overflow: hidden; // [1]
   place-content: center;
   place-items: center;
-  pointer-events: none;
   transition: opacity 1s;
 
   @media (min-width: 48em) {
@@ -28,12 +26,7 @@ ten-intro {
     }
   }
 
-  &[play] {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  &[skip] {
+  &[inert] {
     opacity: 0;
   }
 

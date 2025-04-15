@@ -45,12 +45,9 @@ customElements.define('ten-intro', class extends HTMLElement {
     const target = <HTMLElement>event.target;
 
     if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
-      this.removeAttribute('play');
-      this.removeAttribute('skip');
       this.innerHTML = '';
       this.ready = false;
-      
-      this.dispatchEvent(new CustomEvent('done', {
+      this.dispatchEvent(new CustomEvent('stop', {
         bubbles: true,
         composed: true,
       }));
@@ -83,7 +80,6 @@ customElements.define('ten-intro', class extends HTMLElement {
 
     this.button = this.querySelector('button');
     this.button.addEventListener('click', () => {
-      this.setAttribute('skip', '');
       this.button.disabled = true;
     });
 
