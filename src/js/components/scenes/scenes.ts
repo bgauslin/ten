@@ -21,9 +21,12 @@ class Scenes extends LitElement {
   private keyListener: EventListenerObject;
   private popstateListener: EventListenerObject;
 
+  @property({type: Number, reflect: true}) power: number;
   @property({type: Boolean, reflect: true}) rewind = false;
-  @property({type: Number, reflect: true}) scene = 1;
   @property({type: Boolean, reflect: true}) wait = false;
+
+  @state() max: number;
+  @state() min: number;
   @state() scenes: Scene[];
 
   static styles = css`${shadowStyles}`;
@@ -50,7 +53,7 @@ class Scenes extends LitElement {
 
   protected updated(changed: PropertyValues<this>) {
     if (changed.get('wait') && !this.wait) {
-      this.updateBrowser(`${this.scene}`);
+      this.updateBrowser(`${this.power}`);
     }
   }
 
@@ -59,48 +62,55 @@ class Scenes extends LitElement {
       const response = await fetch('scenes.json');
       const {scenes} = await response.json();
       this.scenes = scenes;
-      this.setScene();
+      this.setup();
     } catch (error) {
       console.warn(error);
       return;
     }
   }
 
-  private setScene() {
-    const segments = window.location.pathname.split('/');
-    const scene = parseInt(segments[segments.length - 1]);
+  private setup() {
+    // Set bounds from data in fetched scenes ans starting power.
+    const first = this.scenes[0];
+    const last = this.scenes[this.scenes.length - 1];
+    
+    this.max = parseInt(first.power);
+    this.min = parseInt(last.power);
+    this.power = this.max;
 
     // Set scene on initial page load if URL has a valid scene number.
-    if (scene > 0 && scene <= this.scenes.length) {
-      this.scene = scene;
+    const segments = window.location.pathname.split('/');
+    const power = parseInt(segments[segments.length - 1]);
+    if (power >= this.min && power <= this.max) {
+      this.power = power;
     }
   }
 
   private nextScene() {
-    if (this.scene < this.scenes.length) {
-      this.scene += 1;
-      this.updateBrowser(`${this.scene}`);
+    if (this.power > this.min) {
+      this.power -= 1;
+      this.updateBrowser(`${this.power}`);
     }
   }
 
   private prevScene() {
-    if (this.scene > 1) {
-      this.scene -= 1;
-      this.updateBrowser(`${this.scene}`);
+    if (this.power < this.max) {
+      this.power += 1;
+      this.updateBrowser(`${this.power}`);
     }
   }
 
   private rewindScenes() {
     this.rewind = true;
-    this.scene -= 1;
+    this.power += 1;
 
     const countdown = () => {
-      if (this.scene > 1) {
-        this.scene -= 1;
+      if (this.power < this.max) {
+        this.power += 1;
       } else {
         clearInterval(interval);
         this.rewind = false;
-        this.updateBrowser('1');
+        this.updateBrowser(`${this.max}`);
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
@@ -114,30 +124,31 @@ class Scenes extends LitElement {
     }));
   }
 	
-  private updateBrowser(scene: string = null) {
+  private updateBrowser(power: string = null) {
     const segments = window.location.pathname.split('/');
 
-    if (!scene) {
+    if (!power) {
       const last = segments[segments.length - 1];
       const isNumeric = /^\d+$/.test(last);
-      const scene_ = parseInt(last, 10);
+      const power_ = parseInt(last, 10);
 
-      if (!isNumeric || scene === '') {
-        scene = '';
-      } else if (scene_ < 1 || scene_ > this.scenes.length) {
-        scene = '1';
+      if (!isNumeric || power === '') {
+        power = '';
+      } else if (power_ < this.min || power_ > this.max) {
+        power = `${this.max}`;
       } else {
-        scene = `${scene_}`;
-        this.scene = scene_;
+        power = `${power_}`;
+        this.power = power_;
       }
     }
 
     segments.pop();
-    segments.push(`${scene}`);
+    segments.push(`${power}`);
     history.replaceState(null, '', segments.join('/'));
 
-    const {distance, power} = this.scenes[this.scene - 1];
-    document.title = `${power} · ${distance[0]} · ${this.appTitle}`;
+    const scene = this.scenes.find(scene => parseInt(scene.power) === this.power);
+    const {distance} = scene;
+    document.title = `10^${this.power} · ${distance[0]} · ${this.appTitle}`;
   }
 
   handleKey(event: KeyboardEvent) {
@@ -174,7 +185,7 @@ class Scenes extends LitElement {
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
         const {blurb, image, distance, power} = scene;
-        const currentScene = this.scene - 1;
+        const power_ = parseInt(power);
 
         const small = `images/${image}@small.webp`;
         const medium = `images/${image}@medium.webp`;
@@ -182,14 +193,14 @@ class Scenes extends LitElement {
 
         return html`
           <li
-            aria-hidden="${index !== currentScene}"  
-            ?data-viewed="${index <= currentScene}">
+            aria-hidden="${power_ !== this.power}"  
+            ?data-viewed="${power_ >= this.power}">
             <img
               alt=""
               src="${medium}"
               srcset="${small} 600w, ${medium} 900w, ${large} 1200w"
               sizes="(min-width: 49rem) 600px, 100vw"
-              loading="${index > (currentScene + 1) ? 'lazy' : 'eager'}">
+              loading="${power_ < (this.power - 1) ? 'lazy' : 'eager'}">
             <div class="info">
               <p class="distance">
                 ${distance.map(value => html`<span>${value}</span>`)}
@@ -215,8 +226,8 @@ class Scenes extends LitElement {
       <button
         class="nav"
         id="prev"
-        title="Zoom out to previous scene"
-        ?disabled="${this.scene === 1 || this.rewind}"
+        title="Zoom out by a power of 10"
+        ?disabled="${this.power === this.max || this.rewind}"
         @click="${this.prevScene}">
         <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M7,12 h10"/>
@@ -230,8 +241,8 @@ class Scenes extends LitElement {
       <button
         class="nav"
         id="next"
-        title="Zoom in to next scene"
-        ?disabled="${this.scene === this.scenes.length || this.rewind}"
+        title="Zoom in by a power of 10"
+        ?disabled="${this.power === this.min || this.rewind}"
         @click="${this.nextScene}">
         <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M6,12 h12 M12,6 v12"/>
@@ -246,7 +257,7 @@ class Scenes extends LitElement {
         class="nav"
         id="replay"
         title="Replay the intro"
-        ?disabled="${this.scene !== 1 || this.rewind}"
+        ?disabled="${this.power !== this.max || this.rewind}"
         @click="${this.replayIntro}">
         <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
@@ -261,7 +272,7 @@ class Scenes extends LitElement {
         <button
           class="rewind"
           title="Rewind to the start"
-          ?disabled="${this.scene !== this.scenes.length}"
+          ?disabled="${this.power !== this.min}"
           @click="${this.rewindScenes}">
           <svg aria-hidden="true" viewbox="0 0 24 24">
             <path d="M 12,6 L 6,12 L 12,18 Z" />

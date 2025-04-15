@@ -41,12 +41,12 @@ class App extends LitElement {
   }
 
   /**
-   * Disables intro if there's a valid scene number in the URL on page load.
+   * Disables intro if there's a valid power number in the URL on page load.
    */
   private firstRun() {
     const segments = window.location.pathname.split('/');
-    const scene = parseInt(segments[segments.length - 1]);
-    this.play = scene > 42 || scene === 0 || isNaN(scene);
+    const power = parseInt(segments[segments.length - 1]);
+    this.play = power < -16 || power > 25 || isNaN(power);
   }
 
   private done() {
