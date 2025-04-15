@@ -5,18 +5,21 @@
 customElements.define('ten-intro', class extends HTMLElement {
   private animationListener: EventListenerObject;
   private appTitle: string;
-  private button: HTMLButtonElement;
+  private clickListener: EventListenerObject;
   private intro: string[] = [
     'What would you see if your vision could encompass an expanse of one billion light years?',
     'Or if you could peer inside the microscopic realm of the atom?',
     'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
   ];
   private ready: boolean = false;
+  private transitionListener: EventListenerObject;
 
   constructor() {
     super();
-    this.animationListener = this.done.bind(this);
     this.appTitle = document.title;
+    this.animationListener = this.handleAnimation.bind(this);
+    this.clickListener = this.handleClick.bind(this);
+    this.transitionListener = this.handleTransition.bind(this);
   }
 
   static get observedAttributes(): string[] {
@@ -25,28 +28,56 @@ customElements.define('ten-intro', class extends HTMLElement {
 
   connectedCallback() {
     this.addEventListener('animationend', this.animationListener);
+    this.addEventListener('click', this.clickListener);
+    this.addEventListener('transitionend', this.transitionListener);
   }
 
   disconnectedCallback() {
     this.removeEventListener('animationend', this.animationListener);
+    this.removeEventListener('click', this.clickListener);
+    this.removeEventListener('transitionend', this.transitionListener);
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'play' && !oldValue) {
+    if (name === 'play' && newValue === '') {
       this.play();
     }
   }
 
   /**
-   * Listens for last element's animation to complete, then lets the app know
-   * that the intro is done and to show the scenes now.
+   * Sets 'skip' attribute to automatically triggerthe final fade-out transition
+   * after the <h1> animation ends.
    */
-  private done(event: AnimationEvent) {
+  private handleAnimation(event: AnimationEvent) {
+    const target = <HTMLElement>event.target;
+    if (target.tagName === 'H1') {
+      this.setAttribute('skip', '');
+    }
+  }
+
+  /**
+   * Sets 'skip' attribute when the <button> is clicked to trigger the final
+   * fade-out transition.
+   */
+  private handleClick(event: Event) {
+    const target = <HTMLElement>event.target;
+    if (target.tagName === 'BUTTON') {
+      this.setAttribute('skip', '');
+    }
+  }
+
+  /**
+   * Empties the DOM when the final fade-out transition ends, whether via
+   * <button> click or after last animation ends.
+   */
+  private handleTransition(event: TransitionEvent) {
     const target = <HTMLElement>event.target;
 
-    if (['h1', 'button'].includes(target.tagName.toLowerCase())) {
+    if (target === this && this.hasAttribute('skip')) {
+      this.removeAttribute('skip');
       this.innerHTML = '';
       this.ready = false;
+
       this.dispatchEvent(new CustomEvent('stop', {
         bubbles: true,
         composed: true,
@@ -54,6 +85,9 @@ customElements.define('ten-intro', class extends HTMLElement {
     }
   }
 
+  /**
+   * Renders the DOM then lets CSS animations take over.
+   */
   private play() {
     if (this.ready) return;
 
@@ -77,11 +111,6 @@ customElements.define('ten-intro', class extends HTMLElement {
         </svg>
       </button>
     `;
-
-    this.button = this.querySelector('button');
-    this.button.addEventListener('click', () => {
-      this.button.disabled = true;
-    });
 
     this.ready = true;
   }

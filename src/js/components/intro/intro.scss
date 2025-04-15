@@ -26,6 +26,7 @@ ten-intro {
     }
   }
 
+  &[skip],
   &[inert] {
     opacity: 0;
   }
