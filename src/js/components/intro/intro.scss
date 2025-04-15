@@ -18,7 +18,6 @@ ten-intro {
   overflow: hidden; // [1]
   place-content: center;
   place-items: center;
-  transition: opacity 1s;
 
   @media (min-width: 48em) {
     & {
@@ -26,9 +25,12 @@ ten-intro {
     }
   }
 
-  &[skip],
+  &[skip] {
+    animation: fadeOut 1s forwards;
+  }
+
   &[inert] {
-    opacity: 0;
+    display: contents;
   }
 
   & > *:not(button) {
@@ -38,15 +40,13 @@ ten-intro {
   // ----------------------------------------
   // 'Skip' button.
   button {
+    animation: fadeIn 1s 3s forwards;
     block-size: var(--button-size);
     border-radius: 5rem; // Override for capsule styling.
     grid-area: 2 / 1;
+    opacity: 0;
     padding-inline: 1.25em 1em; // Override for icon optical adjustment.
     z-index: 1;
-
-    &[disabled] {
-      animation: fadeOut 1s;
-    }
   }
 
   // ----------------------------------------
@@ -269,6 +269,15 @@ ten-intro h1 {
   }
   30%,
   70% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }

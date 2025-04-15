@@ -72,6 +72,15 @@
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 :host {
   block-size: 100dvh;
   display: grid;
@@ -82,6 +91,10 @@
 
 :host::-webkit-scrollbar {
   display: none;
+}
+
+:host([replay]) {
+  animation: fadeOut .75s;
 }
 
 // ----------------------------------------

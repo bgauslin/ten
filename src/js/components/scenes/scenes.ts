@@ -22,6 +22,7 @@ class Scenes extends LitElement {
   private popstateListener: EventListenerObject;
 
   @property({type: Number, reflect: true}) power: number;
+  @property({type: Boolean, reflect: true}) replay = false;
   @property({type: Boolean, reflect: true}) rewind = false;
   @property({type: Boolean, reflect: true}) wait = false;
 
@@ -129,7 +130,19 @@ class Scenes extends LitElement {
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
   }
-  
+
+  /**
+   * Toggles an attribute that triggers animations for smooth transitions
+   * between components.
+   */
+  replayIntro() {
+    this.replay = true;
+    this.addEventListener('animationend', () => {
+      this.replay = false;
+      this.playIntro();
+    }, {once: true});
+  }
+
   private playIntro() {
     this.updateBrowser('');
     this.dispatchEvent(new CustomEvent('play', {
@@ -276,7 +289,7 @@ class Scenes extends LitElement {
         id="replay"
         title="Replay the intro"
         ?disabled="${this.power !== this.max || this.rewind}"
-        @click="${this.playIntro}">
+        @click="${this.replayIntro}">
         <svg aria-hidden="true" viewbox="0 0 24 24">
           <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
         </svg>
