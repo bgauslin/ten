@@ -11,6 +11,7 @@ customElements.define('ten-intro', class extends HTMLElement {
     'Or if you could peer inside the microscopic realm of the atom?',
     'In 42 consecutive scenes, each at a different “power of ten” level of magnification, you will travel from the breathtakingly vast to the extraordinarily small.',
   ];
+  private ready: boolean = false;
 
   constructor() {
     super();
@@ -28,8 +29,10 @@ customElements.define('ten-intro', class extends HTMLElement {
     this.removeEventListener('animationend', this.animationListener);
   }
 
-  attributeChangedCallback() {
-    this.play();
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (name === 'play' && !oldValue) {
+      this.play();
+    }
   }
 
   /**
@@ -43,6 +46,7 @@ customElements.define('ten-intro', class extends HTMLElement {
       this.removeAttribute('play');
       this.removeAttribute('skip');
       this.innerHTML = '';
+      this.ready = false;
       
       this.dispatchEvent(new CustomEvent('done', {
         bubbles: true,
@@ -52,6 +56,8 @@ customElements.define('ten-intro', class extends HTMLElement {
   }
 
   private play() {
+    if (this.ready) return;
+
     const meta = <HTMLMetaElement>document.head.querySelector('[name="description"]');
     const [stars, atom, overview] = this.intro;
     
@@ -78,6 +84,8 @@ customElements.define('ten-intro', class extends HTMLElement {
       this.setAttribute('skip', '');
       this.button.disabled = true;
     });
+
+    this.ready = true;
   }
 
   private renderStars() {
