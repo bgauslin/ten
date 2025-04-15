@@ -70,7 +70,7 @@ class Scenes extends LitElement {
   }
 
   private setup() {
-    // Set bounds from data in fetched scenes ans starting power.
+    // Set bounds and initial power from data in fetched scenes.
     const first = this.scenes[0];
     const last = this.scenes[this.scenes.length - 1];
     
