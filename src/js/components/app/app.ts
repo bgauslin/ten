@@ -58,12 +58,16 @@ class App extends LitElement {
     this.target.classList.remove('touch');
   }
 
+  /**
+   * Removing the 'wait' attribute triggers a callback within the
+   * <ten-scenes> element.
+   */
   protected render() {
     return html`
       <ten-intro
         ?inert="${!this.playIntro}"
         ?play="${this.playIntro}"></ten-intro>
-      <ten-scenes></ten-scenes>
+      <ten-scenes ?wait="${this.playIntro}"></ten-scenes>
     `;
   }
 }

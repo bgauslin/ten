@@ -23,6 +23,7 @@ class Scenes extends LitElement {
 
   @property({type: Number, reflect: true}) power: number;
   @property({type: Boolean, reflect: true}) rewind = false;
+  @property({type: Boolean, reflect: true}) wait = false;
 
   @state() max: number;
   @state() min: number;
@@ -48,6 +49,17 @@ class Scenes extends LitElement {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this.keyListener);
     window.removeEventListener('popstate', this.popstateListener);
+  }
+
+  /**
+   * The 'wait' attribute is controlled by <app> when it receives
+   * events from other elements. This element updates the URL when
+   * the <scenes> element is finished playing.
+   */
+  protected updated(changed: PropertyValues<this>) {
+    if (changed.get('wait') && !this.wait) {
+      this.updateBrowser(`${this.power}`);
+    }
   }
 
   private async fetchData(): Promise<Scene[]> {
