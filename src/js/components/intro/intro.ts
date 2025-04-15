@@ -19,7 +19,9 @@ customElements.define('ten-intro', class extends HTMLElement {
     this.appTitle = document.title;
   }
 
-  static observedAttributes = ['play'];
+  static get observedAttributes(): string[] {
+    return ['play'];
+  }
 
   connectedCallback() {
     this.addEventListener('animationend', this.animationListener);
