@@ -15,22 +15,22 @@ class App extends LitElement {
 
   constructor() {
     super();
-    this.stopListener = this.stop.bind(this);
     this.playListener = this.play.bind(this);
+    this.stopListener = this.stop.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('stop', this.stopListener);
     this.addEventListener('play', this.playListener);
+    this.addEventListener('stop', this.stopListener);
     this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
     this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('stop', this.stopListener);
     this.removeEventListener('play', this.playListener);
+    this.removeEventListener('stop', this.stopListener);
     this.removeEventListener('touchstart', this.handleTouchStart);
     this.removeEventListener('touchend', this.handleTouchEnd);
   }
@@ -39,12 +39,12 @@ class App extends LitElement {
     return this;
   }
 
-  private stop() {
-    this.playIntro = false;
-  }
- 
   private play() {
     this.playIntro = true;
+  }
+
+  private stop() {
+    this.playIntro = false;
   }
 
   private handleTouchStart(event: TouchEvent) {
