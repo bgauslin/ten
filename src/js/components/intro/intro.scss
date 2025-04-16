@@ -262,6 +262,27 @@ ten-intro h1 {
 // ----------------------------------------
 // Animations.
 
+@keyframes atom {
+  0% {
+    opacity: 0;
+    transform: rotate(0) scale(.01) translateY(2rem);
+  }
+  25%,
+  80% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(360deg) scale(4) translateY(2rem);
+  }
+}
+
+@keyframes electron {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
 @keyframes fade {
   0%,
   100% {
@@ -291,12 +312,9 @@ ten-intro h1 {
   }
 }
 
-@keyframes starfield {
-  0% {
-    transform: rotate(0) scale(2.5);
-  }
+@keyframes jitter {
   100% {
-    transform: rotate(-90deg) scale(1.5);
+    transform: scale(1.05);
   }
 }
 
@@ -316,35 +334,17 @@ ten-intro h1 {
   }
 }
 
-@keyframes atom {
-  0% {
-    opacity: 0;
-    transform: rotate(0) scale(.01) translateY(2rem);
-  }
-  25%,
-  80% {
-    opacity: .5;
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(360deg) scale(4) translateY(2rem);
-  }
-}
-
 @keyframes nucleus {
   100% {
     transform: rotate(-360deg);
   }
 }
 
-@keyframes jitter {
-  100% {
-    transform: scale(1.05);
+@keyframes starfield {
+  0% {
+    transform: rotate(0) scale(2.5);
   }
-}
-
-@keyframes electron {
   100% {
-    offset-distance: 100%;
+    transform: rotate(-90deg) scale(1.5);
   }
 }
