@@ -59,8 +59,8 @@ class App extends LitElement {
   }
 
   /**
-   * Removing the 'wait' attribute triggers a callback within the
-   * <ten-scenes> element.
+   * When removed, the 'wait' attribute triggers the attributeChangedCallback
+   * in <scenes> after <intro> finishes, which then updates the browser.
    */
   protected render() {
     return html`
