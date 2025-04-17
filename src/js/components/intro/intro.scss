@@ -5,6 +5,7 @@ $atom-size: 200px; // Must match SVG viewbox.
 $electron-size: 12px;
 $meteor-size: 250px;
 $nucleus-size: 40px;
+$starfield-size: 1000px;
 
 // [1] Prevent scrolling for scaled SVGs.
 ten-intro {
@@ -89,14 +90,15 @@ ten-intro {
 }
 
 .starfield {
-  block-size: 1000px;
-  clip-path: circle(50%);
+  block-size: $starfield-size;
+  border-radius: math.div($starfield-size, 2);
   fill: #999;
   grid-area: stars;
-  inline-size: 1000px;
+  inline-size: $starfield-size;
+  overflow: hidden;
   place-self: center;
   transform-origin: center;
-  will-change: transform; // Jitter fix for Chrome.
+  will-change: transform;
 }
 
 .meteor {
@@ -225,11 +227,11 @@ ten-intro {
 }
 
 .starfield:nth-child(2) {
-  animation: starfield 13s 0s 1 linear;
+  animation: starfield 14s 0s 1 linear;
 }
 
 .starfield:nth-child(3) {
-  animation: starfield 10s 0s 1 linear;
+  animation: starfield 12s 0s 1 linear;
 }
 
 [data-blurb='stars'] {
@@ -342,9 +344,9 @@ ten-intro h1 {
 
 @keyframes starfield {
   0% {
-    transform: rotate(0) scale(2.5);
+    transform: rotate(0) scale(2);
   }
   100% {
-    transform: rotate(-90deg) scale(1.5);
+    transform: rotate(-90deg) scale(1);
   }
 }
