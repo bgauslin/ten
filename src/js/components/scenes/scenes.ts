@@ -167,6 +167,8 @@ class Scenes extends LitElement {
       } else {
         this.power = power;
       }
+    } else {
+      last = `${power}`;
     }
 
     // Always update address bar.
