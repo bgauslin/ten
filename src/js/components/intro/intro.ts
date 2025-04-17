@@ -13,15 +13,13 @@ customElements.define('ten-intro', class extends HTMLElement {
   ];
   private ready: boolean = false;
 
+  static observedAttributes: string[] = ['play'];
+
   constructor() {
     super();
     this.appTitle = document.title;
     this.animationListener = this.handleAnimation.bind(this);
     this.clickListener = this.handleClick.bind(this);
-  }
-
-  static get observedAttributes(): string[] {
-    return ['play'];
   }
 
   connectedCallback() {
