@@ -57,6 +57,10 @@ class Scenes extends LitElement {
     if (changed.get('wait') && !this.wait) {
       this.updateBrowser(this.power);
     }
+
+    if (changed.get('power')) {
+      this.updateBrowser(this.power);
+    }
   }
 
   private async fetchData(): Promise<Scene[]> {
@@ -87,7 +91,6 @@ class Scenes extends LitElement {
 
     if (power >= this.min && power <= this.max) {
       this.power = power;
-      this.updateBrowser(this.power);
       this.dispatchEvent(new CustomEvent('stop', {
         bubbles: true,
         composed: true,
@@ -100,14 +103,12 @@ class Scenes extends LitElement {
   private nextScene() {
     if (this.power > this.min) {
       this.power -= 1;
-      this.updateBrowser(this.power);
     }
   }
 
   private prevScene() {
     if (this.power < this.max) {
       this.power += 1;
-      this.updateBrowser(this.power);
     }
   }
 
@@ -121,7 +122,6 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-        this.updateBrowser(this.max);
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
