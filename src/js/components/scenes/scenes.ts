@@ -40,7 +40,7 @@ class Scenes extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('keydown', this.keyListener);
-    this.fetchData();
+    this.fetchScenes();
   }
 
   disconnectedCallback() {
@@ -69,7 +69,7 @@ class Scenes extends LitElement {
     }
   }
 
-  private async fetchData(): Promise<Scene[]> {
+  private async fetchScenes(): Promise<Scene[]> {
     try {
       const response = await fetch('scenes.json');
       const {scenes} = await response.json();
@@ -134,7 +134,7 @@ class Scenes extends LitElement {
    * Toggles an attribute that triggers animations for smooth transitions
    * between components.
    */
-  replayIntro() {
+  private replayIntro() {
     this.replay = true;
     this.addEventListener('animationend', () => {
       this.replay = false;
@@ -159,7 +159,7 @@ class Scenes extends LitElement {
     history.replaceState(null, '', segments.join('/'));
   }
 
-  handleKey(event: KeyboardEvent) {
+  private handleKey(event: KeyboardEvent) {
     switch (event.code) {
       case 'ArrowUp':
       case 'ArrowRight':
