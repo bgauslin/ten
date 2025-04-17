@@ -19,7 +19,6 @@ interface Scene {
 class Scenes extends LitElement {
   private appTitle: string;
   private keyListener: EventListenerObject;
-  private popstateListener: EventListenerObject;
 
   @property({type: Number, reflect: true}) power: number;
   @property({type: Boolean, reflect: true}) replay = false;
@@ -35,21 +34,18 @@ class Scenes extends LitElement {
   constructor() {
     super();
     this.appTitle = document.title;
-    this.popstateListener = this.updateBrowser.bind(this);
     this.keyListener = this.handleKey.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('keydown', this.keyListener);
-    window.addEventListener('popstate', this.popstateListener);
     this.fetchData();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this.keyListener);
-    window.removeEventListener('popstate', this.popstateListener);
   }
 
   /**
@@ -151,39 +147,21 @@ class Scenes extends LitElement {
     }));
   }
 	
-  private updateBrowser(power: number = null) {
-    // Always get last segment and either remove it or put it back.
+  private updateBrowser(power?: number) {
+    let title = this.appTitle;
     const segments = window.location.pathname.split('/');
-    let last = segments[segments.length - 1];
-
-    // Update props as needed if there's user-provided stuff in the URL.
-    if (!power) {
-      power = parseInt(last, 10);
-      const isNumeric = /^\d+$/.test(last);
-
-      // Play <scenes> component if URL is bad. Otherwise, go to the scene.
-      if (!isNumeric || power < this.min || power > this.max) {
-        last = '';
-      } else {
-        this.power = power;
-      }
-    } else {
-      last = `${power}`;
-    }
-
-    // Always update address bar.
     segments.pop();
-    segments.push(last);
-    history.replaceState(null, '', segments.join('/'));
 
-    // Update browser's history list.
     if (power) {
-      const scene = this.scenes.find(scene => parseInt(scene.power) === this.power);
-      const {distance} = scene;
-      document.title = `10^${this.power} · ${distance[0]} · ${this.appTitle}`;
+      segments.push(`${power}`);
+      const scene = this.scenes.find(scene => parseInt(scene.power) === power);
+      title = `10^${power} · ${scene.distance[0]} · ${this.appTitle}`;
     } else {
-      document.title = this.appTitle;
+      segments.push('');
     }
+
+    document.title = title;
+    history.replaceState(null, '', segments.join('/'));
   }
 
   handleKey(event: KeyboardEvent) {
