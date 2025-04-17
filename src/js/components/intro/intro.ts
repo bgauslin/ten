@@ -55,11 +55,7 @@ customElements.define('ten-intro', class extends HTMLElement {
       this.removeAttribute('skip');
       this.innerHTML = '';
       this.ready = false;
-
-      this.dispatchEvent(new CustomEvent('stop', {
-        bubbles: true,
-        composed: true,
-      }));
+      this.dispatchEvent(new CustomEvent('stop', {bubbles: true}));
     }
   }
 

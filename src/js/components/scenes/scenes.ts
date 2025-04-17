@@ -88,7 +88,6 @@ class Scenes extends LitElement {
     
     this.max = parseInt(first.power);
     this.min = parseInt(last.power);
-    this.power = this.max;
 
     // Play the intro if the URL doesn't have a valid power. Otherwise, jump
     // to the desired scene on initial page load.
@@ -97,12 +96,10 @@ class Scenes extends LitElement {
 
     if (power >= this.min && power <= this.max) {
       this.power = power;
-      this.dispatchEvent(new CustomEvent('stop', {
-        bubbles: true,
-        composed: true,
-      }));
+      this.dispatchEvent(new CustomEvent('stop', {bubbles: true}));
     } else {
-      this.playIntro();
+      this.power = this.max;
+      this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
     }
   }
 
@@ -141,15 +138,8 @@ class Scenes extends LitElement {
     this.replay = true;
     this.addEventListener('animationend', () => {
       this.replay = false;
-      this.playIntro();
+      this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
     }, {once: true});
-  }
-
-  private playIntro() {
-    this.dispatchEvent(new CustomEvent('play', {
-      bubbles: true,
-      composed: true,
-    }));
   }
 	
   private updateBrowser(power?: number) {
