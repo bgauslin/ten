@@ -59,7 +59,7 @@ class Scenes extends LitElement {
    */
   protected updated(changed: PropertyValues<this>) {
     if (changed.get('wait') && !this.wait) {
-      this.updateBrowser(`${this.power}`);
+      this.updateBrowser(this.power);
     }
   }
 
@@ -91,7 +91,7 @@ class Scenes extends LitElement {
 
     if (power >= this.min && power <= this.max) {
       this.power = power;
-      this.updateBrowser(`${this.power}`);
+      this.updateBrowser(this.power);
       this.dispatchEvent(new CustomEvent('stop', {
         bubbles: true,
         composed: true,
@@ -104,14 +104,14 @@ class Scenes extends LitElement {
   private nextScene() {
     if (this.power > this.min) {
       this.power -= 1;
-      this.updateBrowser(`${this.power}`);
+      this.updateBrowser(this.power);
     }
   }
 
   private prevScene() {
     if (this.power < this.max) {
       this.power += 1;
-      this.updateBrowser(`${this.power}`);
+      this.updateBrowser(this.power);
     }
   }
 
@@ -125,7 +125,7 @@ class Scenes extends LitElement {
       } else {
         clearInterval(interval);
         this.rewind = false;
-        this.updateBrowser(`${this.max}`);
+        this.updateBrowser(this.max);
       }
     }
     const interval = setInterval(countdown, 250); // Must match CSS duration.
@@ -144,35 +144,37 @@ class Scenes extends LitElement {
   }
 
   private playIntro() {
-    this.updateBrowser('');
+    this.updateBrowser();
     this.dispatchEvent(new CustomEvent('play', {
       bubbles: true,
       composed: true,
     }));
   }
 	
-  private updateBrowser(power: string = null) {
+  private updateBrowser(power: number = null) {
+    // Always get last segment and either remove it or put it back.
     const segments = window.location.pathname.split('/');
+    let last = segments[segments.length - 1];
 
+    // Update props as needed if there's user-provided stuff in the URL.
     if (!power) {
-      const last = segments[segments.length - 1];
+      power = parseInt(last, 10);
       const isNumeric = /^\d+$/.test(last);
-      const power_ = parseInt(last, 10);
 
-      if (!isNumeric || power === '') {
-        power = '';
-      } else if (power_ < this.min || power_ > this.max) {
-        power = `${this.max}`;
+      // Play <scenes> component if URL is bad. Otherwise, go to the scene.
+      if (!isNumeric || power < this.min || power > this.max) {
+        last = '';
       } else {
-        power = `${power_}`;
-        this.power = power_;
+        this.power = power;
       }
     }
 
+    // Always update address bar.
     segments.pop();
-    segments.push(`${power}`);
+    segments.push(last);
     history.replaceState(null, '', segments.join('/'));
 
+    // Update browser's history list.
     if (power) {
       const scene = this.scenes.find(scene => parseInt(scene.power) === this.power);
       const {distance} = scene;
