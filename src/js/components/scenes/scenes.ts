@@ -50,15 +50,21 @@ class Scenes extends LitElement {
 
   /**
    * The 'wait' attribute is controlled by <app> when it receives
-   * events from other elements. This element updates the URL when
-   * the <scenes> element is finished playing.
+   * events from other elements.
    */
   protected updated(changed: PropertyValues<this>) {
-    if (changed.get('wait') && !this.wait) {
-      this.updateBrowser(this.power);
+    const wait = changed.get('wait');
+    const power = changed.get('power');
+
+    if (wait && !this.wait) {
+      this.updateBrowser(this.power); // First scene after intro.
     }
 
-    if (changed.get('power')) {
+    if (!wait && this.wait) {
+      this.updateBrowser(); // Play the intro.
+    }
+
+    if (power) {
       this.updateBrowser(this.power);
     }
   }
@@ -140,7 +146,6 @@ class Scenes extends LitElement {
   }
 
   private playIntro() {
-    this.updateBrowser();
     this.dispatchEvent(new CustomEvent('play', {
       bubbles: true,
       composed: true,
