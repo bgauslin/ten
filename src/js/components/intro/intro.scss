@@ -44,6 +44,7 @@ ten-intro {
     animation: fadeIn 1s 3s forwards;
     block-size: var(--button-size);
     border-radius: 5rem; // Override for capsule styling.
+    font-variation-settings: 'wght' 500;
     grid-area: 2 / 1;
     opacity: 0;
     padding-inline: 1.25em 1em; // Override for icon optical adjustment.
