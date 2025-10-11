@@ -87,17 +87,17 @@ class Scenes extends LitElement {
    * events from other elements.
    */
   protected updated(changed: PropertyValues<this>) {
-    // First scene after intro.
-    if (changed.get('wait') && !this.wait) {
-      this.updateBrowser(this.power); 
-    }
-
-    // Play the intro.
+    // Intro.
     if (!changed.get('wait') && this.wait) {
       this.updateBrowser(); 
     }
 
-    // Update browser with current power/scene.
+    // First scene after the intro.
+    if (changed.get('wait') && !this.wait) {
+      this.updateBrowser(this.power); 
+    }
+
+    // Current scene.
     if (changed.has('power') && !this.wait) {
       this.updateBrowser(this.power);
     }
