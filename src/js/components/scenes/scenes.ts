@@ -87,29 +87,29 @@ class Scenes extends LitElement {
    * events from other elements.
    */
   protected updated(changed: PropertyValues<this>) {
-    const wait = changed.get('wait');
-    const power = changed.get('power');
-
-    if (wait && !this.wait) {
-      this.updateBrowser(this.power); // First scene after intro.
+    // First scene after intro.
+    if (changed.get('wait') && !this.wait) {
+      this.updateBrowser(this.power); 
     }
 
-    if (!wait && this.wait) {
-      this.updateBrowser(); // Play the intro.
+    // Play the intro.
+    if (!changed.get('wait') && this.wait) {
+      this.updateBrowser(); 
     }
 
-    if (power) {
+    // Update browser with current power/scene.
+    if (changed.has('power') && !this.wait) {
       this.updateBrowser(this.power);
     }
   }
 
   private updateBrowser(power?: number) {
-    let title = this.appTitle;
     const url = new URL(window.location.href);
+    let title = this.appTitle;
 
-    if (power) {
+    if (power >= this.min && power <= this.max) {
       url.searchParams.set('power', `${power}`);
-      const scene = this.scenes.find(scene => parseInt(scene.power) === power);
+      const scene = this.scenes.find(scene => scene.power === `${power}`);
       title = `10^${power} · ${scene.distance[0]} · ${this.appTitle}`;
     } else {
       url.searchParams.delete('power');
