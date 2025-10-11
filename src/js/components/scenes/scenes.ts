@@ -48,27 +48,6 @@ class Scenes extends LitElement {
     document.removeEventListener('keydown', this.keyListener);
   }
 
-  /**
-   * The 'wait' attribute is controlled by <app> when it receives
-   * events from other elements.
-   */
-  protected updated(changed: PropertyValues<this>) {
-    const wait = changed.get('wait');
-    const power = changed.get('power');
-
-    if (wait && !this.wait) {
-      this.updateBrowser(this.power); // First scene after intro.
-    }
-
-    if (!wait && this.wait) {
-      this.updateBrowser(); // Play the intro.
-    }
-
-    if (power) {
-      this.updateBrowser(this.power);
-    }
-  }
-
   private async fetchScenes(): Promise<Scene[]> {
     try {
       const response = await fetch('scenes.json');
@@ -91,8 +70,8 @@ class Scenes extends LitElement {
 
     // Play the intro if the URL doesn't have a valid power. Otherwise, jump
     // to the desired scene on initial page load.
-    const segments = window.location.pathname.split('/');
-    const power = parseInt(segments[segments.length - 1]);
+    const params = new URLSearchParams(window.location.search);
+    const power = parseInt(params.get('power'));
 
     if (power >= this.min && power <= this.max) {
       this.power = power;
@@ -101,6 +80,43 @@ class Scenes extends LitElement {
       this.power = this.max;
       this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
     }
+  }
+
+  /**
+   * The 'wait' attribute is controlled by <app> when it receives
+   * events from other elements.
+   */
+  protected updated(changed: PropertyValues<this>) {
+    const wait = changed.get('wait');
+    const power = changed.get('power');
+
+    if (wait && !this.wait) {
+      this.updateBrowser(this.power); // First scene after intro.
+    }
+
+    if (!wait && this.wait) {
+      this.updateBrowser(); // Play the intro.
+    }
+
+    if (power) {
+      this.updateBrowser(this.power);
+    }
+  }
+
+  private updateBrowser(power?: number) {
+    let title = this.appTitle;
+    const url = new URL(window.location.href);
+
+    if (power) {
+      url.searchParams.set('power', `${power}`);
+      const scene = this.scenes.find(scene => parseInt(scene.power) === power);
+      title = `10^${power} · ${scene.distance[0]} · ${this.appTitle}`;
+    } else {
+      url.searchParams.delete('power');
+    }
+
+    document.title = title;
+    history.replaceState(null, '', url);
   }
 
   private nextScene() {
@@ -140,23 +156,6 @@ class Scenes extends LitElement {
       this.replay = false;
       this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
     }, {once: true});
-  }
-	
-  private updateBrowser(power?: number) {
-    let title = this.appTitle;
-    const segments = window.location.pathname.split('/');
-    segments.pop();
-
-    if (power) {
-      segments.push(`${power}`);
-      const scene = this.scenes.find(scene => parseInt(scene.power) === power);
-      title = `10^${power} · ${scene.distance[0]} · ${this.appTitle}`;
-    } else {
-      segments.push('');
-    }
-
-    document.title = title;
-    history.replaceState(null, '', segments.join('/'));
   }
 
   private handleKey(event: KeyboardEvent) {
