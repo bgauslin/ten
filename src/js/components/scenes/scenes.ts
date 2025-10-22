@@ -194,9 +194,9 @@ class Scenes extends LitElement {
         const {blurb, image, distance, power} = scene;
         const power_ = parseInt(power);
 
-        const small = `images/${image}@small.webp`;
-        const medium = `images/${image}@medium.webp`;
-        const large = `images/${image}@large.webp`;;
+        const small = `./images/${image}@small.webp`;
+        const medium = `./images/${image}@medium.webp`;
+        const large = `./images/${image}@large.webp`;;
 
         return html`
           <li
