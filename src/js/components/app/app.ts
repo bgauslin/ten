@@ -1,6 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
+
 /**
  * Web component for Powers of Ten app which renders and controls intro and
  * scenes components via custom events.
