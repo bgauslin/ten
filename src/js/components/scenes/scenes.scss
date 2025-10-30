@@ -7,7 +7,7 @@
 
 :host {
   --grid: 'scenes' 1fr / 1fr;
-  --max-inline-size: 37.5rem;
+  --max-inline-size: 37.5rem;  // 37.5rem = 600px
   --overflow: scroll;
 
   --blurb-background: rgba(0, 0, 0, .7);
@@ -26,6 +26,7 @@
   --zoom-position: fixed;
   --zoom-prev-inset-inline: 1rem auto;
 
+  // 48rem = 768px
   @media (min-width: 48rem) {
     --grid: '. scenes .' 1fr / 1fr var(--max-inline-size) 1fr;
 
@@ -38,8 +39,10 @@
     --zoom-prev-inset-inline: 2rem auto;
   }
 
-  @media (min-width: 82rem) {
-    --grid: 'prev scenes next' 1fr / 1fr 75rem 1fr;
+  // 84rem  = [ 3rem | 37.5rem | 3rem | 37.5rem | 3rem ]
+  // 1344px = [ 48px |  600px  | 48px |  600px  | 48px ]
+  @media (min-width: 84rem) {
+    --grid: 'prev scenes next' 1fr / 1fr 78rem 1fr;  // 78rem = [ 37.5rem | 3rem | 37.5rem ]
     --max-inline-size: unset;
     --overflow: hidden;
 
