@@ -3,9 +3,9 @@
  * renders SVG elements for a field of stars, an atom, and text copy.
  */
 customElements.define('ten-intro', class extends HTMLElement {
-  private animationListener: EventListenerObject;
+  private animationHandler: EventListenerObject;
   private appTitle: string;
-  private clickListener: EventListenerObject;
+  private clickHandler: EventListenerObject;
   private intro: string[] = [
     'What would you see if your vision could encompass an expanse of one billion light years?',
     'Or if you could peer inside the microscopic realm of the atom?',
@@ -18,18 +18,18 @@ customElements.define('ten-intro', class extends HTMLElement {
   constructor() {
     super();
     this.appTitle = document.title;
-    this.animationListener = this.handleAnimation.bind(this);
-    this.clickListener = this.handleClick.bind(this);
+    this.animationHandler = this.handleAnimation.bind(this);
+    this.clickHandler = this.handleClick.bind(this);
   }
 
   connectedCallback() {
-    this.addEventListener('animationend', this.animationListener);
-    this.addEventListener('click', this.clickListener);
+    this.addEventListener('animationend', this.animationHandler);
+    this.addEventListener('click', this.clickHandler);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('animationend', this.animationListener);
-    this.removeEventListener('click', this.clickListener);
+    this.removeEventListener('animationend', this.animationHandler);
+    this.removeEventListener('click', this.clickHandler);
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {

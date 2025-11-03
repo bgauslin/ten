@@ -8,30 +8,30 @@ import {customElement, state} from 'lit/decorators.js';
  */
 @customElement('ten-app')
 class App extends LitElement {
-  private playListener: EventListenerObject;
-  private stopListener: EventListenerObject;
+  private playHandler: EventListenerObject;
+  private stopHandler: EventListenerObject;
 
   @state() playIntro: boolean = false;
   @state() target: HTMLElement;
 
   constructor() {
     super();
-    this.playListener = this.play.bind(this);
-    this.stopListener = this.stop.bind(this);
+    this.playHandler = this.play.bind(this);
+    this.stopHandler = this.stop.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('play', this.playListener);
-    this.addEventListener('stop', this.stopListener);
+    this.addEventListener('play', this.playHandler);
+    this.addEventListener('stop', this.stopHandler);
     this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
     this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('play', this.playListener);
-    this.removeEventListener('stop', this.stopListener);
+    this.removeEventListener('play', this.playHandler);
+    this.removeEventListener('stop', this.stopHandler);
     this.removeEventListener('touchstart', this.handleTouchStart);
     this.removeEventListener('touchend', this.handleTouchEnd);
   }

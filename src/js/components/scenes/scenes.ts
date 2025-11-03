@@ -18,7 +18,7 @@ interface Scene {
 @customElement('ten-scenes')
 class Scenes extends LitElement {
   private appTitle: string;
-  private keyListener: EventListenerObject;
+  private keyHandler: EventListenerObject;
 
   @property({type: Number, reflect: true}) power: number;
   @property({type: Boolean, reflect: true}) replay = false;
@@ -34,18 +34,18 @@ class Scenes extends LitElement {
   constructor() {
     super();
     this.appTitle = document.title;
-    this.keyListener = this.handleKey.bind(this);
+    this.keyHandler = this.handleKey.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('keydown', this.keyListener);
+    document.addEventListener('keydown', this.keyHandler);
     this.fetchScenes();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this.keyListener);
+    document.removeEventListener('keydown', this.keyHandler);
   }
 
   private async fetchScenes(): Promise<Scene[]> {
