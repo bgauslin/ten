@@ -1,6 +1,10 @@
 /* App is always dark; there are no light mode styles. */
 :root {
   --button-size: 2.75rem;
+  --button-background: var(--fill-2);
+  --button-color: var(--text-color);
+  --button-focus-background: var(--text-color);
+  --button-focus-color: var(--fill-0);
 
   /* Dark mode grays. */
   --gray1: rgb(142, 142, 147);

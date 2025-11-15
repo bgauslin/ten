@@ -1,10 +1,10 @@
 button {
   align-items: center;
   appearance: none;
-  background-color: var(--fill-2);
+  background-color: var(--button-background);
   border: 0;
   border-radius: .5em;
-  color: white;
+  color: var(--button-color);
   cursor: pointer;
   display: flex;
   font-family: inherit;
@@ -16,14 +16,14 @@ button {
   transition: background-color var(--transition), color var(--transition), opacity var(--transition), transform var(--transition);
 
   &:focus-visible {
-    background-color: var(--text-color);
-    color: var(--fill-0);
+    background-color: var(--button-focus-background);
+    color: var(--button-focus-color);
   }
 
   @media (any-hover: hover) {
     &:hover {
-      background-color: var(--text-color);
-      color: var(--fill-0);
+      background-color: var(--button-focus-background);
+      color: var(--button-focus-color);
     }
     
     &:active {

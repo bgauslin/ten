@@ -65,6 +65,12 @@
   --scene-transition: .25s linear; // Must match JS interval.
 }
 
+:is([id='next'], [id='prev']) {
+  --button-background: var(--text-color);
+  --button-color: var(--fill-2);
+  --button-focus-background: white;
+}
+
 // Animations.
 @keyframes fadeIn {
   from {
@@ -238,7 +244,6 @@ hr {
 .nav {
   aspect-ratio: 1;
   border-radius :var(--button-size);
-  color: #ccc;
   display: grid;
   inline-size: var(--button-size);
   inset-block: auto 1rem;
