@@ -6,21 +6,27 @@
 }
 
 :host {
-  --grid: 'scenes' 1fr / 1fr;
-  --max-inline-size: 37.5rem;  // 37.5rem = 600px
-  --overflow: scroll;
-
   --blurb-background: rgba(0, 0, 0, .7);
   --blurb-padding-block: 1rem 3.75rem;
   --blurb-padding-inline: 1rem;
+
   --buffer-display: block;
+  
   --image-position: fixed;
+  
   --info-block-size: 3rem;
   --info-inset-block: 0 auto;
   --info-padding-inline: 1rem;
   --info-position: fixed;
+
+  --max-inline-size: 37.5rem;  // 37.5rem = 600px
+  
   --scene-grid: 'info' 3rem 'image' 'buffer' 'blurb' 1fr / auto;
   --scene-transition: 1s ease-in-out;
+
+  --scenes-grid: 'scenes' 1fr / 1fr;
+  --scenes-overflow: scroll;
+  
   --zoom-inset-block: auto 1rem;
   --zoom-next-inset-inline: auto 1rem;
   --zoom-position: fixed;
@@ -28,12 +34,16 @@
 
   // 48rem = 768px
   @media (min-width: 48rem) {
-    --grid: '. scenes .' 1fr / 1fr var(--max-inline-size) 1fr;
-
     --blurb-padding-block: 1rem;
+    
     --buffer-display: none;
+
     --info-block-size: 4rem;
+
     --scene-grid: 'info' 4rem 'image' var(--max-inline-size) 'blurb' 1fr / 1fr auto;
+    
+    --scenes-grid: '. scenes .' 1fr / 1fr var(--max-inline-size) 1fr;
+
     --zoom-inset-block: calc(50dvh - 1.5rem) auto;
     --zoom-next-inset-inline: auto 2rem;
     --zoom-prev-inset-inline: 2rem auto;
@@ -42,21 +52,26 @@
   // 84rem  = [ 3rem | 37.5rem | 3rem | 37.5rem | 3rem ]
   // 1344px = [ 48px |  600px  | 48px |  600px  | 48px ]
   @media (min-width: 84rem) {
-    --grid: 'prev scenes next' 1fr / 1fr 78rem 1fr;  // 78rem = [ 37.5rem | 3rem | 37.5rem ]
-    --max-inline-size: unset;
-    --overflow: hidden;
-
     --blurb-padding-block: 0;
     --blurb-padding-inline: 0;
     --blurb-place-self: center stretch;
+
     --image-position: static;
+    
     --info-block-size: 2rem;
     --info-inset-block: unset;
     --info-padding-inline: 0;
     --info-position: static;
+
+    --max-inline-size: unset;
+    
     --scene-gap: 3rem;
     --scene-grid: 'image info' 2rem 'image blurb' 1fr 'image .' 2rem / 1fr 1fr;
+
+    --scenes-grid: 'prev scenes next' 1fr / 1fr 78rem 1fr;  // 78rem = [ 37.5rem | 3rem | 37.5rem ]
+    --scenes-overflow: hidden;
     --scenes-place-self: center;
+
     --zoom-position: static;
   }
 }
@@ -93,8 +108,8 @@
 :host {
   block-size: 100dvh;
   display: grid;
-  grid: var(--grid);
-  overflow: var(--overflow);
+  grid: var(--scenes-grid);
+  overflow: var(--scenes-overflow);
   scrollbar-width: none;
 }
 

@@ -15,8 +15,7 @@ interface Scene {
  * Web component for all Powers of Ten scenes that fetches the scenes from a
  * JSON endpoint and renders the current scene based on URL slug.
  */
-@customElement('ten-scenes')
-class Scenes extends LitElement {
+@customElement('ten-scenes') class Scenes extends LitElement {
   private appTitle: string;
   private keyHandler: EventListenerObject;
 
