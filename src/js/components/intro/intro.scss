@@ -1,30 +1,33 @@
-@use 'sass:math';
 @use '../../../styles/buttons';
 
-$atom-size: 200px; // Must match SVG viewbox.
-$electron-size: 12px;
-$meteor-size: 250px;
-$nucleus-size: 40px;
-$starfield-size: 1000px;
-
-// [1] Prevent scrolling for scaled SVGs.
 ten-intro {
-  --grid: 1fr var(--button-size) 0 / 1fr;
+  --electron-size: 12px;
+  --meteor-size: 250px;
+  --nucleus-size: 40px;
+  --starfield-size: 1000px;
 
-  background-color: black;
-  block-size: 100dvh; // [1]
-  display: grid;
-  gap: 1rem;
-  grid: var(--grid);
-  overflow: hidden; // [1]
-  place-content: center;
-  place-items: center;
+  --intro-grid: 1fr var(--button-size) 0 / 1fr;
 
   @media (min-width: 48em) {
     & {
-      --grid: 3fr 1fr / 1fr;
+      --intro-grid: 3fr 1fr / 1fr;
     }
   }
+}
+
+/**
+ * Static properties.
+ * [1] Prevent scrolling for scaled SVGs.
+ */
+ten-intro {
+  background-color: black;
+  block-size: 100dvh;  /* [1] */
+  display: grid;
+  gap: 1rem;
+  grid: var(--intro-grid);
+  overflow: hidden;  /* [1] */
+  place-content: center;
+  place-items: center;
 
   &[skip] {
     animation: fadeOut 1s forwards;
@@ -38,22 +41,23 @@ ten-intro {
     grid-area: 1 / 1 / -1 / -1;
   }
 
-  // ----------------------------------------
-  // 'Skip' button.
+  /**
+   * 'Skip' button.
+   */
   button {
     animation: fadeIn 1s 3s forwards;
     block-size: var(--button-size);
-    border-radius: 5rem; // Override for capsule styling.
+    border-radius: 5rem;  /* Override for capsule styling. */
     font-variation-settings: 'wght' 500;
     grid-area: 2 / 1;
     opacity: 0;
-    padding-inline: 1.25em 1em; // Override for icon optical adjustment.
+    padding-inline: 1.25em 1em;  /* Override for icon optical adjustment. */
     z-index: 1;
   }
 
-  // ----------------------------------------
-  // Text elements.
-
+  /**
+   * Text elements.
+   */
   :is(h1, p) {
     margin: 0;
     opacity: 0;
@@ -81,9 +85,9 @@ ten-intro {
   }
 }
 
-// ----------------------------------------
-// Stars graphics.
-
+/**
+ * Stars graphics.
+ */
 .stars {
   display: grid;
   grid: 'stars' 1fr / 1fr;
@@ -91,11 +95,11 @@ ten-intro {
 }
 
 .starfield {
-  block-size: $starfield-size;
-  border-radius: math.div($starfield-size, 2);
+  aspect-ratio: 1;
+  border-radius: calc(var(--starfield-size) / 2);
   fill: #999;
   grid-area: stars;
-  inline-size: $starfield-size;
+  inline-size: var(--starfield-size);
   overflow: hidden;
   place-self: center;
   transform-origin: center;
@@ -104,9 +108,9 @@ ten-intro {
 
 .meteor {
   animation: meteor .5s;
-  background-image: linear-gradient(to right, white, rgba(white, 0));
+  background-image: linear-gradient(to right, white, rgba(255, 255, 255, 0));
   block-size: 1px;
-  inline-size: $meteor-size;
+  inline-size: var(--meteor-size);
   opacity: 0;
   position: absolute;
   transform: rotate(-45deg);
@@ -142,14 +146,14 @@ ten-intro {
   inset-inline: 30% auto;
 }
 
-// ----------------------------------------
-// Atom graphics.
-
+/**
+ * Atom graphics.
+ */
 .atom {
-  block-size: $atom-size;
+  aspect-ratio: 1;
   display: grid;
   grid: 1fr / 1fr;
-  inline-size: $atom-size;
+  inline-size: 200px;  /* Must match SVG viewbox. */
   opacity: 0;
 }
 
@@ -160,8 +164,8 @@ ten-intro {
 .nucleus {
   animation: nucleus 5s linear infinite;
   aspect-ratio: 1;
-  border-radius: $nucleus-size;
-  inline-size: $nucleus-size;
+  border-radius: var(--nucleus-size);
+  inline-size: var(--nucleus-size);
   place-self: center;
 }
 
@@ -191,14 +195,14 @@ ten-intro {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-// [1] Must match SVG path in TS mooule.
+/* [1] Must match SVG path in TS module. */
 .particle {
   animation: electron 1s linear infinite;
   aspect-ratio: 1;
   background: white;
-  border-radius: $electron-size;
-  inline-size: $electron-size;
-  offset-path: path('M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z'); // [1]
+  border-radius: var(--electron-size);
+  inline-size: var(--electron-size);
+  offset-path: path('M10 100a90 30 0 1 0 180 0a90 30 0 1 0 -180 0 Z');  /* [1] */
 }
 
 .orbit {
@@ -215,10 +219,11 @@ ten-intro {
   transform: rotate(-120deg);
 }
 
-// ----------------------------------------
-// Animation sequence.
+/**
+ * Animation sequence.
+ */
 
-// Scene 1: Stars.
+ /* Scene 1: Stars. */
 .stars {
   animation: fade 10s 0s 1 linear;
 }
@@ -239,7 +244,7 @@ ten-intro {
   animation: fade 5s 2s 1 ;
 }
 
-// Scene 2: Atom.
+/* Scene 2: Atom. */
 .atom {
   animation: atom 10s 6s 1 linear;
 }
@@ -248,12 +253,12 @@ ten-intro {
   animation: fade 5s 9s 1;
 }
 
-// Scene 3: Overview text.
+/* Scene 3: Overview text. */
 [data-blurb='overview'] {
   animation: fade 7s 16s 1;
 }
 
-// Final scene: Title card.
+/* Final scene: Title card. */
 ten-intro h1 {
   animation: fade 9s 23s 1;
 }
@@ -262,9 +267,9 @@ ten-intro h1 {
   animation: fade 5s 25s 1;
 }
 
-// ----------------------------------------
-// Animations.
-
+/**
+ * Animations.
+ */
 @keyframes atom {
   0% {
     opacity: 0;
@@ -323,16 +328,16 @@ ten-intro h1 {
 
 @keyframes meteor {
   0% {
-    margin-block: ($meteor-size * -2) 0;
-    margin-inline: ($meteor-size * 2) 0;
+    margin-block: calc(var(--meteor-size) * -2) 0;
+    margin-inline: calc(var(--meteor-size) * 2) 0;
   }
   10%,
   50% {
     opacity: 1;
   }
   100% {
-    margin-block: ($meteor-size * 2) 0;
-    margin-inline: ($meteor-size * -2) 0;
+    margin-block: calc(var(--meteor-size) * 2) 0;
+    margin-inline: calc(var(--meteor-size) * -2) 0;
     opacity: 0;
   }
 }
