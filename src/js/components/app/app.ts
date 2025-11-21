@@ -6,8 +6,7 @@ import {customElement, state} from 'lit/decorators.js';
  * Web component for Powers of Ten app which renders and controls intro and
  * scenes components via custom events.
  */
-@customElement('ten-app')
-class App extends LitElement {
+@customElement('ten-app') class App extends LitElement {
   private playHandler: EventListenerObject;
   private stopHandler: EventListenerObject;
 
