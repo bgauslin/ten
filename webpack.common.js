@@ -12,7 +12,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/index.html',
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
