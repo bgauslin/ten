@@ -9,7 +9,6 @@ import {Events} from '../../shared';
  */
 @customElement('ten-app') class App extends LitElement {
   @state() play: boolean = false;
-  @state() touchTarget: HTMLElement;
 
   constructor() {
     super();
@@ -17,29 +16,14 @@ import {Events} from '../../shared';
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener(Events.TouchStart, this.handleTouchStart, {passive: true});
-    this.addEventListener(Events.TouchEnd, this.handleTouchEnd, {passive: true});
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener(Events.TouchStart, this.handleTouchStart);
-    this.removeEventListener(Events.TouchEnd, this.handleTouchEnd);
   }
 
   protected createRenderRoot() {
     return this;
-  }
-
-  private handleTouchStart(event: TouchEvent) {
-    this.touchTarget = <HTMLElement>event.composedPath()[0];
-    if (this.touchTarget.tagName === 'BUTTON') {
-      this.touchTarget.classList.add('touch');
-    }
-  }
-
-  private handleTouchEnd() {
-    this.touchTarget.classList.remove('touch');
   }
 
   /**
@@ -56,6 +40,7 @@ import {Events} from '../../shared';
         ?wait=${this.play}
         @play=${() => this.play = true}
         @stop=${() => this.play = false}></ten-scenes>
+      <ten-touch></ten-touch>
     `;
   }
 }
