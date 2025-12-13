@@ -1,20 +1,13 @@
 import {LitElement, PropertyValues, css, html, nothing} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {Events} from '../../shared';
+import {Events, Scene} from '../../shared';
 import shadowStyles from './scenes.scss';
 
 
-interface Scene {
-  blurb: string,
-  distance: string[],
-  image: string,
-  power: string,
-}
-
 /**
  * Web component for all Powers of Ten scenes that fetches the scenes from a
- * JSON endpoint and renders the current scene based on URL slug.
+ * JSON endpoint and renders the current scene based on URL parameter.
  */
 @customElement('ten-scenes') class Scenes extends LitElement {
   private appTitle: string;
@@ -150,7 +143,7 @@ interface Scene {
    */
   private replayIntro() {
     this.replay = true;
-    this.addEventListener('animationend', () => {
+    this.addEventListener(Events.AnimationEnd, () => {
       this.replay = false;
       this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
     }, {once: true});
@@ -193,10 +186,10 @@ interface Scene {
             ?data-viewed="${power_ >= this.power}">
             <img
               alt=""
-              src="${medium}"
-              srcset="${small} 600w, ${medium} 900w, ${large} 1200w"
+              loading="${power_ < (this.power - 1) ? 'lazy' : 'eager'}"
               sizes="(min-width: 49rem) 600px, 100vw"
-              loading="${power_ < (this.power - 1) ? 'lazy' : 'eager'}">
+              src="${medium}"
+              srcset="${small} 600w, ${medium} 900w, ${large} 1200w">
             <div class="info">
               <p class="distance">
                 ${distance.map(value => html`<span>${value}</span>`)}
@@ -215,8 +208,7 @@ interface Scene {
                   ?disabled=${this.power !== this.min}
                   @click=${this.rewindScenes}>
                   <svg aria-hidden="true" viewBox="0 0 24 24">
-                    <path d="M 12,6 L 6,12 L 12,18 Z" />
-                    <path d="M 20,6 L 14,12 L 20,18 Z" />
+                    <path d="M12,6 L6,12 L12,18 M20,6 L14,12 L20,18 Z" />
                   </svg>
                   Rewind
                 </button>` : nothing}
@@ -244,7 +236,7 @@ interface Scene {
         ?disabled=${this.power !== this.max || this.rewind}
         @click=${this.replayIntro}>
         <svg aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
+          <path d="M11,7 L6,12 L11,17 M6,12 L18,12"/>
         </svg>
       </button>
       

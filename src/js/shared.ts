@@ -7,3 +7,10 @@ export enum Events {
   TouchEnd = 'touchend',
   TouchStart = 'touchstart',
 }
+
+export interface Scene {
+  blurb: string,
+  distance: string[],
+  image: string,
+  power: string,
+}
