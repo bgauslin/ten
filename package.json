@@ -1,11 +1,11 @@
 {
   "name": "ten",
   "description": "Powers of Ten: web app based on the film and book by Charles and Ray Eames",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "UNLICENSED",
   "repository": "https://github.com/bgauslin/ten",
   "scripts": {
-    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
