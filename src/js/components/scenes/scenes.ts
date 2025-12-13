@@ -1,6 +1,7 @@
-import {LitElement, PropertyValues, css, html} from 'lit';
+import {LitElement, PropertyValues, css, html, nothing} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {Events} from '../../shared';
 import shadowStyles from './scenes.scss';
 
 
@@ -19,16 +20,14 @@ interface Scene {
   private appTitle: string;
   private keyHandler: EventListenerObject;
 
-  @property({type: Number, reflect: true}) power: number;
-  @property({type: Boolean, reflect: true}) replay = false;
-  @property({type: Boolean, reflect: true}) rewind = false;
-  @property({type: Boolean, reflect: true}) wait = false;
+  @property({reflect: true, type: Number}) power: number;
+  @property({reflect: true, type: Boolean}) replay = false;
+  @property({reflect: true, type: Boolean}) rewind = false;
+  @property({reflect: true, type: Boolean}) wait = false;
 
   @state() max: number;
   @state() min: number;
   @state() scenes: Scene[];
-
-  static styles = css`${shadowStyles}`;
 
   constructor() {
     super();
@@ -38,13 +37,13 @@ interface Scene {
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('keydown', this.keyHandler);
+    document.addEventListener(Events.KeyUp, this.keyHandler);
     this.fetchScenes();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this.keyHandler);
+    document.removeEventListener(Events.KeyUp, this.keyHandler);
   }
 
   private async fetchScenes(): Promise<Scene[]> {
@@ -74,10 +73,10 @@ interface Scene {
 
     if (power >= this.min && power <= this.max) {
       this.power = power;
-      this.dispatchEvent(new CustomEvent('stop', {bubbles: true}));
+      this.dispatchEvent(new CustomEvent(Events.Stop));
     } else {
       this.power = this.max;
-      this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
+      this.dispatchEvent(new CustomEvent(Events.Play));
     }
   }
 
@@ -176,17 +175,8 @@ interface Scene {
   }
 
   protected render() {
-    if (this.scenes) {
-      return html`
-        ${this.renderScenes()}
-        ${this.renderPrev()}
-        ${this.renderReplay()}
-        ${this.renderNext()}
-      `;
-    }
-  }
+    if (!this.scenes) return;
 
-  private renderScenes() {    
     return html`
       <ul>
       ${this.scenes.map((scene: Scene, index: number) => {
@@ -218,75 +208,59 @@ interface Scene {
             <hr aria-hidden="true">
             <div class="blurb">
               ${unsafeHTML(blurb)}
-              ${this.renderRewind(index)}
+              ${index === this.scenes.length - 1 ? html`
+                <button
+                  class="rewind"
+                  title="Rewind to the start"
+                  ?disabled=${this.power !== this.min}
+                  @click=${this.rewindScenes}>
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M 12,6 L 6,12 L 12,18 Z" />
+                    <path d="M 20,6 L 14,12 L 20,18 Z" />
+                  </svg>
+                  Rewind
+                </button>` : nothing}
             </div>
           </li>
         `;
       })}
       </ul>
-    `;
-  }
-
-  private renderPrev() {
-    return html`
+      
       <button
         class="nav"
         id="prev"
         title="Zoom out by a power of 10"
-        ?disabled="${this.power === this.max || this.rewind}"
-        @click="${this.prevScene}">
-        <svg aria-hidden="true" viewbox="0 0 24 24">
+        ?disabled=${this.power === this.max || this.rewind}
+        @click=${this.prevScene}>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M7,12 h10"/>
         </svg>
       </button>
-    `;
-  }
 
-  private renderNext() {
-    return html`
-      <button
-        class="nav"
-        id="next"
-        title="Zoom in by a power of 10"
-        ?disabled="${this.power === this.min || this.rewind}"
-        @click="${this.nextScene}">
-        <svg aria-hidden="true" viewbox="0 0 24 24">
-          <path d="M6,12 h12 M12,6 v12"/>
-        </svg>
-      </button>
-    `;
-  }
-
-  private renderReplay() {
-    return html`
       <button
         class="nav"
         id="replay"
         title="Replay the intro"
-        ?disabled="${this.power !== this.max || this.rewind}"
-        @click="${this.replayIntro}">
-        <svg aria-hidden="true" viewbox="0 0 24 24">
+        ?disabled=${this.power !== this.max || this.rewind}
+        @click=${this.replayIntro}>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M 11,7 L 6,12 L 11,17 M 6,12 L 18,12"/>
         </svg>
       </button>
-    `;
+      
+      <button
+        class="nav"
+        id="next"
+        title="Zoom in by a power of 10"
+        ?disabled=${this.power === this.min || this.rewind}
+        @click=${this.nextScene}>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M6,12 h12 M12,6 v12"/>
+        </svg>
+      </button>
+    `;    
   }
 
-  private renderRewind(index: number) {
-    if (index === this.scenes.length - 1) {
-      return html`
-        <button
-          class="rewind"
-          title="Rewind to the start"
-          ?disabled="${this.power !== this.min}"
-          @click="${this.rewindScenes}">
-          <svg aria-hidden="true" viewbox="0 0 24 24">
-            <path d="M 12,6 L 6,12 L 12,18 Z" />
-            <path d="M 20,6 L 14,12 L 20,18 Z" />
-          </svg>
-          Rewind
-        </button>
-      `;
-    }
-  }
+  // Shadow DOM stylesheet.
+  static styles = css`${shadowStyles}`;
 }

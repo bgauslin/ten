@@ -1,3 +1,6 @@
+import {Events} from '../../shared';
+
+
 /**
  * Custom element for Powers of Ten intro animation that programmatically
  * renders SVG elements for a field of stars, an atom, and text copy.
@@ -23,13 +26,13 @@ customElements.define('ten-intro', class extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener('animationend', this.animationHandler);
-    this.addEventListener('click', this.clickHandler);
+    this.addEventListener(Events.AnimationEnd, this.animationHandler);
+    this.addEventListener(Events.Click, this.clickHandler);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('animationend', this.animationHandler);
-    this.removeEventListener('click', this.clickHandler);
+    this.removeEventListener(Events.AnimationEnd, this.animationHandler);
+    this.removeEventListener(Events.Click, this.clickHandler);
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -55,7 +58,7 @@ customElements.define('ten-intro', class extends HTMLElement {
       this.removeAttribute('skip');
       this.innerHTML = '';
       this.ready = false;
-      this.dispatchEvent(new CustomEvent('stop', {bubbles: true}));
+      this.dispatchEvent(new CustomEvent(Events.Stop));
     }
   }
 
@@ -91,7 +94,7 @@ customElements.define('ten-intro', class extends HTMLElement {
       <p data-blurb="overview">${overview}</p>
       <button type="button">
         Skip
-        <svg aria-hidden="true" viewbox="0 0 24 24">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M6,6 L16,12 L6,18 M18,6 L18,18 L20,18 L20,6 Z" />
         </svg>
       </button>
@@ -128,7 +131,7 @@ customElements.define('ten-intro', class extends HTMLElement {
         }
       }
       paths += `
-        <svg class="starfield" viewbox="0 0 ${size} ${size}">
+        <svg class="starfield" viewBox="0 0 ${size} ${size}">
           <path d="${path}"/>
         </svg>
       `;
@@ -172,7 +175,7 @@ customElements.define('ten-intro', class extends HTMLElement {
 
     return `
       <div class="nucleus">
-        <svg viewbox="0 0 100 100">
+        <svg viewBox="0 0 100 100">
           ${particles}
         </svg>
       </div>
@@ -188,7 +191,7 @@ customElements.define('ten-intro', class extends HTMLElement {
       electrons += `
         <div class="electron" id="electron-${i + 1}">
           <div class="particle"></div>
-          <svg viewbox="0 0 200 200">
+          <svg viewBox="0 0 200 200">
             <path class="orbit" d="${path}"/>
           </svg>
         </div>

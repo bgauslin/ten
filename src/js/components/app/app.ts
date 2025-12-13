@@ -1,5 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
+import {Events} from '../../shared';
 
 
 /**
@@ -7,44 +8,27 @@ import {customElement, state} from 'lit/decorators.js';
  * scenes components via custom events.
  */
 @customElement('ten-app') class App extends LitElement {
-  private playHandler: EventListenerObject;
-  private stopHandler: EventListenerObject;
-
-  @state() playIntro: boolean = false;
+  @state() play: boolean = false;
   @state() target: HTMLElement;
 
   constructor() {
     super();
-    this.playHandler = this.play.bind(this);
-    this.stopHandler = this.stop.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('play', this.playHandler);
-    this.addEventListener('stop', this.stopHandler);
-    this.addEventListener('touchstart', this.handleTouchStart, {passive: true});
-    this.addEventListener('touchend', this.handleTouchEnd, {passive: true});
+    this.addEventListener(Events.TouchStart, this.handleTouchStart, {passive: true});
+    this.addEventListener(Events.TouchEnd, this.handleTouchEnd, {passive: true});
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('play', this.playHandler);
-    this.removeEventListener('stop', this.stopHandler);
-    this.removeEventListener('touchstart', this.handleTouchStart);
-    this.removeEventListener('touchend', this.handleTouchEnd);
+    this.removeEventListener(Events.TouchStart, this.handleTouchStart);
+    this.removeEventListener(Events.TouchEnd, this.handleTouchEnd);
   }
 
   protected createRenderRoot() {
     return this;
-  }
-
-  private play() {
-    this.playIntro = true;
-  }
-
-  private stop() {
-    this.playIntro = false;
   }
 
   private handleTouchStart(event: TouchEvent) {
@@ -65,9 +49,13 @@ import {customElement, state} from 'lit/decorators.js';
   protected render() {
     return html`
       <ten-intro
-        ?inert="${!this.playIntro}"
-        ?play="${this.playIntro}"></ten-intro>
-      <ten-scenes ?wait="${this.playIntro}"></ten-scenes>
+        ?inert=${!this.play}
+        ?play=${this.play}
+        @stop=${() => this.play = false}></ten-intro>
+      <ten-scenes
+        ?wait=${this.play}
+        @play=${() => this.play = true}
+        @stop=${() => this.play = false}></ten-scenes>
     `;
   }
 }
