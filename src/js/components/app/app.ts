@@ -9,7 +9,7 @@ import {Events} from '../../shared';
  */
 @customElement('ten-app') class App extends LitElement {
   @state() play: boolean = false;
-  @state() target: HTMLElement;
+  @state() touchTarget: HTMLElement;
 
   constructor() {
     super();
@@ -32,14 +32,14 @@ import {Events} from '../../shared';
   }
 
   private handleTouchStart(event: TouchEvent) {
-    this.target = <HTMLElement>event.composedPath()[0];
-    if (this.target.tagName === 'BUTTON') {
-      this.target.classList.add('touch');
+    this.touchTarget = <HTMLElement>event.composedPath()[0];
+    if (this.touchTarget.tagName === 'BUTTON') {
+      this.touchTarget.classList.add('touch');
     }
   }
 
   private handleTouchEnd() {
-    this.target.classList.remove('touch');
+    this.touchTarget.classList.remove('touch');
   }
 
   /**
