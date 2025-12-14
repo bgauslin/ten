@@ -145,7 +145,7 @@ import shadowStyles from './shadow-styles/scenes.scss';
     this.replay = true;
     this.addEventListener(Events.AnimationEnd, () => {
       this.replay = false;
-      this.dispatchEvent(new CustomEvent('play', {bubbles: true}));
+      this.dispatchEvent(new CustomEvent(Events.Play, {bubbles: true}));
     }, {once: true});
   }
 
