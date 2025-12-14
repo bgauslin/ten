@@ -12,10 +12,10 @@
     "global.d.ts"
   ],
   "files": [
+    "src/js/app.ts",
     "src/js/index.ts",
-    "src/js/components/app/app.ts",
-    "src/js/components/intro/intro.ts",
-    "src/js/components/scenes/scenes.ts",
-    "src/js/components/touch.ts"
+    "src/js/intro.ts",
+    "src/js/scenes.ts",
+    "src/js/touch.ts"
   ]
 }

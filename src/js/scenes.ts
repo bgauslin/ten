@@ -1,22 +1,22 @@
 import {LitElement, PropertyValues, css, html, nothing} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {Events, Scene} from '../../shared';
-import shadowStyles from './scenes.scss';
+import {Events, Scene} from './shared';
+import shadowStyles from './shadow-styles/scenes.scss';
 
 
 /**
- * Web component for all Powers of Ten scenes that fetches the scenes from a
- * JSON endpoint and renders the current scene based on URL parameter.
+ * Lit web component that fetches all scenes from a JSON endpoint and displays
+ * the current scene based on URL parameter.
  */
 @customElement('ten-scenes') class Scenes extends LitElement {
   private appTitle: string;
   private keyHandler: EventListenerObject;
 
-  @property({reflect: true, type: Number}) power: number;
+  @property({type: Number}) power: number;
   @property({reflect: true, type: Boolean}) replay = false;
   @property({reflect: true, type: Boolean}) rewind = false;
-  @property({reflect: true, type: Boolean}) wait = false;
+  @property({type: Boolean}) wait = false;
 
   @state() max: number;
   @state() min: number;

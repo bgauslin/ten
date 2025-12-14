@@ -1,8 +1,8 @@
 // Web components.
-import './components/app/app';
-import './components/intro/intro';
-import './components/scenes/scenes';
-import './components/touch';
+import './app';
+import './intro';
+import './scenes';
+import './touch';
 
-// App stylesheet. (Required in JS entry file for Webpack.)
+// Global stylesheet.
 import '../styles/index';

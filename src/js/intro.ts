@@ -1,9 +1,9 @@
-import {Events} from '../../shared';
+import {Events} from './shared';
 
 
 /**
- * Custom element for Powers of Ten intro animation that programmatically
- * renders SVG elements for a field of stars, an atom, and text copy.
+ * Vanilla custom element for intro animation that renders SVG elements for
+ * a field of stars, an atom, and text copy.
  */
 customElements.define('ten-intro', class extends HTMLElement {
   private animationHandler: EventListenerObject;

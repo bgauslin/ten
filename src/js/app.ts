@@ -1,11 +1,9 @@
 import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
-import {Events} from '../../shared';
 
 
 /**
- * Web component for Powers of Ten app which renders and controls intro and
- * scenes components via custom events.
+ * Lit web component which controls the intro and scenes components.
  */
 @customElement('ten-app') class App extends LitElement {
   @state() play: boolean = false;
@@ -26,10 +24,6 @@ import {Events} from '../../shared';
     return this;
   }
 
-  /**
-   * When removed, the 'wait' attribute triggers the attributeChangedCallback
-   * in <scenes> after <intro> finishes, which then updates the browser.
-   */
   protected render() {
     return html`
       <ten-intro
