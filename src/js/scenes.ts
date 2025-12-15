@@ -183,7 +183,7 @@ import shadowStyles from './shadow-styles/scenes.scss';
         return html`
           <li
             aria-hidden="${power_ !== this.power}"  
-            ?data-viewed="${power_ >= this.power}">
+            ?data-viewed=${power_ >= this.power}>
             <img
               alt=""
               loading="${power_ < (this.power - 1) ? 'lazy' : 'eager'}"
